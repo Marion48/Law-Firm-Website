@@ -1,15 +1,13 @@
 backend:
   name: github
-  repo: Marion48/Law-Firm-Website  # replace with your GitHub repo
+  repo: Marion48/Law-Firm-Website
   branch: main
   squash_merges: true
 
-media_folder: "images/uploads"      # Where uploaded images go in the repo
-public_folder: "/images/uploads"    # Public URL path for images
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
 
 collections:
-
-  # Hero Section
   - name: "site_content"
     label: "Site Content"
     files:
@@ -27,7 +25,6 @@ collections:
           - { label: "Hero Card Role", name: "card_role", widget: "string" }
           - { label: "Hero Card Photo", name: "card_photo", widget: "image" }
 
-  # Insights
   - name: "insights"
     label: "Insights"
     folder: "content/insights"
@@ -39,7 +36,6 @@ collections:
       - { label: "Featured Image", name: "image", widget: "image" }
       - { label: "Body", name: "body", widget: "markdown" }
 
-  # Practice Areas
   - name: "practice"
     label: "Practice Areas"
     folder: "content/practice"
@@ -49,7 +45,6 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Body", name: "body", widget: "markdown" }
 
-  # Team Members
   - name: "team"
     label: "Team Members"
     folder: "content/team"
