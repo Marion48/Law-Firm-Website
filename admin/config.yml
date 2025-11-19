@@ -1,11 +1,33 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Marion48/Law-Firm-Website  # replace with your GitHub repo
   branch: main
+  squash_merges: true
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "images/uploads"      # Where uploaded images go in the repo
+public_folder: "/images/uploads"    # Public URL path for images
 
 collections:
+
+  # Hero Section
+  - name: "site_content"
+    label: "Site Content"
+    files:
+      - label: "Hero Section"
+        name: "hero"
+        file: "content/site/hero.yml"
+        fields:
+          - { label: "Hero Title", name: "title", widget: "string" }
+          - { label: "Hero Subtitle", name: "subtitle", widget: "string" }
+          - label: "Highlights"
+            name: "highlights"
+            widget: "list"
+            field: { label: "Item", name: "item", widget: "string" }
+          - { label: "Hero Card Name", name: "card_name", widget: "string" }
+          - { label: "Hero Card Role", name: "card_role", widget: "string" }
+          - { label: "Hero Card Photo", name: "card_photo", widget: "image" }
+
+  # Insights
   - name: "insights"
     label: "Insights"
     folder: "content/insights"
@@ -17,6 +39,7 @@ collections:
       - { label: "Featured Image", name: "image", widget: "image" }
       - { label: "Body", name: "body", widget: "markdown" }
 
+  # Practice Areas
   - name: "practice"
     label: "Practice Areas"
     folder: "content/practice"
@@ -26,6 +49,7 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Body", name: "body", widget: "markdown" }
 
+  # Team Members
   - name: "team"
     label: "Team Members"
     folder: "content/team"
