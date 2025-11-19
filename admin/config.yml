@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: Marion48/Law-Firm-Website
+  name: git-gateway
   branch: main
   squash_merges: true
 
