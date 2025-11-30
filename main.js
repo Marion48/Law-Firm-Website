@@ -11,6 +11,104 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Animated hero title word rotation
+  const heroTitle = document.getElementById('hero-title');
+  if (heroTitle) {
+    const words = ['Sharp and Reliable Legal insights.','Strategic.', 'Trusted.', 'Client-focused.'];
+    let currentWordIndex = 0;
+    
+    // Set initial text
+    heroTitle.textContent = words[0];
+    
+    function rotateWords() {
+      // Fade out current word
+      heroTitle.style.opacity = '0';
+      heroTitle.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        // Change to next word
+        currentWordIndex = (currentWordIndex + 1) % words.length;
+        heroTitle.textContent = words[currentWordIndex];
+        
+        // Fade in new word
+        heroTitle.style.opacity = '1';
+        heroTitle.style.transform = 'translateY(0)';
+      }, 800); // Wait for fade out to complete
+    }
+    
+    // Start rotation every 3 seconds
+    setInterval(rotateWords, 3000);
+  }
+
+  // Smooth Scroll with Scroll-triggered Animations
+  function initSmoothScroll() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const navHeight = document.querySelector('.nav').offsetHeight;
+          const targetPosition = targetElement.offsetTop - navHeight - 20;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  }
+
+  // Scroll-triggered Reveal Animations - Works both directions
+  function initScrollReveal() {
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    
+    const revealOnScroll = () => {
+      const windowHeight = window.innerHeight;
+      const revealPoint = 100;
+      
+      revealElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementBottom = element.getBoundingClientRect().bottom;
+        
+        // Check if element is in viewport
+        if (elementTop < windowHeight - revealPoint && elementBottom > 0) {
+          element.classList.add('revealed');
+        } else {
+          element.classList.remove('revealed');
+        }
+      });
+    };
+    
+    // Initial check
+    revealOnScroll();
+    
+    // Check on scroll with throttling for performance
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          revealOnScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+    
+    // Also check on resize
+    window.addEventListener('resize', revealOnScroll);
+  }
+
+  // Initialize smooth scroll and scroll reveal
+  initSmoothScroll();
+  initScrollReveal();
+
   // footer year
   const yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();

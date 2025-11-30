@@ -11,6 +11,58 @@
   --container: 1200px;
   --radius: 12px;
 }
+/* Smooth Scroll Animations */
+html {
+  scroll-behavior: smooth;
+}
+
+.section {
+  scroll-margin-top: 80px;
+}
+
+/* Scroll-triggered Pop-up Animations */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+
+.scroll-reveal.from-left {
+    transform: translateX(-60px) translateY(0);
+}
+
+.scroll-reveal.from-right {
+    transform: translateX(60px) translateY(0);
+}
+
+.scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+}
+
+/* Stagger delays */
+.scroll-reveal.delay-1 { transition-delay: 0.1s; }
+.scroll-reveal.delay-2 { transition-delay: 0.2s; }
+.scroll-reveal.delay-3 { transition-delay: 0.3s; }
+.scroll-reveal.delay-4 { transition-delay: 0.4s; }
+.logo {
+  height: 150px;   /* adjust between 120–150 if needed */
+  width: auto;     /* keeps proportions perfect */
+  display: block;
+  margin: 10px auto; /* centers the logo */
+}
+
+.brand-combo {
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.brand-combo span {
+  color: white;
+}
 
 /* Reset / base */
 *{box-sizing:border-box}
@@ -41,20 +93,28 @@ nav#main-nav a{color:white;text-decoration:none;font-weight:500;opacity:.95}
 .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.45) contrast(1.05);transform:scale(1.02);will-change:transform}
 .hero-content{position:relative;display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:center;padding:60px 0}
 .hero-left h1{font-family:'Playfair Display', serif;font-size:2.6rem;color:white;margin:0 0 12px}
+/* HERO */
+.hero{min-height:70vh;display:flex;align-items:center;padding-top:90px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.45) contrast(1.05);transform:scale(1.02);will-change:transform}
+.hero-content{position:relative;display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:center;padding:60px 0}
+.hero-left h1{font-family:'Playfair Display', serif;font-size:2.6rem;color:white;margin:0 0 12px}
+
+/* Hero title animation styles */
+#hero-title {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 1.2em; /* Prevent layout shift */
+    display: inline-block;
+}
 .lead{color:rgba(255,255,255,0.95);margin-bottom:18px}
 .cta-row{display:flex;gap:12px;align-items:center}
 .btn{display:inline-block;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600}
 .btn.primary{background:var(--accent);color:#071225}
 .btn.ghost{background:transparent;color:white;border:1px solid rgba(255,255,255,0.12)}
 .btn-sm{display:inline-block;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:600;background:var(--accent);color:#071225}
-/* NEW: Highlights list color */
-.hero .highlights {
-    color: white;
-}
 
-.hero .highlights li strong {
-    color: white; /* ensures <strong> is also white */
-}
+/* NEW: Highlights list color */
+.hero .highlights { color: white; }
+.hero .highlights li strong { color: white; }
 
 /* hero card */
 .hero-card{background:rgba(255,255,255,0.98);padding:14px;border-radius:12px;box-shadow:0 10px 30px rgba(7,18,37,0.12)}
@@ -96,18 +156,243 @@ nav#main-nav a{color:white;text-decoration:none;font-weight:500;opacity:.95}
 form{background:white;padding:18px;border-radius:12px;box-shadow:0 10px 24px rgba(7,18,37,0.06)}
 .form-row{margin-bottom:12px}
 .form-row label{display:block;font-size:.9rem;margin-bottom:6px}
-input[type="text"],input[type="email"],select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;font-size:1rem}
+input[type="text"],input[type="email"],select,textarea{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #e6e6e6;
+  font-size:1rem;
+}
 
 /* Footer */
 .footer{background:#071225;color:white;padding:28px 0;margin-top:40px}
 .footer-inner{display:flex;justify-content:space-between;align-items:center}
 
 /* Animations (simple reveal) */
-.animate-up,.animate-fade{opacity:0;transform:translateY(25px);transition:all .7s cubic-bezier(.2,.9,.2,1)}
+.animate-up,.animate-fade{
+  opacity:0;
+  transform:translateY(25px);
+  transition:all .7s cubic-bezier(.2,.9,.2,1)
+}
 .show{opacity:1;transform:none}
 
 /* Utilities */
 .container .small{font-size:.9rem;color:var(--muted)}
+
+/* ---------------------------------------- */
+/* ADDED: MAIN TEXT (your section)          */
+/* ---------------------------------------- */
+.main-text { 
+  max-width: 750px;
+  margin: 40px auto;
+  padding: 20px;
+  line-height: 1.6;
+  font-size: 18px;
+  font-family: "Georgia", serif;
+  color: #222;
+  text-align: justify;
+}
+
+/* Mobile responsiveness for main text */
+@media (max-width: 600px) {
+  .main-text {
+    max-width: 90%;
+    padding: 15px;
+  }
+}
+/* About Our Firm - Off White background */
+#about {
+    position: relative;
+    background: transparent !important;
+    overflow: hidden;
+}
+
+#about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-image: url('images/Offwhite.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    z-index: -1;
+    margin-left: calc(-50vw + 50%);
+}
+
+#about > .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Practice Areas - Dark Blue background */
+#services {
+    position: relative;
+    background: transparent !important;
+    overflow: hidden;
+}
+
+#services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-image: url('images/Darkblue.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 2;
+    z-index: -1;
+    margin-left: calc(-50vw + 50%);
+}
+
+#services > .container {
+    position: relative;
+    z-index: 1;
+}
+/* Practice Areas title in white */
+section#services h2#services-h {
+    color: white !important;
+}
+
+/* Contact us - Light Blue background */
+#contact{
+    position: relative;
+    background: transparent !important;
+    overflow: hidden;
+}
+
+#contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-image: url('images/Offwhite.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    z-index: -1;
+    margin-left: calc(-50vw + 50%);
+}
+
+#contact > .container {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Insights - keep the existing background */
+/* Insights - make title and button white */
+section#insights-preview h2 {
+    color: white !important;
+}
+
+section#insights-preview a.btn.ghost {
+    color: white !important;
+    border: 1px solid white !important;
+}
+
+section#insights-preview a.btn.ghost:hover {
+    background-color: white !important;
+    color: #071225 !important;
+}
+#insights-preview {
+    position: relative;
+    background: transparent !important;
+    overflow: hidden;
+}
+
+#insights-preview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-image: url('images/brown.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    z-index: -1;
+    margin-left: calc(-50vw + 50%);
+}
+
+#insights-preview .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Team section - centered with white-maroon background */
+#team {
+    position: relative;
+    background: transparent !important;
+    overflow: hidden;
+    text-align: center; /* Center the content */
+}
+
+#team::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-image: url('images/Offwhite.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    z-index: -1;
+    margin-left: calc(-50vw + 50%);
+}
+
+#team > .container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center everything in container */
+}
+
+/* Center the team grid */
+.team-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+/* Center individual team cards */
+.team-card {
+    text-align: center;
+    max-width: 300px; /* Control card width */
+}
+
+/* Ensure team card captions are centered */
+.team-card figcaption {
+    text-align: center;
+}
+
+/* Center the team title */
+#team-h {
+    text-align: center;
+    width: 100%;
+}
+
+
+/* Remove any wrapper backgrounds */
+.combined-background-section::before {
+    display: none;
+}
 
 /* Responsive */
 @media (max-width:1200px){
@@ -130,3 +415,13 @@ input[type="text"],input[type="email"],select,textarea{width:100%;padding:10px;b
   .team-card figcaption{text-align:center}
   .hero-left h1{font-size:2rem}
 }
+
+.logo { height: 80px; }
+
+section { padding: 40px 0; }
+
+#hero { padding: 50px 0; }
+
+.content { margin-top: 20px; }
+
+.alt-background { background-color: #f5f5f5; }
