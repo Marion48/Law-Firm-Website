@@ -304,6 +304,7 @@ section#insights-preview a.btn.ghost:hover {
     background-color: white !important;
     color: #071225 !important;
 }
+
 #insights-preview {
     position: relative;
     background: transparent !important;
@@ -330,6 +331,7 @@ section#insights-preview a.btn.ghost:hover {
     position: relative;
     z-index: 1;
 }
+
 
 /* Team section - centered with white-maroon background */
 #team {
@@ -392,6 +394,47 @@ section#insights-preview a.btn.ghost:hover {
 /* Remove any wrapper backgrounds */
 .combined-background-section::before {
     display: none;
+}
+
+
+/* ===== NEW: Larger Team Image & Updated Footer ===== */
+
+/* Larger team image for single member */
+#team-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
+.team-card {
+    text-align: center;
+    max-width: 400px; /* Increased from 300px */
+    width: 100%;
+}
+
+.team-card img {
+    width: 100%;
+    height: 320px; /* Increased from 240px */
+    object-fit: cover;
+    display: block;
+}
+
+.team-card figcaption {
+    padding: 25px; /* Increased padding */
+    text-align: center;
+}
+
+.team-card .name {
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.3rem; /* Slightly larger name */
+}
+
+.team-card .role {
+    font-size: 1rem; /* Slightly larger role */
+    color: var(--muted);
+    margin: 8px 0 0 0;
 }
 
 /* Responsive */
