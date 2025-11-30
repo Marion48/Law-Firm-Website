@@ -10,7 +10,9 @@
   --bg: #fafafa;
   --container: 1200px;
   --radius: 12px;
+  --burgundy: #800020; /* Added burgundy variable */
 }
+
 /* Smooth Scroll Animations */
 html {
   scroll-behavior: smooth;
@@ -45,11 +47,12 @@ html {
 .scroll-reveal.delay-2 { transition-delay: 0.2s; }
 .scroll-reveal.delay-3 { transition-delay: 0.3s; }
 .scroll-reveal.delay-4 { transition-delay: 0.4s; }
+
 .logo {
-  height: 150px;   /* adjust between 120–150 if needed */
-  width: auto;     /* keeps proportions perfect */
+  height: 150px;
+  width: auto;
   display: block;
-  margin: 10px auto; /* centers the logo */
+  margin: 10px auto;
 }
 
 .brand-combo {
@@ -93,24 +96,43 @@ nav#main-nav a{color:white;text-decoration:none;font-weight:500;opacity:.95}
 .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.45) contrast(1.05);transform:scale(1.02);will-change:transform}
 .hero-content{position:relative;display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:center;padding:60px 0}
 .hero-left h1{font-family:'Playfair Display', serif;font-size:2.6rem;color:white;margin:0 0 12px}
-/* HERO */
-.hero{min-height:70vh;display:flex;align-items:center;padding-top:90px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.45) contrast(1.05);transform:scale(1.02);will-change:transform}
-.hero-content{position:relative;display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:center;padding:60px 0}
-.hero-left h1{font-family:'Playfair Display', serif;font-size:2.6rem;color:white;margin:0 0 12px}
 
 /* Hero title animation styles */
 #hero-title {
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    min-height: 1.2em; /* Prevent layout shift */
+    min-height: 1.2em;
     display: inline-block;
 }
+
 .lead{color:rgba(255,255,255,0.95);margin-bottom:18px}
-.cta-row{display:flex;gap:12px;align-items:center}
-.btn{display:inline-block;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600}
-.btn.primary{background:var(--accent);color:#071225}
-.btn.ghost{background:transparent;color:white;border:1px solid rgba(255,255,255,0.12)}
-.btn-sm{display:inline-block;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:600;background:var(--accent);color:#071225}
+
+/* ENHANCED CTA BUTTONS - MIXED THEME */
+.cta-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;transition:all 0.3s ease;border:2px solid transparent;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+
+/* GOLD BUTTONS - Read Insights & Request Callback */
+.btn.primary{background:var(--accent);color:#071225;border-color:var(--accent)}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(201,168,106,0.3);background:var(--accent-2);border-color:var(--accent-2)}
+
+.card-contact{background:var(--accent);color:#071225;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block;margin-top:8px;border:2px solid var(--accent);transition:all 0.3s ease}
+.card-contact:hover{background:var(--accent-2);border-color:var(--accent-2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(201,168,106,0.25)}
+
+.btn.ghost{background:transparent;color:white;border:2px solid white}
+.btn.ghost:hover{background:white;color:var(--text);transform:translateY(-2px)}
+.btn-sm{display:inline-block;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;background:var(--burgundy);color:white;border:2px solid var(--burgundy)}
+.btn-sm:hover{background:#67001a;border-color:#67001a;transform:translateY(-1px)}
+
+/* BURGUNDY BUTTONS - Back to Home in Practice Areas */
+.practice-card{display:block;background:white;padding:20px;border-radius:12px;box-shadow:0 10px 28px rgba(7,18,37,0.06);text-decoration:none;color:var(--text);transition:transform .18s ease, box-shadow .18s ease;border-left:4px solid var(--burgundy) !important}
+.practice-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(7,18,37,0.12)}
+
+/* Read Article burgundy button */
+.read-article{background:var(--burgundy);color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block;margin-top:12px;border:2px solid var(--burgundy);transition:all 0.3s ease}
+.read-article:hover{background:#67001a;border-color:#67001a;transform:translateY(-1px);box-shadow:0 4px 12px rgba(128,0,32,0.25)}
+
+/* Send Message burgundy button */
+#contact-form .btn.primary{background:var(--burgundy);border-color:var(--burgundy);color:white}
+#contact-form .btn.primary:hover{background:#67001a;border-color:#67001a}
 
 /* NEW: Highlights list color */
 .hero .highlights { color: white; }
@@ -122,13 +144,19 @@ nav#main-nav a{color:white;text-decoration:none;font-weight:500;opacity:.95}
 .card-inner{display:flex;gap:12px;align-items:center}
 .card-name{font-weight:600;margin:0}
 .card-role{font-size:.9rem;color:var(--muted);margin:0}
-.card-contact{display:inline-block;margin-top:6px;color:var(--accent-2);font-weight:600}
 
 /* Sections */
-.section{padding:80px 0}
+.section{padding:90px 0;position:relative}
+
+/* ENHANCED SECTION CONTRAST */
+.section-divider{height:1px;background:linear-gradient(90deg,transparent 0%,rgba(7,18,37,0.1) 50%,transparent 100%);margin:40px 0}
+.section-divider-thick{height:3px;background:linear-gradient(90deg,transparent 0%,var(--burgundy) 50%,transparent 100%);margin:60px auto;width:80px;border-radius:2px}
+.shadow-divider-bottom{box-shadow:0 4px 20px rgba(7,18,37,0.08)}
+
 .bg-ivory{background:#fbf9f6}
 .grid-2{display:grid;grid-template-columns:1fr 360px;gap:30px;align-items:start}
 .bullets{list-style:disc;margin-left:18px;color:var(--muted)}
+
 /* About Stats - Premium Burgundy Theme */
 .about-stats {
     display: grid;
@@ -141,7 +169,7 @@ nav#main-nav a{color:white;text-decoration:none;font-weight:500;opacity:.95}
     position: relative;
     padding: 2rem 1.5rem 2rem 2.5rem;
     background: #fff;
-    border-left: 4px solid #800020; /* Premium burgundy accent */
+    border-left: 4px solid var(--burgundy);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     border-radius: 0 8px 8px 0;
     transition: all 0.3s ease;
@@ -169,11 +197,10 @@ nav#main-nav a{color:white;text-decoration:none;font-weight:500;opacity:.95}
     line-height: 1.5;
     font-weight: 400;
 }
+
 /* Services grid */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.practice-card{display:block;background:white;padding:20px;border-radius:12px;box-shadow:0 10px 28px rgba(7,18,37,0.06);text-decoration:none;color:var(--text);transition:transform .18s ease, box-shadow .18s ease;border-left:4px solid var(--accent)}
 .practice-card h3{margin:0 0 8px 0}
-.practice-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(7,18,37,0.12)}
 
 /* Team / blog grids */
 .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
@@ -236,6 +263,7 @@ input[type="text"],input[type="email"],select,textarea{
     padding: 15px;
   }
 }
+
 /* About Our Firm - Off White background */
 #about {
     position: relative;
@@ -291,6 +319,7 @@ input[type="text"],input[type="email"],select,textarea{
     position: relative;
     z-index: 1;
 }
+
 /* Practice Areas title in white */
 section#services h2#services-h {
     color: white !important;
@@ -324,23 +353,7 @@ section#services h2#services-h {
     z-index: 1;
 }
 
-
-/* Insights - keep the existing background */
-/* Insights - make title and button white */
-section#insights-preview h2 {
-    color: white !important;
-}
-
-section#insights-preview a.btn.ghost {
-    color: white !important;
-    border: 1px solid white !important;
-}
-
-section#insights-preview a.btn.ghost:hover {
-    background-color: white !important;
-    color: #071225 !important;
-}
-
+/* INSIGHTS SECTION - MADE VISIBLE */
 #insights-preview {
     position: relative;
     background: transparent !important;
@@ -368,13 +381,43 @@ section#insights-preview a.btn.ghost:hover {
     z-index: 1;
 }
 
+/* Insights title and description styling */
+section#insights-preview h2 {
+    color: white !important;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+}
+
+.insights-description {
+    color: rgba(255,255,255,0.9) !important;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+section#insights-preview a.btn.ghost {
+    color: white !important;
+    border: 2px solid white !important;
+    padding: 12px 24px;
+}
+
+section#insights-preview a.btn.ghost:hover {
+    background-color: white !important;
+    color: #071225 !important;
+    transform: translateY(-2px);
+}
 
 /* Team section - centered with white-maroon background */
 #team {
     position: relative;
     background: transparent !important;
     overflow: hidden;
-    text-align: center; /* Center the content */
+    text-align: center;
 }
 
 #team::before {
@@ -398,7 +441,7 @@ section#insights-preview a.btn.ghost:hover {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center everything in container */
+    align-items: center;
 }
 
 /* Center the team grid */
@@ -412,7 +455,7 @@ section#insights-preview a.btn.ghost:hover {
 /* Center individual team cards */
 .team-card {
     text-align: center;
-    max-width: 300px; /* Control card width */
+    max-width: 300px;
 }
 
 /* Ensure team card captions are centered */
@@ -426,16 +469,12 @@ section#insights-preview a.btn.ghost:hover {
     width: 100%;
 }
 
-
 /* Remove any wrapper backgrounds */
 .combined-background-section::before {
     display: none;
 }
 
-
 /* ===== NEW: Larger Team Image & Updated Footer ===== */
-
-/* Larger team image for single member */
 #team-grid {
     display: flex;
     justify-content: center;
@@ -445,30 +484,30 @@ section#insights-preview a.btn.ghost:hover {
 
 .team-card {
     text-align: center;
-    max-width: 400px; /* Increased from 300px */
+    max-width: 400px;
     width: 100%;
 }
 
 .team-card img {
     width: 100%;
-    height: 320px; /* Increased from 240px */
+    height: 320px;
     object-fit: cover;
     display: block;
 }
 
 .team-card figcaption {
-    padding: 25px; /* Increased padding */
+    padding: 25px;
     text-align: center;
 }
 
 .team-card .name {
     font-weight: 600;
     margin: 0;
-    font-size: 1.3rem; /* Slightly larger name */
+    font-size: 1.3rem;
 }
 
 .team-card .role {
-    font-size: 1rem; /* Slightly larger role */
+    font-size: 1rem;
     color: var(--muted);
     margin: 8px 0 0 0;
 }
@@ -493,6 +532,10 @@ section#insights-preview a.btn.ghost:hover {
   .post-card{flex-direction:column}
   .team-card figcaption{text-align:center}
   .hero-left h1{font-size:2rem}
+  .cta-row{gap:12px;justify-content:center}
+  .btn{padding:12px 20px;font-size:0.9rem}
+  .card-contact{padding:6px 12px;font-size:0.9rem}
+  .insights-description{font-size:1rem;padding:0 15px}
 }
 
 .logo { height: 80px; }
