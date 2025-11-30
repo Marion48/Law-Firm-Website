@@ -129,10 +129,46 @@ nav#main-nav a{color:white;text-decoration:none;font-weight:500;opacity:.95}
 .bg-ivory{background:#fbf9f6}
 .grid-2{display:grid;grid-template-columns:1fr 360px;gap:30px;align-items:start}
 .bullets{list-style:disc;margin-left:18px;color:var(--muted)}
-.about-stats{display:grid;gap:18px}
-.stat{background:white;padding:18px;border-radius:12px;box-shadow:0 8px 24px rgba(7,18,37,0.06)}
-.stat span{font-weight:700;font-size:1.6rem;display:block}
+/* About Stats - Premium Burgundy Theme */
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
 
+.stat {
+    position: relative;
+    padding: 2rem 1.5rem 2rem 2.5rem;
+    background: #fff;
+    border-left: 4px solid #800020; /* Premium burgundy accent */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s ease;
+}
+
+.stat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(128, 0, 32, 0.15);
+    border-left-width: 6px;
+}
+
+.stat span {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2c2c2c;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.stat small {
+    display: block;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+    font-weight: 400;
+}
 /* Services grid */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .practice-card{display:block;background:white;padding:20px;border-radius:12px;box-shadow:0 10px 28px rgba(7,18,37,0.06);text-decoration:none;color:var(--text);transition:transform .18s ease, box-shadow .18s ease;border-left:4px solid var(--accent)}
