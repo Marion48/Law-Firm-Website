@@ -106,32 +106,32 @@ nav#main-nav a{color:white;text-decoration:none;font-weight:500;opacity:.95}
 
 .lead{color:rgba(255,255,255,0.95);margin-bottom:18px}
 
-/* ENHANCED CTA BUTTONS - MIXED THEME */
+/* ENHANCED CTA BUTTONS - BURGUNDY THEME */
 .cta-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .btn{display:inline-block;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;transition:all 0.3s ease;border:2px solid transparent;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
-
-/* GOLD BUTTONS - Read Insights & Request Callback */
-.btn.primary{background:var(--accent);color:#071225;border-color:var(--accent)}
-.btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(201,168,106,0.3);background:var(--accent-2);border-color:var(--accent-2)}
-
-.card-contact{background:var(--accent);color:#071225;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block;margin-top:8px;border:2px solid var(--accent);transition:all 0.3s ease}
-.card-contact:hover{background:var(--accent-2);border-color:var(--accent-2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(201,168,106,0.25)}
-
+.btn.primary{background:var(--burgundy);color:white;border-color:var(--burgundy)}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(128,0,32,0.3);background:#67001a;border-color:#67001a}
 .btn.ghost{background:transparent;color:white;border:2px solid white}
 .btn.ghost:hover{background:white;color:var(--text);transform:translateY(-2px)}
 .btn-sm{display:inline-block;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;background:var(--burgundy);color:white;border:2px solid var(--burgundy)}
 .btn-sm:hover{background:#67001a;border-color:#67001a;transform:translateY(-1px)}
 
-/* BURGUNDY BUTTONS - Back to Home in Practice Areas */
-.practice-card{display:block;background:white;padding:20px;border-radius:12px;box-shadow:0 10px 28px rgba(7,18,37,0.06);text-decoration:none;color:var(--text);transition:transform .18s ease, box-shadow .18s ease;border-left:4px solid var(--burgundy) !important}
-.practice-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(7,18,37,0.12)}
+/* Specific burgundy buttons */
+#hero-btn{background:var(--burgundy);border-color:var(--burgundy)} /* Read Insights button */
+#hero-btn:hover{background:#67001a;border-color:#67001a}
+
+.card-contact{background:var(--burgundy);color:white;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block;margin-top:8px;border:2px solid var(--burgundy);transition:all 0.3s ease}
+.card-contact:hover{background:#67001a;border-color:#67001a;transform:translateY(-1px);box-shadow:0 4px 12px rgba(128,0,32,0.25)}
+
+/* Practice Areas burgundy accent */
+.practice-card{border-left:4px solid var(--burgundy) !important}
 
 /* Read Article burgundy button */
 .read-article{background:var(--burgundy);color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block;margin-top:12px;border:2px solid var(--burgundy);transition:all 0.3s ease}
 .read-article:hover{background:#67001a;border-color:#67001a;transform:translateY(-1px);box-shadow:0 4px 12px rgba(128,0,32,0.25)}
 
 /* Send Message burgundy button */
-#contact-form .btn.primary{background:var(--burgundy);border-color:var(--burgundy);color:white}
+#contact-form .btn.primary{background:var(--burgundy);border-color:var(--burgundy)}
 #contact-form .btn.primary:hover{background:#67001a;border-color:#67001a}
 
 /* NEW: Highlights list color */
@@ -200,7 +200,9 @@ nav#main-nav a{color:white;text-decoration:none;font-weight:500;opacity:.95}
 
 /* Services grid */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.practice-card{display:block;background:white;padding:20px;border-radius:12px;box-shadow:0 10px 28px rgba(7,18,37,0.06);text-decoration:none;color:var(--text);transition:transform .18s ease, box-shadow .18s ease}
 .practice-card h3{margin:0 0 8px 0}
+.practice-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(7,18,37,0.12)}
 
 /* Team / blog grids */
 .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
@@ -353,7 +355,21 @@ section#services h2#services-h {
     z-index: 1;
 }
 
-/* INSIGHTS SECTION - MADE VISIBLE */
+/* Insights - keep the existing background */
+section#insights-preview h2 {
+    color: white !important;
+}
+
+section#insights-preview a.btn.ghost {
+    color: white !important;
+    border: 1px solid white !important;
+}
+
+section#insights-preview a.btn.ghost:hover {
+    background-color: white !important;
+    color: #071225 !important;
+}
+
 #insights-preview {
     position: relative;
     background: transparent !important;
@@ -379,37 +395,6 @@ section#services h2#services-h {
 #insights-preview .container {
     position: relative;
     z-index: 1;
-}
-
-/* Insights title and description styling */
-section#insights-preview h2 {
-    color: white !important;
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    margin-bottom: 16px;
-}
-
-.insights-description {
-    color: rgba(255,255,255,0.9) !important;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
-section#insights-preview a.btn.ghost {
-    color: white !important;
-    border: 2px solid white !important;
-    padding: 12px 24px;
-}
-
-section#insights-preview a.btn.ghost:hover {
-    background-color: white !important;
-    color: #071225 !important;
-    transform: translateY(-2px);
 }
 
 /* Team section - centered with white-maroon background */
@@ -535,7 +520,6 @@ section#insights-preview a.btn.ghost:hover {
   .cta-row{gap:12px;justify-content:center}
   .btn{padding:12px 20px;font-size:0.9rem}
   .card-contact{padding:6px 12px;font-size:0.9rem}
-  .insights-description{font-size:1rem;padding:0 15px}
 }
 
 .logo { height: 80px; }
