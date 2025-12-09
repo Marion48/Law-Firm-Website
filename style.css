@@ -228,7 +228,7 @@ nav#main-nav a:hover::after {
 
 /* ===== HERO SECTION ===== */
 .hero {
-  min-height: 50vh; /* Adjusted for better proportions */
+  min-height: 20vh; /* Adjusted for better proportions */
   display: flex;
   align-items: center;
   padding-top: 120px; /* Increased for nav clearance */
@@ -262,7 +262,7 @@ nav#main-nav a:hover::after {
   z-index: 2;
   width: 100%;
   display: flex;
-  justify-content: center; 
+  justify-content: center !important;
   align-items: center;
   text-align: center; 
   padding: var(--space-xl) 0;
