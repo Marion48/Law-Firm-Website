@@ -29,7 +29,7 @@
   --burgundy: var(--maroon);
 
   /* Premium Typography Scale */
-  --font-hero: 'Playfair Display', serif; /* More premium font for hero */
+  --font-hero: 'Playfair Display', 'Inter'; /* More premium font for hero */
   --font-heading: 'Cormorant Garamond', serif;
   --font-body: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --text-base: 1rem;
@@ -242,7 +242,7 @@ nav#main-nav a:hover::after {
   inset: 0;
   background-size: cover;
   background-position: center;
-  filter: brightness(0.45) contrast(1.05);
+  filter: brightness(0.55) contrast(1.05);
   transform: scale(1.02);
   will-change: transform;
 }
@@ -260,21 +260,27 @@ nav#main-nav a:hover::after {
 .hero-content {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: var(--space-xl);
+  width: 100%;
+  display: flex;
+  justify-content: center; 
   align-items: center;
+  text-align: center; 
   padding: var(--space-xl) 0;
 }
+.hero-left {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
 
 /* Premium Hero Typography */
 .hero-left h1 {
   font-family: var(--font-hero); /* More premium Playfair Display */
   font-size: 2.8rem; /* Reduced for better animation visibility */
-  color: white;
+  color: var(--ivory);
   margin: 0 0 var(--space-sm) 0;
   line-height: 1.15;
-  font-weight: 700; /* Bolder for authority */
+  font-weight: 400; /* Bolder for authority */
   letter-spacing: -0.03em;
 }
 
@@ -389,11 +395,15 @@ nav#main-nav a:hover::after {
 .about-centered-content {
   text-align: center;
   max-width: 800px;
+  font-weight: 400;
+  font-size: var(--text-l);
   margin: 0 auto var(--space-xl) auto;
 }
 
 .about-centered-content p {
   text-align: center;
+  max-width: 800px;
+  font-weight: 400;
   margin-bottom: var(--space-lg);
 }
 
@@ -406,17 +416,12 @@ nav#main-nav a:hover::after {
 
 .about-centered-content .bullets li {
   position: relative;
+  font-size: var(--text-l);
   padding-left: var(--space-md);
   margin-bottom: var(--space-sm);
-  color: var(--muted);
+  color: var(--charcoal);
 }
 
-.about-centered-content .bullets li::before {
-  content: "—";
-  position: absolute;
-  left: 0;
-  color: var(--maroon);
-}
 
 /* ===== SLEEK STATS ===== */
 .about-stats {
@@ -1031,11 +1036,11 @@ textarea {
   left: 0;
   width: 100vw;
   height: 100%;
-  background-image: url('images/Offwhite.jpg');
+  background-image: url('images/Mask.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  opacity: 0.5;
+  opacity: 0.35;
   z-index: -1;
   margin-left: calc(-50vw + 50%);
 }
@@ -1154,7 +1159,7 @@ textarea {
   }
   
   .hero-left h1 {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
   }
   
   .about-stats {
