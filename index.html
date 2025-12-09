@@ -24,6 +24,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Add this right after the opening <body> tag -->
+<div class="scroll-progress"></div>
+
+<!-- Wrap your main content like this -->
+<main class="main-content-container">
+  <!-- All your existing content here -->
+</main>
 
 <!-- NAV -->
 <header class="nav" role="banner">
@@ -65,38 +72,29 @@
   <li><strong>Trusted</strong> Corporate & Litigation Counsel</li>
   <li><strong>Reasonable Fees</strong> Transparent pricing structure</li>
 </ul>
-      </div>
-
-      <aside class="hero-card animate-fade" aria-hidden="false">
-        <div class="card-inner">
-          <img src="images/ByronNyasimi.png" alt="Byron M. Nyasimi portrait" loading="lazy">
-          <div>
-            <p class="card-name">Byron M. Nyasimi</p>
-            <p class="card-role">Advocate of the High Court of Kenya</p>
-            <a class="card-contact" href="#contact">Request a callback</a>
-          </div>
-        </div>
-      </aside>
-    </div>
   </section>
 
   <!-- ABOUT -->
   <section id="about" class="section container animate-up scroll-reveal" aria-labelledby="about-h">
     <h2 id="about-h">About Our Firm</h2>
-    <div class="grid-2">
-      <div>
-        <p><p>We provide dedicated legal representation for businesses and individuals. Our approach combines careful legal analysis with practical solutions tailored to each client's unique situation.</p></p>
-        <ul class="bullets">
-          <li>Strategic legal counsel</li>
-          <li>Commercial litigation & dispute resolution</li>
-          <li>Real estate & transactional law</li>
-          <li>Family & employment law</li>
-        </ul>
-      <div class="about-stats burgundy-theme" aria-hidden="false"></div>
-  <div class="stat"><span>Client-Focused</span><small>Personalized legal solutions for every case</small></div>
-  <div class="stat"><span>Diligent</span><small>Thorough case preparation and research</small></div>
-  <div class="stat"><span>Accessible</span><small>Direct communication and regular updates</small></div>
-</div>
+    
+    <!-- Centered content block -->
+    <div class="about-centered-content">
+      <p>We provide dedicated legal representation for businesses and individuals. Our approach combines careful legal analysis with practical solutions tailored to each client's unique situation.</p>
+      <ul class="bullets">
+        <li>Strategic legal counsel</li>
+        <li>Commercial litigation & dispute resolution</li>
+        <li>Real estate & transactional law</li>
+        <li>Family & employment law</li>
+      </ul>
+    </div>
+    
+    <!-- Left-aligned stats section -->
+    <div class="about-stats burgundy-theme" aria-hidden="false">
+      <div class="stat"><span>Client-Focused</span><small>Personalized legal solutions for every case</small></div>
+      <div class="stat"><span>Diligent</span><small>Thorough case preparation and research</small></div>
+      <div class="stat"><span>Accessible</span><small>Direct communication and regular updates</small></div>
+    </div>
   </section>
 
   <!-- PRACTICE AREAS -->
@@ -109,18 +107,32 @@
     </div>
   </section>
 
-  <!-- TEAM -->
+     <!-- TEAM -->
   <section id="team" class="section container animate-up scroll-reveal delay-2" aria-labelledby="team-h">
-    <h2 id="team-h">Lead Advocate.</h2>
+    <h2 id="team-h">Lead Advocate</h2>
+    
+   <!-- Team Grid for other members (if any) -->
     <div id="team-grid" class="team-grid" role="list">
       <!-- JS will populate team cards from content.json -->
     </div>
-  </section>
 
+    <!-- Meet Our Lead Advocate Link -->
+      <div class="advocate-links">
+        <a href="about-advocate.html" class="meet-advocate-link">
+          Meet Our Lead Advocate
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        
+        <!-- Request Callback Button -->
+        <a class="btn primary" href="#contact">Request a callback</a>
+      </div>
+  </section>
   <!-- INSIGHTS (homepage small preview) -->
   <section id="insights-preview" class="section animate-up scroll-reveal delay-1" aria-labelledby="insights-preview-h">
     <div class="container">
-      <h2>Insights</h2>
+      <h2>Stay Ahead.</h2>
       <div id="insights-container" class="blog-grid" aria-live="polite">
         <!-- JS will inject insight cards from content.json -->
       </div>

@@ -245,3 +245,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+// Floating page scroll effects
+document.addEventListener('DOMContentLoaded', function() {
+  let lastScrollTop = 0;
+  const scrollProgress = document.querySelector('.scroll-progress');
+  
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const body = document.body;
+    
+    // Update scroll progress
+    if (scrollProgress) {
+      const winHeight = document.documentElement.clientHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+      scrollProgress.style.width = scrollPercent + '%';
+    }
+    
+    // Determine scroll direction
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+      body.classList.add('scrolling-down');
+      body.classList.remove('scrolling-up');
+    } else if (scrollTop < lastScrollTop && scrollTop > 100) {
+      body.classList.add('scrolling-up');
+      body.classList.remove('scrolling-down');
+    } else {
+      body.classList.remove('scrolling-down', 'scrolling-up');
+    }
+    
+    // Dynamic side lighting
+    const scrollPercentage = (scrollTop / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    const dynamicOpacity = 0.4 + (scrollPercentage * 0.005);
+    const dynamicWidth = 80 + (scrollPercentage * 0.4);
+    
+    document.body.style.setProperty('--side-opacity', Math.min(0.9, dynamicOpacity));
+    document.body.style.setProperty('--side-width', Math.min(120, dynamicWidth) + 'px');
+    
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  });
+});
