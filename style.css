@@ -228,7 +228,7 @@ nav#main-nav a:hover::after {
 
 /* ===== HERO SECTION ===== */
 .hero {
-  min-height: 75vh; /* Adjusted for better proportions */
+  min-height: 58vh; /* Adjusted for better proportions */
   display: flex;
   align-items: center;
   padding-top: 120px; /* Increased for nav clearance */
@@ -242,7 +242,7 @@ nav#main-nav a:hover::after {
   inset: 0;
   background-size: cover;
   background-position: center;
-  filter: brightness(0.55) contrast(1.05);
+  filter: brightness(0.7) contrast(1.08);
   transform: scale(1.02);
   will-change: transform;
 }
@@ -694,6 +694,7 @@ nav#main-nav a:hover::after {
 }
 /* ===== SLEEK PRACTICE AREAS ===== */
 .services-grid {
+  text-align: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-lg);
@@ -1063,6 +1064,7 @@ textarea {
 }
 
 #services h2 {
+  text-align: center;
   color: white !important;
 }
 
