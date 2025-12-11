@@ -29,7 +29,7 @@
   --burgundy: var(--maroon);
 
   /* Premium Typography Scale */
-  --font-hero: 'Playfair Display', 'Inter'; /* More premium font for hero */
+  --font-hero: 'Cormorant Garamond', serif; /* More premium font for hero */
   --font-heading: 'Cormorant Garamond', serif;
   --font-body: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --text-base: 1rem;
@@ -276,7 +276,7 @@ nav#main-nav a:hover::after {
 /* Premium Hero Typography */
 .hero-left h1 {
   font-family: var(--font-hero); /* More premium Playfair Display */
-  font-size: 2.8rem; /* Reduced for better animation visibility */
+  font-size: 2rem; /* Reduced for better animation visibility */
   color: var(--ivory);
   margin: 0 0 var(--space-sm) 0;
   line-height: 1.15;
@@ -315,35 +315,6 @@ nav#main-nav a:hover::after {
 .highlights li strong {
   color: white;
   font-weight: 600;
-}
-
-/* HERO TITLE */
-.hero-title {
-  font-size: 3rem;
-  color: #ffffff;
-  font-weight: 600;
-  text-align: top center;
-  position: relative;
-  display: inline-block;
-}
-
-.hero-title span {
-  color: var(--accent);
-}
-/* UNDERLINE ANIMATION */
-.hero-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 0%;
-  height: 3px;
-  background-color: #5a0f0f; /* maroon */
-  transition: width 1s ease;
-}
-
-.hero-title.animate-underline::after {
-  width: 100%;
 }
 
 /* ===== PREMIUM BUTTON SYSTEM ===== */
@@ -1065,7 +1036,7 @@ textarea {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 110%;
+  height: 105%;
   background-image: url('images/Mask.jpg');
   background-size: cover;
   background-position: center center;
@@ -1190,7 +1161,7 @@ textarea {
   }
   
   .hero-left h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
   
   .about-stats {
@@ -1219,7 +1190,7 @@ textarea {
   }
   
   .hero-left h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 }
 
@@ -1268,7 +1239,7 @@ textarea {
   }
   
   .hero-left h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
   
   .services-grid,
@@ -1318,7 +1289,7 @@ textarea {
 
 @media (max-width: 480px) {
   .hero-left h1 {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
   
   .lead {
@@ -1389,14 +1360,8 @@ body > *:not(.nav):not(.hero) {
     right: 0;
   }
   
-  /* Content sits on top */
-  .nav,
-  .section,
-  .footer {
-    position: relative;
-    z-index: 1;
-  }
-}
+
+
 /* PAGE FADE OUT */
 body.fade-out {
   opacity: 0;
@@ -1430,4 +1395,45 @@ body.fade-out {
 @keyframes slideIn {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+}
+/* ===========================
+   SPLASH SCREEN OVERLAY
+   =========================== */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  background: #071225; /* navy blue */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+/* Fade-out animation */
+#splash-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#splash-screen .splash-logo {
+  width: 150px;
+  height: auto;
+  animation: logoPulse 2s ease-in-out infinite;
+}
+
+
+
+/* Logo animation — gentle zoom-in only */
+.splash-logo {
+  width: 160px;
+  max-width: 45%;
+  animation: softZoom 1.6s ease-out forwards;
+}
+
+@keyframes softZoom {
+  0%   { transform: scale(0.85); opacity: 0; }
+  40%  { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.05); opacity: 1; }
 }

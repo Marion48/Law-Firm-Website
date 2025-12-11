@@ -1,0 +1,1698 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reading Room - Byron N. & Co. Advocates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,600&family=Inter:wght@300;400;600&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Color palette: navy blue, maroon, tan, white */
+    :root {
+      --navy: #0a192f;
+      --maroon: #800020;
+      --tan: #d2b48c;
+      --cream: #f5f1e6;
+      --dark-brown: #3c2f2f;
+      --paper: #f8f4e9;
+      --text-dark: #2a2a2a;
+      --shadow: 0 10px 30px rgba(10, 25, 47, 0.1);
+      --transition: all 0.4s ease;
+      --scroll-color: #8B4513;
+      --scroll-edge: #A0522D;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { 
+      height: 100%; 
+      font-family: 'Cormorant Garamond', serif; 
+      color: var(--text-dark); 
+      background-color: var(--cream);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-y: auto;
+    }
+
+    /* Custom Old-School Scrollbar */
+    ::-webkit-scrollbar {
+      width: 16px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--cream);
+      border-left: 1px solid var(--tan);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, var(--scroll-color), var(--scroll-edge));
+      border: 2px solid var(--cream);
+      border-radius: 8px;
+      box-shadow: 
+        inset 0 0 6px rgba(0,0,0,0.3),
+        0 0 4px rgba(139, 69, 19, 0.2);
+      position: relative;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to bottom, #6B3410, #8B4513);
+    }
+
+    /* Scrollbar top and bottom embellishments */
+    ::-webkit-scrollbar-thumb:before,
+    ::-webkit-scrollbar-thumb:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 4px;
+      background: var(--tan);
+      border-radius: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb:before {
+      top: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:after {
+      bottom: 4px;
+    }
+
+    /* Firefox scrollbar */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--scroll-color) var(--cream);
+    }
+
+    /* Simple Navigation */
+    .nav {
+      background: var(--navy);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--tan);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .brand-combo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: 400;
+      transition: var(--transition);
+      padding: 6px 0;
+      position: relative;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+    }
+    
+    .nav-links a:hover {
+      color: var(--tan);
+    }
+    
+    .nav-links a.active {
+      color: var(--tan);
+    }
+    
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--tan);
+    }
+
+    /* Main Container */
+    .app {
+      max-width: 1200px;
+      margin: 30px auto;
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      min-height: 500px;
+    }
+
+    /* Centered Header */
+    .centered-header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding: 0 20px;
+      animation: fadeInUp 1s ease;
+    }
+    
+    .centered-header::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 2px;
+      background: var(--maroon);
+      margin: 30px auto 0;
+      animation: expandWidth 1.5s ease 0.5s forwards;
+    }
+    
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      margin: 0 0 20px;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    
+    .lead {
+      color: var(--dark-brown);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 1.7;
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    /* Centered Book Carousel */
+    .book-carousel {
+      position: relative;
+      margin: 50px 0;
+      padding: 40px 0;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      perspective: 1500px;
+    }
+    
+    .book-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      width: 240px;
+      height: 360px;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.4;
+      z-index: 1;
+      cursor: pointer;
+      filter: blur(2px);
+    }
+    
+    .book-card.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      z-index: 3;
+      filter: blur(0);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+    
+    .book-card.prev {
+      transform: translate(-120%, -50%) scale(0.9) rotateY(-15deg);
+      opacity: 0.8;
+      z-index: 2;
+      filter: blur(1px);
+    }
+    
+    .book-card.next {
+      transform: translate(20%, -50%) scale(0.9) rotateY(15deg);
+      opacity: 0.8;
+      z-index: 2;
+      filter: blur(1px);
+    }
+    
+    .cover {
+      width: 100%;
+      height: 100%;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--navy), var(--maroon));
+      transition: all 0.6s ease;
+      border: 8px solid var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform 0.8s ease;
+    }
+    
+    .book-card.active:hover .cover::before {
+      transform: translateX(100%);
+    }
+    
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    
+    .book-card.active:hover .cover img {
+      transform: scale(1.05);
+    }
+    
+    .book-info {
+      position: absolute;
+      bottom: -80px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 4px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+    
+    .book-card.active .book-info {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+    
+    .author {
+      font-size: 16px;
+      color: var(--maroon);
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+    
+    .summary {
+      font-size: 14px;
+      color: var(--dark-brown);
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+    
+    /* Navigation Arrows */
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    
+    .nav-arrow {
+      pointer-events: all;
+      background: rgba(128, 0, 32, 0.8);
+      color: var(--tan);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .nav-arrow:hover {
+      background: var(--maroon);
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    
+    /* Navigation Dots */
+    .carousel-dots {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px 0;
+    }
+    
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--tan);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0.5;
+    }
+    
+    .dot.active {
+      background: var(--maroon);
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    
+    .dot:hover {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+    
+    /* Swipe Hint */
+    .swipe-hint {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--dark-brown);
+      font-size: 14px;
+      opacity: 0.7;
+      font-family: 'Inter', sans-serif;
+      animation: pulse 2s infinite;
+    }
+    
+    .swipe-hint::before {
+      content: '←';
+      margin-right: 10px;
+      animation: bounceLeft 1.5s infinite;
+    }
+    
+    .swipe-hint::after {
+      content: '→';
+      margin-left: 10px;
+      animation: bounceRight 1.5s infinite;
+    }
+
+    /* MEDIEVAL AGED PAPYRUS SCROLL - UPDATED */
+    .scroll-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 25, 47, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    
+    .scroll-container.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Ancient Papyrus Scroll */
+    .old-scroll {
+      position: relative;
+      width: 85%;
+      max-width: 900px;
+      max-height: 80vh;
+      background: #f3e9d2; /* Ancient papyrus color */
+      border-radius: 2px;
+      padding: 60px 80px;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.8),
+        inset 0 0 100px rgba(139, 69, 19, 0.3),
+        inset 0 0 60px rgba(139, 69, 19, 0.2);
+      transform: translateY(100px) scale(0.95);
+      transition: transform 0.7s ease;
+      overflow-y: auto;
+      font-family: 'Cormorant Garamond', serif;
+      color: #2c1810; /* Dark brown ink color */
+      position: relative;
+      
+      /* Papyrus texture */
+      background-image: 
+        /* Natural papyrus fibers */
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 1px,
+          rgba(139, 69, 19, 0.05) 1px,
+          rgba(139, 69, 19, 0.05) 2px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 1px,
+          rgba(139, 69, 19, 0.03) 1px,
+          rgba(139, 69, 19, 0.03) 2px
+        ),
+        /* Aged spots */
+        radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 40%, rgba(139, 69, 19, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(139, 69, 19, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 60% 20%, rgba(139, 69, 19, 0.07) 0%, transparent 50%);
+      
+      /* Wrinkled edges effect */
+      border: 15px solid transparent;
+      border-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 L100,0 L100,100 L0,100 Z' fill='none' stroke='%238B4513' stroke-width='3' stroke-dasharray='5,5' stroke-linecap='round'/%3E%3C/svg%3E") 15 stretch;
+    }
+    
+    /* Top and bottom folded edges */
+    .scroll-container.active .old-scroll {
+      transform: translateY(0) scale(1);
+    }
+    
+    /* Folded top edge */
+    .old-scroll::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 30px;
+      right: 30px;
+      height: 40px;
+      background: linear-gradient(
+        to bottom,
+        rgba(139, 69, 19, 0.4),
+        rgba(139, 69, 19, 0.2) 20%,
+        rgba(139, 69, 19, 0.1) 40%,
+        transparent
+      );
+      border-radius: 50% 50% 0 0;
+      transform: perspective(100px) rotateX(15deg);
+      z-index: -1;
+    }
+    
+    /* Folded bottom edge */
+    .old-scroll::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 30px;
+      right: 30px;
+      height: 40px;
+      background: linear-gradient(
+        to top,
+        rgba(139, 69, 19, 0.4),
+        rgba(139, 69, 19, 0.2) 20%,
+        rgba(139, 69, 19, 0.1) 40%,
+        transparent
+      );
+      border-radius: 0 0 50% 50%;
+      transform: perspective(100px) rotateX(-15deg);
+      z-index: -1;
+    }
+    
+    /* Scroll content area */
+    .scroll-content {
+      position: relative;
+      z-index: 1;
+      max-height: calc(80vh - 120px);
+      overflow-y: auto;
+      padding-right: 20px;
+      padding-bottom: 60px; /* Space for seal */
+    }
+    
+    .scroll-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .scroll-content::-webkit-scrollbar-track {
+      background: rgba(139, 69, 19, 0.1);
+      border-radius: 4px;
+    }
+    
+    .scroll-content::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #8B4513, #6B3410);
+      border-radius: 4px;
+      border: 1px solid rgba(210, 180, 140, 0.3);
+    }
+    
+    /* Ink writing effect */
+    .scroll-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      position: relative;
+    }
+    
+    .scroll-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: #2c1810;
+      margin-bottom: 10px;
+      font-weight: 700;
+      text-shadow: 
+        0 1px 1px rgba(139, 69, 19, 0.3),
+        0 2px 3px rgba(139, 69, 19, 0.2),
+        0 3px 5px rgba(139, 69, 19, 0.1);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .scroll-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 25%;
+      width: 50%;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        #8B4513, 
+        #6B3410, 
+        #8B4513, 
+        transparent
+      );
+      border-radius: 2px;
+    }
+    
+    .scroll-subtitle {
+      font-size: 1.4rem;
+      color: #5d2906;
+      font-style: italic;
+      margin-top: 20px;
+      opacity: 0.9;
+      letter-spacing: 1px;
+    }
+    
+    /* Editable content area - works like Word */
+    .editable-content {
+      font-size: 1.3rem;
+      line-height: 1.9;
+      color: #2c1810;
+      font-weight: 400;
+      text-align: justify;
+      min-height: 300px;
+      outline: none;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      cursor: text;
+      position: relative;
+    }
+    
+    .editable-content:focus {
+      background: rgba(255, 255, 255, 0.08);
+    }
+    
+    /* Ink blot effect on paragraphs */
+    .editable-content p {
+      margin-bottom: 1.8rem;
+      text-indent: 3rem;
+      position: relative;
+    }
+    
+    .editable-content p::first-letter {
+      font-size: 3.5rem;
+      float: left;
+      line-height: 1;
+      margin-right: 15px;
+      margin-top: 8px;
+      color: #5d2906;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      text-shadow: 
+        0 2px 3px rgba(139, 69, 19, 0.4),
+        0 4px 6px rgba(139, 69, 19, 0.2);
+    }
+    
+    /* Ink pen effect for emphasis */
+    .editable-content strong {
+      color: #2c1810;
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .editable-content strong::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        #8B4513, 
+        #6B3410,
+        transparent
+      );
+      opacity: 0.7;
+    }
+    
+    /* List items with quill pen marks */
+    .editable-content ul,
+    .editable-content ol {
+      margin: 25px 0;
+      padding-left: 40px;
+    }
+    
+    .editable-content li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 10px;
+    }
+    
+    .editable-content ul li::before {
+      content: '▸';
+      position: absolute;
+      left: -20px;
+      color: #8B4513;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .editable-content ol {
+      counter-reset: item;
+    }
+    
+    .editable-content ol li::before {
+      content: counter(item) '.';
+      counter-increment: item;
+      position: absolute;
+      left: -25px;
+      color: #8B4513;
+      font-weight: bold;
+    }
+    
+    /* Red Wax Seal */
+    .wax-seal {
+      position: absolute;
+      bottom: 30px;
+      right: 50px;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, #c41e3a, #8b0000);
+      border-radius: 50%;
+      box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.4),
+        0 5px 15px rgba(0, 0, 0, 0.3),
+        0 0 0 3px rgba(139, 0, 0, 0.2);
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: sealGlow 3s infinite alternate;
+    }
+    
+    @keyframes sealGlow {
+      0%, 100% {
+        box-shadow: 
+          inset 0 0 20px rgba(0, 0, 0, 0.4),
+          0 5px 15px rgba(0, 0, 0, 0.3),
+          0 0 0 3px rgba(139, 0, 0, 0.2);
+      }
+      50% {
+        box-shadow: 
+          inset 0 0 20px rgba(0, 0, 0, 0.4),
+          0 5px 20px rgba(196, 30, 58, 0.4),
+          0 0 0 3px rgba(196, 30, 58, 0.3);
+      }
+    }
+    
+    .wax-seal:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .wax-seal::before {
+      content: 'B&Co';
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 1px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Cracked wax effect */
+    .wax-seal::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(45deg, transparent 48%, rgba(0, 0, 0, 0.3) 49%, rgba(0, 0, 0, 0.3) 51%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, rgba(0, 0, 0, 0.3) 49%, rgba(0, 0, 0, 0.3) 51%, transparent 52%),
+        linear-gradient(90deg, transparent 48%, rgba(0, 0, 0, 0.3) 49%, rgba(0, 0, 0, 0.3) 51%, transparent 52%),
+        linear-gradient(0deg, transparent 48%, rgba(0, 0, 0, 0.3) 49%, rgba(0, 0, 0, 0.3) 51%, transparent 52%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    
+    /* Toolbar for editing */
+    .scroll-toolbar {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(243, 233, 210, 0.95);
+      border: 1px solid #8B4513;
+      border-radius: 4px;
+      padding: 10px;
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .toolbar-btn {
+      background: rgba(139, 69, 19, 0.1);
+      border: 1px solid #8B4513;
+      border-radius: 3px;
+      padding: 6px 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #5d2906;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .toolbar-btn:hover {
+      background: rgba(139, 69, 19, 0.2);
+      transform: translateY(-1px);
+    }
+    
+    .toolbar-btn.active {
+      background: rgba(139, 69, 19, 0.3);
+      color: #2c1810;
+      font-weight: 600;
+    }
+    
+    /* Close button */
+    .close-scroll {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      background: rgba(139, 69, 19, 0.9);
+      color: var(--tan);
+      border: 2px solid rgba(210, 180, 140, 0.5);
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: var(--transition);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .close-scroll:hover {
+      background: rgba(128, 0, 32, 0.9);
+      transform: rotate(90deg);
+      border-color: rgba(210, 180, 140, 0.8);
+    }
+    
+    /* Edit mode indicator */
+    .edit-mode {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(139, 69, 19, 0.9);
+      color: var(--tan);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      z-index: 10;
+      opacity: 0.8;
+      animation: pulse 2s infinite;
+    }
+
+    /* Updated Footer */
+    .main-footer {
+      background: var(--navy);
+      color: white;
+      padding: 40px 0 20px;
+      margin-top: 60px;
+      border-top: 1px solid var(--tan);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .footer-links h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      color: var(--tan);
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      transition: var(--transition);
+      opacity: 0.9;
+    }
+    
+    .footer-links a:hover {
+      color: var(--tan);
+      opacity: 1;
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 13px;
+      opacity: 0.9;
+      color: white;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    
+    .copyright {
+      color: var(--tan);
+      font-weight: 600;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes expandWidth {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100px;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.7;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes bounceLeft {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(-5px);
+      }
+    }
+
+    @keyframes bounceRight {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(5px);
+      }
+    }
+
+    @keyframes scrollOpen {
+      0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .app {
+        margin: 20px;
+        padding: 30px 20px;
+      }
+      
+      h1 {
+        font-size: 36px;
+      }
+      
+      .lead {
+        font-size: 16px;
+      }
+      
+      .old-scroll {
+        padding: 40px 50px;
+        width: 95%;
+      }
+      
+      .scroll-header h2 {
+        font-size: 2.2rem;
+      }
+      
+      .book-card {
+        width: 200px;
+        height: 300px;
+      }
+      
+      .nav-links {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .carousel-nav {
+        padding: 0 10px;
+      }
+      
+      .nav-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+      
+      .book-card.prev {
+        transform: translate(-110%, -50%) scale(0.8) rotateY(-15deg);
+      }
+      
+      .book-card.next {
+        transform: translate(10%, -50%) scale(0.8) rotateY(15deg);
+      }
+      
+      .scroll-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .editable-content {
+        font-size: 1.1rem;
+      }
+      
+      .wax-seal {
+        width: 60px;
+        height: 60px;
+        right: 30px;
+        bottom: 20px;
+      }
+      
+      .wax-seal::before {
+        font-size: 12px;
+      }
+      
+      .scroll-toolbar {
+        top: 10px;
+        left: 10px;
+        padding: 8px;
+      }
+      
+      .toolbar-btn {
+        padding: 4px 8px;
+        font-size: 11px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .nav-inner {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .old-scroll {
+        padding: 30px 40px;
+      }
+      
+      .scroll-header h2 {
+        font-size: 1.8rem;
+      }
+      
+      .editable-content {
+        font-size: 1rem;
+        padding: 15px;
+      }
+      
+      .book-card {
+        width: 180px;
+        height: 270px;
+      }
+      
+      .carousel-nav {
+        display: none;
+      }
+      
+      .wax-seal {
+        width: 50px;
+        height: 50px;
+        right: 20px;
+        bottom: 15px;
+      }
+      
+      .wax-seal::before {
+        font-size: 10px;
+      }
+      
+      .edit-mode {
+        font-size: 10px;
+        padding: 6px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand brand-combo" href="index.html">
+        <img src="images/logo.png" alt="Byron N. & Co. Advocates" class="logo">
+        <span>Byron N. & Co. Advocates</span>
+      </a>
+      
+      <div class="nav-links">
+        <a href="index.html#home">Home</a>
+        <a href="home.html#about">About</a>
+        <a href="home.html#services">Practice Areas</a>
+        <a href="home.html#team">Team</a>
+        <a href="insights.html">Insights</a>
+        <a href="book-reviews.html" class="active">Reading Room</a>
+        <a href="home.html#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="app">
+    <!-- Centered Header -->
+    <section class="centered-header">
+      <h1>The Reading Room</h1>
+      <p class="lead">A curated collection of literary insights where wisdom meets imagination. Each volume represents not just a story, but a perspective worth contemplating in our pursuit of thoughtful advocacy.</p>
+    </section>
+
+    <!-- Centered Book Carousel -->
+    <section class="book-carousel">
+      <div class="carousel-container" id="carouselContainer">
+        <!-- Book cards will be populated by JavaScript -->
+      </div>
+      
+      <div class="carousel-nav">
+        <button class="nav-arrow prev-arrow" id="prevArrow">‹</button>
+        <button class="nav-arrow next-arrow" id="nextArrow">›</button>
+      </div>
+      
+      <div class="carousel-dots" id="carouselDots">
+        <!-- Dots will be populated by JavaScript -->
+      </div>
+      
+      <div class="swipe-hint">Click or swipe to browse books</div>
+    </section>
+    
+    <!-- Medieval Aged Papyrus Scroll -->
+    <div class="scroll-container" id="scrollContainer">
+      <div class="old-scroll">
+        <!-- Edit toolbar -->
+        <div class="scroll-toolbar">
+          <button class="toolbar-btn" id="boldBtn" title="Bold">B</button>
+          <button class="toolbar-btn" id="italicBtn" title="Italic">I</button>
+          <button class="toolbar-btn" id="underlineBtn" title="Underline">U</button>
+          <button class="toolbar-btn" id="listBtn" title="Bullet List">•</button>
+          <button class="toolbar-btn" id="numberBtn" title="Numbered List">1.</button>
+        </div>
+        
+        <button class="close-scroll" id="closeScroll">&times;</button>
+        
+        <div class="scroll-content" id="scrollContent">
+          <!-- Scroll content will be populated by JavaScript -->
+        </div>
+        
+        <!-- Red wax seal -->
+        <div class="wax-seal" id="waxSeal" title="Official Seal"></div>
+        
+        <!-- Edit mode indicator -->
+        <div class="edit-mode">Click to edit text • Works like Microsoft Word</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Updated Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <!-- Navigation section -->
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <a href="index.html#home">Home</a>
+        <a href="home.html#about">About Us</a>
+        <a href="home.html#services">Practice Areas</a>
+        <a href="home.html#team">Our Team</a>
+        <a href="insights.html">Legal Insights</a>
+        <a href="book-reviews.html">Reading Room</a>
+      </div>
+      
+      <!-- Connect section -->
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <a href="mailto:info@byronadvocates.co.ke">info@byronadvocates.co.ke</a>
+        <a href="tel:+254700000000">+254 700 000 000</a>
+        <p>Nairobi, Kenya</p>
+      </div>
+    </div>
+    
+    <!-- Footer bottom with requested text -->
+    <div class="footer-bottom">
+      <p><span class="copyright">Byron N. & Co. Advocates</span></p>
+      <p>© 2025 Byron N. & Co. Advocates. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Book data - simplified for easy editing
+    const books = [
+      {
+        id: 0,
+        title: "Great Expectations",
+        author: "Charles Dickens",
+        genre: "Classic",
+        published: "1861",
+        pages: "544",
+        summary: "Pip's journey from orphan to gentleman, exploring social class and personal growth.",
+        review: `Write your review here. Click anywhere in this text to edit it, just like Microsoft Word.
+
+You can type directly in this scroll. The text will automatically format with proper indentation and ink-like appearance.
+
+Key points to discuss:
+• Character development and growth
+• Major themes and messages
+• Writing style and literary techniques
+• Personal reflections and insights
+• Relevance to legal practice and ethics
+
+The text looks like it was written with ink on ancient papyrus, but you can edit it as easily as typing in a Word document.`
+      },
+      {
+        id: 1,
+        title: "Pride and Prejudice",
+        author: "Jane Austen",
+        genre: "Romance",
+        published: "1813",
+        pages: "432",
+        summary: "Elizabeth Bennet and Mr. Darcy navigate societal expectations and personal prejudices.",
+        review: `Write your review here. Click anywhere in this text to edit it, just like Microsoft Word.
+
+You can type directly in this scroll. The text will automatically format with proper indentation and ink-like appearance.
+
+Key points to discuss:
+• Character development and growth
+• Major themes and messages
+• Writing style and literary techniques
+• Personal reflections and insights
+• Relevance to legal practice and ethics
+
+The text looks like it was written with ink on ancient papyrus, but you can edit it as easily as typing in a Word document.`
+      },
+      {
+        id: 2,
+        title: "To Kill a Mockingbird",
+        author: "Harper Lee",
+        genre: "Southern Gothic",
+        published: "1960",
+        pages: "384",
+        summary: "Scout Finch's childhood shaped by her father's defense of an innocent black man.",
+        review: `Write your review here. Click anywhere in this text to edit it, just like Microsoft Word.
+
+You can type directly in this scroll. The text will automatically format with proper indentation and ink-like appearance.
+
+Key points to discuss:
+• Character development and growth
+• Major themes and messages
+• Writing style and literary techniques
+• Personal reflections and insights
+• Relevance to legal practice and ethics
+
+The text looks like it was written with ink on ancient papyrus, but you can edit it as easily as typing in a Word document.`
+      },
+      {
+        id: 3,
+        title: "1984",
+        author: "George Orwell",
+        genre: "Dystopian",
+        published: "1949",
+        pages: "328",
+        summary: "Winston Smith's rebellion in a totalitarian world of surveillance and manipulated truth.",
+        review: `Write your review here. Click anywhere in this text to edit it, just like Microsoft Word.
+
+You can type directly in this scroll. The text will automatically format with proper indentation and ink-like appearance.
+
+Key points to discuss:
+• Character development and growth
+• Major themes and messages
+• Writing style and literary techniques
+• Personal reflections and insights
+• Relevance to legal practice and ethics
+
+The text looks like it was written with ink on ancient papyrus, but you can edit it as easily as typing in a Word document.`
+      },
+      {
+        id: 4,
+        title: "Moby-Dick",
+        author: "Herman Melville",
+        genre: "Adventure",
+        published: "1851",
+        pages: "720",
+        summary: "Ahab's obsessive pursuit of the white whale becomes a metaphysical quest.",
+        review: `Write your review here. Click anywhere in this text to edit it, just like Microsoft Word.
+
+You can type directly in this scroll. The text will automatically format with proper indentation and ink-like appearance.
+
+Key points to discuss:
+• Character development and growth
+• Major themes and messages
+• Writing style and literary techniques
+• Personal reflections and insights
+• Relevance to legal practice and ethics
+
+The text looks like it was written with ink on ancient papyrus, but you can edit it as easily as typing in a Word document.`
+      }
+    ];
+
+    // DOM Elements
+    const carouselContainer = document.getElementById('carouselContainer');
+    const carouselDots = document.getElementById('carouselDots');
+    const prevArrow = document.getElementById('prevArrow');
+    const nextArrow = document.getElementById('nextArrow');
+    const scrollContainer = document.getElementById('scrollContainer');
+    const scrollContent = document.getElementById('scrollContent');
+    const closeScroll = document.getElementById('closeScroll');
+    const waxSeal = document.getElementById('waxSeal');
+    
+    // Toolbar buttons
+    const boldBtn = document.getElementById('boldBtn');
+    const italicBtn = document.getElementById('italicBtn');
+    const underlineBtn = document.getElementById('underlineBtn');
+    const listBtn = document.getElementById('listBtn');
+    const numberBtn = document.getElementById('numberBtn');
+    
+    let currentIndex = 2; // Start with middle book
+    let isDragging = false;
+    let startX = 0;
+    let isScrollOpen = false;
+    let currentBook = null;
+    let editableContent = null;
+
+    // Initialize carousel
+    function initCarousel() {
+      carouselContainer.innerHTML = '';
+      carouselDots.innerHTML = '';
+      
+      // Create book cards
+      books.forEach((book, index) => {
+        const bookCard = document.createElement('div');
+        bookCard.className = 'book-card';
+        bookCard.dataset.id = book.id;
+        bookCard.dataset.index = index;
+        
+        // Set position classes
+        if (index === currentIndex) {
+          bookCard.classList.add('active');
+        } else if (index === currentIndex - 1 || (currentIndex === 0 && index === books.length - 1)) {
+          bookCard.classList.add('prev');
+        } else if (index === currentIndex + 1 || (currentIndex === books.length - 1 && index === 0)) {
+          bookCard.classList.add('next');
+        }
+        
+        bookCard.innerHTML = `
+          <div class="cover">
+            <img src="images/Books Images/Great Expectations 3.jpg" alt="${book.title} cover" onerror="this.src='https://via.placeholder.com/240x360/0a192f/ffffff?text=${encodeURIComponent(book.title.substring(0, 20))}'">
+          </div>
+          <div class="book-info">
+            <div class="title">${book.title}</div>
+            <div class="author">${book.author}</div>
+            <div class="summary">${book.summary}</div>
+          </div>
+        `;
+        
+        bookCard.addEventListener('click', (e) => {
+          if (!isDragging) {
+            currentBook = book;
+            openScroll(book);
+          }
+        });
+        
+        carouselContainer.appendChild(bookCard);
+        
+        // Create dot
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        dot.dataset.index = index;
+        if (index === currentIndex) {
+          dot.classList.add('active');
+        }
+        dot.addEventListener('click', () => {
+          goToSlide(index);
+        });
+        carouselDots.appendChild(dot);
+      });
+    }
+
+    // Update carousel position
+    function updateCarousel() {
+      const bookCards = document.querySelectorAll('.book-card');
+      const dots = document.querySelectorAll('.dot');
+      
+      bookCards.forEach((card, index) => {
+        card.classList.remove('active', 'prev', 'next');
+        
+        if (index === currentIndex) {
+          card.classList.add('active');
+        } else if (index === getPrevIndex()) {
+          card.classList.add('prev');
+        } else if (index === getNextIndex()) {
+          card.classList.add('next');
+        }
+      });
+      
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    // Get previous index with wrap-around
+    function getPrevIndex() {
+      return currentIndex === 0 ? books.length - 1 : currentIndex - 1;
+    }
+
+    // Get next index with wrap-around
+    function getNextIndex() {
+      return currentIndex === books.length - 1 ? 0 : currentIndex + 1;
+    }
+
+    // Go to specific slide
+    function goToSlide(index) {
+      currentIndex = index;
+      updateCarousel();
+    }
+
+    // Go to previous slide
+    function prevSlide() {
+      currentIndex = getPrevIndex();
+      updateCarousel();
+    }
+
+    // Go to next slide
+    function nextSlide() {
+      currentIndex = getNextIndex();
+      updateCarousel();
+    }
+
+    // Open scroll with editable content
+    function openScroll(book) {
+      isScrollOpen = true;
+      currentBook = book;
+      
+      // Create editable content
+      scrollContent.innerHTML = `
+        <div class="scroll-header">
+          <h2>${book.title}</h2>
+          <div class="scroll-subtitle">${book.author} • ${book.published} • ${book.pages} pages</div>
+        </div>
+        <div class="editable-content" id="editableContent" contenteditable="true">
+          ${book.review}
+        </div>
+      `;
+      
+      scrollContainer.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      
+      // Set up editable content
+      editableContent = document.getElementById('editableContent');
+      setupEditableContent();
+    }
+
+    // Set up editable content with Word-like functionality
+    function setupEditableContent() {
+      if (!editableContent) return;
+      
+      // Auto-format paragraphs on enter
+      editableContent.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          document.execCommand('insertHTML', false, '<p><br></p>');
+          // Move cursor to new paragraph
+          const selection = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents(editableContent.lastChild);
+          range.collapse(true);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+      });
+      
+      // Auto-save content when changed
+      editableContent.addEventListener('input', () => {
+        if (currentBook) {
+          currentBook.review = editableContent.innerHTML;
+        }
+      });
+      
+      // Focus on the content
+      setTimeout(() => {
+        editableContent.focus();
+        // Place cursor at beginning
+        const range = document.createRange();
+        range.selectNodeContents(editableContent);
+        range.collapse(true);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }, 100);
+    }
+
+    // Toolbar functionality
+    function setupToolbar() {
+      if (boldBtn) {
+        boldBtn.addEventListener('click', () => {
+          document.execCommand('bold', false, null);
+          boldBtn.classList.toggle('active');
+        });
+      }
+      
+      if (italicBtn) {
+        italicBtn.addEventListener('click', () => {
+          document.execCommand('italic', false, null);
+          italicBtn.classList.toggle('active');
+        });
+      }
+      
+      if (underlineBtn) {
+        underlineBtn.addEventListener('click', () => {
+          document.execCommand('underline', false, null);
+          underlineBtn.classList.toggle('active');
+        });
+      }
+      
+      if (listBtn) {
+        listBtn.addEventListener('click', () => {
+          document.execCommand('insertUnorderedList', false, null);
+          listBtn.classList.toggle('active');
+        });
+      }
+      
+      if (numberBtn) {
+        numberBtn.addEventListener('click', () => {
+          document.execCommand('insertOrderedList', false, null);
+          numberBtn.classList.toggle('active');
+        });
+      }
+    }
+
+    // Close scroll
+    function closeScrollHandler() {
+      isScrollOpen = false;
+      scrollContainer.classList.remove('active');
+      document.body.style.overflow = '';
+      currentBook = null;
+      editableContent = null;
+    }
+
+    // Touch/swipe handling
+    function handleTouchStart(e) {
+      isDragging = true;
+      startX = e.touches ? e.touches[0].clientX : e.clientX;
+    }
+
+    function handleTouchMove(e) {
+      if (!isDragging) return;
+      
+      const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+      const diffX = startX - currentX;
+      
+      if (Math.abs(diffX) > 50) { // Swipe threshold
+        if (diffX > 0) {
+          nextSlide(); // Swipe left -> next
+        } else {
+          prevSlide(); // Swipe right -> prev
+        }
+        isDragging = false;
+      }
+    }
+
+    function handleTouchEnd() {
+      isDragging = false;
+    }
+
+    // Keyboard navigation
+    function handleKeyDown(e) {
+      if (isScrollOpen) return;
+      
+      switch(e.key) {
+        case 'ArrowLeft':
+          prevSlide();
+          break;
+        case 'ArrowRight':
+          nextSlide();
+          break;
+        case 'Enter':
+          currentBook = books[currentIndex];
+          openScroll(currentBook);
+          break;
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      initCarousel();
+      setupToolbar();
+      
+      // Event listeners for arrows
+      prevArrow.addEventListener('click', prevSlide);
+      nextArrow.addEventListener('click', nextSlide);
+      
+      // Event listeners for touch/swipe
+      carouselContainer.addEventListener('mousedown', handleTouchStart);
+      carouselContainer.addEventListener('mousemove', handleTouchMove);
+      carouselContainer.addEventListener('mouseup', handleTouchEnd);
+      carouselContainer.addEventListener('mouseleave', handleTouchEnd);
+      
+      carouselContainer.addEventListener('touchstart', handleTouchStart);
+      carouselContainer.addEventListener('touchmove', handleTouchMove);
+      carouselContainer.addEventListener('touchend', handleTouchEnd);
+      
+      // Keyboard support
+      document.addEventListener('keydown', handleKeyDown);
+      
+      // Scroll close
+      closeScroll.addEventListener('click', closeScrollHandler);
+      
+      scrollContainer.addEventListener('click', (e) => {
+        if (e.target === scrollContainer) {
+          closeScrollHandler();
+        }
+      });
+      
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isScrollOpen) {
+          closeScrollHandler();
+        }
+      });
+      
+      // Wax seal click
+      waxSeal.addEventListener('click', () => {
+        waxSeal.style.transform = 'scale(1.2) rotate(10deg)';
+        setTimeout(() => {
+          waxSeal.style.transform = '';
+        }, 300);
+      });
+      
+      // Auto-advance carousel (optional)
+      // setInterval(nextSlide, 5000);
+    });
+  </script>
+</body>
+</html>

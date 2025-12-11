@@ -1,6 +1,5 @@
 {
   "hero": {
-    "title": "Sharp and Reliable Legal insights",
     "subtitle": "Premium corporate and commercial legal services based in Nairobi — corporate transactions, litigation, real estate and dispute resolution.",
     "button_text": "Read Insights"
   },
@@ -17,6 +16,13 @@
       "name": "Byron Nyasimi",
       "role": "Advocate of the High Court of Kenya",
       "image": "images/Oil painting Byron.png"
+    }
+  ],
+  "Book Review": [
+    {
+      "title": "Corporate Law",
+      "file": "Book Review.html",
+      "summary": "Incorporations, M&A, compliance and governance."
     }
   ],
   "practiceAreas": [

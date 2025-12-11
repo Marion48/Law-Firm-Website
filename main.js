@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Animated hero title word rotation
   const heroTitle = document.getElementById('hero-title');
   if (heroTitle) {
-    const words = ['Sharp and Reliable Legal insights.','Strategic.', 'Trusted.', 'Client-focused.'];
+    const words = ['Here To Make Your Path Forward Simpler.','Sharp and Reliable Legal insights.'];
     let currentWordIndex = 0;
     
     // Set initial text
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         heroTitle.textContent = words[currentWordIndex];
         
         // Fade in new word
-        heroTitle.style.opacity = '1';
+        heroTitle.style.opacity = '0.9';
         heroTitle.style.transform = 'translateY(0)';
       }, 800); // Wait for fade out to complete
     }

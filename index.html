@@ -1,55 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loading...</title>
-
-<style>
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: #071225; /* your navy color */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  }
-
-  
-  .logo {
-    width: 180px;
-    opacity: 0;
-    animation: fadeIn 1.6s ease-out forwards;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.92); }
-    to { opacity: 1; transform: scale(1); }
-  }
-</style>
-
-<script>
-  setTimeout(function() {
-    window.location.href = "home.html"; 
-  }, 3000); // redirect after 3 seconds
-</script>
-
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Byron N. & Co. Advocates</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <script>
-  function fadeAndRedirect(url) {
-    document.body.classList.add('fade-out');
-    setTimeout(() => {
-      window.location.href = url;
-    }, 800); /* match CSS duration */
-  }
-</script>
+<!-- ===========================
+      SPLASH SCREEN (index only)
+     =========================== -->
+<div id="splash-screen" aria-hidden="true">
+  <img src="images/logo.png" alt="Byron N. & Co. Advocates" class="splash-logo">
+</div>
 
-  <img src="images/logo.png" class="logo spin" alt="Logo">
+<!-- ===========================
+          MAIN CONTENT
+     (Home.html auto-opens after splash)
+     =========================== -->
+<script>
+(function(){
+  const splash = document.getElementById('splash-screen');
+  if (!splash) return;
+
+  // Already seen splash this session?
+  if (sessionStorage.getItem('splashShown')) {
+    splash.remove();
+    window.location.href = "home.html";
+    return;
+  }
+
+  // Determine if user is landing fresh (not navigating internally)
+  const ref = document.referrer || '';
+  const fromSameOrigin = ref.startsWith(location.origin);
+
+  const path = location.pathname;
+  const isRootOrIndex = path === "/" || path.endsWith("/index.html");
+
+  // If navigating from inside the site → skip splash
+  if (!isRootOrIndex || fromSameOrigin) {
+    splash.remove();
+    window.location.href = "home.html";
+    return;
+  }
+
+  // Mark splash as seen for this tab session
+  sessionStorage.setItem('splashShown','1');
+
+  // Run splash once, then fade + redirect
+  window.addEventListener("load", () => {
+    const visibleFor = 2500;   // how long logo stays visible before fading
+    const fadeTime = 800;      // timing must match CSS transition
+
+    setTimeout(() => {
+      splash.classList.add("fade-out");
+      setTimeout(() => {
+        splash.remove();
+        window.location.href = "home.html";
+      }, fadeTime);
+    }, visibleFor);
+  });
+})();
+</script>
 
 </body>
 </html>

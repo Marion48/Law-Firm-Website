@@ -1,0 +1,1391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reading Room - Byron N. & Co. Advocates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,600&family=Inter:wght@300;400;600&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Color palette: navy blue, maroon, tan, white */
+    :root {
+      --navy: #0a192f;
+      --maroon: #800020;
+      --tan: #d2b48c;
+      --cream: #f5f1e6;
+      --dark-brown: #3c2f2f;
+      --paper: #f8f4e9;
+      --text-dark: #2a2a2a;
+      --shadow: 0 10px 30px rgba(10, 25, 47, 0.1);
+      --transition: all 0.4s ease;
+      --scroll-color: #8B4513;
+      --scroll-edge: #A0522D;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { 
+      height: 100%; 
+      font-family: 'Cormorant Garamond', serif; 
+      color: var(--text-dark); 
+      background-color: var(--cream);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-y: auto;
+    }
+
+    /* Custom Old-School Scrollbar */
+    ::-webkit-scrollbar {
+      width: 16px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--cream);
+      border-left: 1px solid var(--tan);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, var(--scroll-color), var(--scroll-edge));
+      border: 2px solid var(--cream);
+      border-radius: 8px;
+      box-shadow: 
+        inset 0 0 6px rgba(0,0,0,0.3),
+        0 0 4px rgba(139, 69, 19, 0.2);
+      position: relative;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to bottom, #6B3410, #8B4513);
+    }
+
+    /* Scrollbar top and bottom embellishments */
+    ::-webkit-scrollbar-thumb:before,
+    ::-webkit-scrollbar-thumb:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 4px;
+      background: var(--tan);
+      border-radius: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb:before {
+      top: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:after {
+      bottom: 4px;
+    }
+
+    /* Firefox scrollbar */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--scroll-color) var(--cream);
+    }
+
+    /* Simple Navigation */
+    .nav {
+      background: var(--navy);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--tan);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .brand-combo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: 400;
+      transition: var(--transition);
+      padding: 6px 0;
+      position: relative;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+    }
+    
+    .nav-links a:hover {
+      color: var(--tan);
+    }
+    
+    .nav-links a.active {
+      color: var(--tan);
+    }
+    
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--tan);
+    }
+
+    /* Main Container */
+    .app {
+      max-width: 1200px;
+      margin: 30px auto;
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      min-height: 500px;
+    }
+
+    /* Centered Header */
+    .centered-header {
+      text-align: center;
+      margin-bottom: 50px;
+      padding: 0 20px;
+      animation: fadeInUp 1s ease;
+    }
+    
+    .centered-header::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 2px;
+      background: var(--maroon);
+      margin: 30px auto 0;
+      animation: expandWidth 1.5s ease 0.5s forwards;
+    }
+    
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      margin: 0 0 20px;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    
+    .lead {
+      color: var(--dark-brown);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 1.7;
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    /* Centered Book Carousel */
+    .book-carousel {
+      position: relative;
+      margin: 50px 0;
+      padding: 40px 0;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      perspective: 1500px;
+    }
+    
+    .book-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      width: 240px;
+      height: 360px;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.4;
+      z-index: 1;
+      cursor: pointer;
+      filter: blur(2px);
+    }
+    
+    .book-card.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      z-index: 3;
+      filter: blur(0);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+    
+    .book-card.prev {
+      transform: translate(-120%, -50%) scale(0.9) rotateY(-15deg);
+      opacity: 0.8;
+      z-index: 2;
+      filter: blur(1px);
+    }
+    
+    .book-card.next {
+      transform: translate(20%, -50%) scale(0.9) rotateY(15deg);
+      opacity: 0.8;
+      z-index: 2;
+      filter: blur(1px);
+    }
+    
+    .cover {
+      width: 100%;
+      height: 100%;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--navy), var(--maroon));
+      transition: all 0.6s ease;
+      border: 8px solid var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform 0.8s ease;
+    }
+    
+    .book-card.active:hover .cover::before {
+      transform: translateX(100%);
+    }
+    
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    
+    .book-card.active:hover .cover img {
+      transform: scale(1.05);
+    }
+    
+    .book-info {
+      position: absolute;
+      bottom: -80px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 4px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+    
+    .book-card.active .book-info {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+    
+    .author {
+      font-size: 16px;
+      color: var(--maroon);
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+    
+    .summary {
+      font-size: 14px;
+      color: var(--dark-brown);
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+    
+    /* Navigation Arrows */
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    
+    .nav-arrow {
+      pointer-events: all;
+      background: rgba(128, 0, 32, 0.8);
+      color: var(--tan);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .nav-arrow:hover {
+      background: var(--maroon);
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    
+    /* Navigation Dots */
+    .carousel-dots {
+      position: absolute;
+      bottom: 10;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px 0;
+    }
+    
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--tan);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0.5;
+    }
+    
+    .dot.active {
+      background: var(--maroon);
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    
+    .dot:hover {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+    
+    /* Swipe Hint */
+    .swipe-hint {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--dark-brown);
+      font-size: 14px;
+      opacity: 0.7;
+      font-family: 'Inter', sans-serif;
+      animation: pulse 2s infinite;
+    }
+    
+    .swipe-hint::before {
+      content: '←';
+      margin-right: 10px;
+      animation: bounceLeft 1.5s infinite;
+    }
+    
+    .swipe-hint::after {
+      content: '→';
+      margin-left: 10px;
+      animation: bounceRight 1.5s infinite;
+    }
+
+    /* Authentic Old School Scroll with Tattered Edges */
+    .scroll-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 25, 47, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    
+    .scroll-container.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Authentic scroll styling with tattered edges */
+    .old-scroll {
+      position: relative;
+      width: 85%;
+      max-width: 800px;
+      max-height: 80vh;
+      background: var(--paper);
+      border-radius: 2px;
+      padding: 60px 80px;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        inset 0 0 40px rgba(139, 69, 19, 0.1);
+      transform: translateY(100px) scale(0.95);
+      transition: transform 0.7s ease;
+      overflow-y: auto;
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--dark-brown);
+      border: 1px solid #8B4513;
+      position: relative;
+      background-image: 
+        linear-gradient(90deg, transparent 79px, rgba(139, 69, 19, 0.1) 79px, rgba(139, 69, 19, 0.1) 81px, transparent 81px),
+        linear-gradient(var(--paper) .1em, transparent .1em);
+      background-size: 100% 1.6em;
+      animation: scrollOpen 0.8s ease 0.2s both;
+    }
+    
+    /* Tattered edges effect */
+    .old-scroll::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      right: -15px;
+      bottom: -15px;
+      background: 
+        radial-gradient(circle at 0% 50%, transparent 15px, rgba(139, 69, 19, 0.3) 15px, rgba(139, 69, 19, 0.3) 17px, transparent 17px),
+        radial-gradient(circle at 100% 50%, transparent 15px, rgba(139, 69, 19, 0.3) 15px, rgba(139, 69, 19, 0.3) 17px, transparent 17px),
+        radial-gradient(circle at 50% 0%, transparent 15px, rgba(139, 69, 19, 0.3) 15px, rgba(139, 69, 19, 0.3) 17px, transparent 17px),
+        radial-gradient(circle at 50% 100%, transparent 15px, rgba(139, 69, 19, 0.3) 15px, rgba(139, 69, 19, 0.3) 17px, transparent 17px);
+      background-repeat: no-repeat;
+      background-size: 30px 30px;
+      background-position: 
+        left top,
+        right top,
+        left bottom,
+        right bottom;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    /* Fold marks */
+    .old-scroll::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 33.33%;
+      right: 33.33%;
+      height: 100%;
+      background: linear-gradient(to right, 
+        transparent, 
+        rgba(139, 69, 19, 0.05) 5%, 
+        rgba(139, 69, 19, 0.1) 50%, 
+        rgba(139, 69, 19, 0.05) 95%, 
+        transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .scroll-container.active .old-scroll {
+      transform: translateY(0) scale(1);
+    }
+    
+    /* Scroll edges - wood effect */
+    .scroll-ends {
+      position: absolute;
+      top: -20px;
+      left: -35px;
+      right: -35px;
+      height: calc(100% + 40px);
+      z-index: -2;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    
+    .scroll-end {
+      width: 40px;
+      height: 100%;
+      background: linear-gradient(to right, #6B3410, #8B4513, #6B3410);
+      box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.5),
+        5px 0 15px rgba(0,0,0,0.3);
+      border-radius: 4px;
+      position: relative;
+    }
+    
+    .scroll-end::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      bottom: 20px;
+      width: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(210, 180, 140, 0.3);
+      border-radius: 2px;
+    }
+    
+    /* Scroll content */
+    .scroll-content {
+      position: relative;
+      z-index: 1;
+      max-height: calc(80vh - 120px);
+      overflow-y: auto;
+      padding-right: 20px;
+    }
+    
+    .scroll-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .scroll-content::-webkit-scrollbar-track {
+      background: rgba(139, 69, 19, 0.1);
+    }
+    
+    .scroll-content::-webkit-scrollbar-thumb {
+      background: #8B4513;
+      border-radius: 4px;
+    }
+    
+    /* Scroll header */
+    .scroll-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #8B4513;
+    }
+    
+    .scroll-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--maroon);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    
+    .scroll-subtitle {
+      font-size: 1.2rem;
+      color: var(--navy);
+      font-style: italic;
+    }
+    
+    /* Scroll body - tutorial style */
+    .scroll-body {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--dark-brown);
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 4px;
+      border: 1px dashed #8B4513;
+    }
+    
+    .instruction-box {
+      background: rgba(210, 180, 140, 0.1);
+      padding: 25px;
+      border-radius: 4px;
+      margin: 20px 0;
+      border-left: 4px solid var(--maroon);
+    }
+    
+    .instruction-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    
+    .instruction-content {
+      font-style: italic;
+      color: var(--dark-brown);
+      line-height: 1.6;
+    }
+    
+    .placeholder {
+      color: rgba(139, 69, 19, 0.7);
+      font-style: italic;
+      border: 1px dashed rgba(139, 69, 19, 0.5);
+      padding: 15px;
+      margin: 15px 0;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 4px;
+      min-height: 150px;
+    }
+    
+    /* Close button */
+    .close-scroll {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      background: var(--maroon);
+      color: var(--tan);
+      border: none;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: var(--transition);
+    }
+    
+    .close-scroll:hover {
+      background: var(--navy);
+      transform: rotate(90deg);
+    }
+    
+    /* Aged paper effect */
+    .old-scroll::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(139, 69, 19, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Updated Footer */
+    .main-footer {
+      background: var(--navy);
+      color: white;
+      padding: 40px 0 20px;
+      margin-top: 60px;
+      border-top: 1px solid var(--tan);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .footer-links h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      color: var(--tan);
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      transition: var(--transition);
+      opacity: 0.9;
+    }
+    
+    .footer-links a:hover {
+      color: var(--tan);
+      opacity: 1;
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 13px;
+      opacity: 0.9;
+      color: white;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    
+    .copyright {
+      color: var(--tan);
+      font-weight: 600;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes expandWidth {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100px;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.7;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes bounceLeft {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(-5px);
+      }
+    }
+
+    @keyframes bounceRight {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(5px);
+      }
+    }
+
+    @keyframes scrollOpen {
+      0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .app {
+        margin: 20px;
+        padding: 30px 20px;
+      }
+      
+      h1 {
+        font-size: 36px;
+      }
+      
+      .lead {
+        font-size: 16px;
+      }
+      
+      .old-scroll {
+        padding: 40px 50px;
+        width: 95%;
+      }
+      
+      .scroll-header h2 {
+        font-size: 2rem;
+      }
+      
+      .book-card {
+        width: 200px;
+        height: 300px;
+      }
+      
+      .nav-links {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .carousel-nav {
+        padding: 0 10px;
+      }
+      
+      .nav-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+      
+      .book-card.prev {
+        transform: translate(-110%, -50%) scale(0.8) rotateY(-15deg);
+      }
+      
+      .book-card.next {
+        transform: translate(10%, -50%) scale(0.8) rotateY(15deg);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .nav-inner {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .old-scroll {
+        padding: 30px 40px;
+      }
+      
+      .scroll-header h2 {
+        font-size: 1.8rem;
+      }
+      
+      .scroll-body {
+        font-size: 1rem;
+      }
+      
+      .book-card {
+        width: 180px;
+        height: 270px;
+      }
+      
+      .carousel-nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand brand-combo" href="index.html">
+        <img src="images/logo.png" alt="Byron N. & Co. Advocates" class="logo">
+        <span>Byron N. & Co. Advocates</span>
+      </a>
+      
+      <div class="nav-links">
+        <a href="index.html#home">Home</a>
+        <a href="home.html#about">About</a>
+        <a href="home.html#services">Practice Areas</a>
+        <a href="home.html#team">Team</a>
+        <a href="insights.html">Insights</a>
+        <a href="book-reviews.html" class="active">Reading Room</a>
+        <a href="home.html#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="app">
+    <!-- Centered Header -->
+    <section class="centered-header">
+      <h1>The Reading Room</h1>
+      <p class="lead">A curated collection of literary insights where wisdom meets imagination. Each volume represents not just a story, but a perspective worth contemplating in our pursuit of thoughtful advocacy.</p>
+    </section>
+
+    <!-- Centered Book Carousel -->
+    <section class="book-carousel">
+      <div class="carousel-container" id="carouselContainer">
+        <!-- Book cards will be populated by JavaScript -->
+      </div>
+      
+      <div class="carousel-nav">
+        <button class="nav-arrow prev-arrow" id="prevArrow">‹</button>
+        <button class="nav-arrow next-arrow" id="nextArrow">›</button>
+      </div>
+      
+      <div class="carousel-dots" id="carouselDots">
+        <!-- Dots will be populated by JavaScript -->
+      </div>
+    </section>
+    
+    <!-- Old School Scroll -->
+    <div class="scroll-container" id="scrollContainer">
+      <div class="old-scroll">
+        <div class="scroll-ends">
+          <div class="scroll-end"></div>
+          <div class="scroll-end"></div>
+        </div>
+        <button class="close-scroll" id="closeScroll">&times;</button>
+        <div class="scroll-content" id="scrollContent">
+          <!-- Scroll content will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Updated Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <!-- Navigation section -->
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <a href="index.html#home">Home</a>
+        <a href="home.html#about">About Us</a>
+        <a href="home.html#services">Practice Areas</a>
+        <a href="home.html#team">Our Team</a>
+        <a href="insights.html">Legal Insights</a>
+        <a href="book-reviews.html">Reading Room</a>
+      </div>
+      
+      <!-- Connect section -->
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <a href="mailto:info@byronadvocates.co.ke">info@byronadvocates.co.ke</a>
+        <a href="tel:+254700000000">+254 700 000 000</a>
+        <p>Nairobi, Kenya</p>
+      </div>
+    </div>
+    
+    <!-- Footer bottom with requested text -->
+    <div class="footer-bottom">
+      <p><span class="copyright">Byron N. & Co. Advocates</span></p>
+      <p>© 2025 Byron N. & Co. Advocates. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Book data
+    const books = [
+      {
+        id: 0,
+        title: "Great Expectations",
+        author: "Charles Dickens",
+        genre: "Classic",
+        published: "1861",
+        pages: "544",
+        summary: "Pip's journey from orphan to gentleman, exploring social class and personal growth.",
+        review: `YOUR REVIEW GOES HERE
+
+[Replace this text with your book review]
+
+Key points to include:
+• Main themes and messages
+• Character analysis
+• Writing style assessment
+• Personal reflections
+• Relevance to legal practice
+
+Remember to keep it concise yet insightful.`,
+        imageUrl: "images/Books Images/Great Expectations 3.jpg"
+      },
+      {
+        id: 1,
+        title: "Pride and Prejudice",
+        author: "Jane Austen",
+        genre: "Romance",
+        published: "1813",
+        pages: "432",
+        summary: "Elizabeth Bennet and Mr. Darcy navigate societal expectations and personal prejudices.",
+        review: `YOUR REVIEW GOES HERE
+
+[Replace this text with your book review]
+
+Key points to include:
+• Main themes and messages
+• Character analysis
+• Writing style assessment
+• Personal reflections
+• Relevance to legal practice
+
+Remember to keep it concise yet insightful.`,
+        imageUrl: "images/Books Images/Great Expectations 3.jpg"
+      },
+      {
+        id: 2,
+        title: "To Kill a Mockingbird",
+        author: "Harper Lee",
+        genre: "Southern Gothic",
+        published: "1960",
+        pages: "384",
+        summary: "Scout Finch's childhood shaped by her father's defense of an innocent black man.",
+        review: `YOUR REVIEW GOES HERE
+
+[Replace this text with your book review]
+
+Key points to include:
+• Main themes and messages
+• Character analysis
+• Writing style assessment
+• Personal reflections
+• Relevance to legal practice
+
+Remember to keep it concise yet insightful.`,
+        imageUrl: "images/Books Images/Great Expectations 3.jpg"
+      },
+      {
+        id: 3,
+        title: "1984",
+        author: "George Orwell",
+        genre: "Dystopian",
+        published: "1949",
+        pages: "328",
+        summary: "Winston Smith's rebellion in a totalitarian world of surveillance and manipulated truth.",
+        review: `YOUR REVIEW GOES HERE
+
+[Replace this text with your book review]
+
+Key points to include:
+• Main themes and messages
+• Character analysis
+• Writing style assessment
+• Personal reflections
+• Relevance to legal practice
+
+Remember to keep it concise yet insightful.`,
+        imageUrl: "images/Books Images/Bleak.jpg"
+      },
+      {
+        id: 4,
+        title: "Moby-Dick",
+        author: "Herman Melville",
+        genre: "Adventure",
+        published: "1851",
+        pages: "720",
+        summary: "Ahabu obsessive pursuit of the white whale becomes a metaphysical quest.",
+        review: `YOUR REVIEW GOES HERE
+
+[Replace this text with your book review]
+
+Key points to include:
+• Main themes and messages
+• Character analysis
+• Writing style assessment
+• Personal reflections
+• Relevance to legal practice
+
+Remember to keep it concise yet insightful.`,
+        imageUrl: "images/Books Images/Great Expectations 3.jpg"
+      }
+    ];
+
+    // DOM Elements
+    const carouselContainer = document.getElementById('carouselContainer');
+    const carouselDots = document.getElementById('carouselDots');
+    const prevArrow = document.getElementById('prevArrow');
+    const nextArrow = document.getElementById('nextArrow');
+    const scrollContainer = document.getElementById('scrollContainer');
+    const scrollContent = document.getElementById('scrollContent');
+    const closeScroll = document.getElementById('closeScroll');
+    
+    let currentIndex = 2; // Start with middle book
+    let isDragging = false;
+    let startX = 0;
+    let isScrollOpen = false;
+
+    // Initialize carousel
+    function initCarousel() {
+      carouselContainer.innerHTML = '';
+      carouselDots.innerHTML = '';
+      
+      // Create book cards
+      books.forEach((book, index) => {
+        const bookCard = document.createElement('div');
+        bookCard.className = 'book-card';
+        bookCard.dataset.id = book.id;
+        bookCard.dataset.index = index;
+        
+        // Set position classes
+        if (index === currentIndex) {
+          bookCard.classList.add('active');
+        } else if (index === currentIndex - 1 || (currentIndex === 0 && index === books.length - 1)) {
+          bookCard.classList.add('prev');
+        } else if (index === currentIndex + 1 || (currentIndex === books.length - 1 && index === 0)) {
+          bookCard.classList.add('next');
+        }
+        
+        bookCard.innerHTML = `
+          <div class="cover">
+            <img src="${book.imageUrl}" alt="${book.title} cover" onerror="this.src='https://via.placeholder.com/240x360/0a192f/ffffff?text=${encodeURIComponent(book.title.substring(0, 20))}'">
+          </div>
+          <div class="book-info">
+            <div class="title">${book.title}</div>
+            <div class="author">${book.author}</div>
+            <div class="summary">${book.summary}</div>
+          </div>
+        `;
+        
+        bookCard.addEventListener('click', (e) => {
+          if (!isDragging) {
+            openScroll(book);
+          }
+        });
+        
+        carouselContainer.appendChild(bookCard);
+        
+        // Create dot
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        dot.dataset.index = index;
+        if (index === currentIndex) {
+          dot.classList.add('active');
+        }
+        dot.addEventListener('click', () => {
+          goToSlide(index);
+        });
+        carouselDots.appendChild(dot);
+      });
+    }
+
+    // Update carousel position
+    function updateCarousel() {
+      const bookCards = document.querySelectorAll('.book-card');
+      const dots = document.querySelectorAll('.dot');
+      
+      bookCards.forEach((card, index) => {
+        card.classList.remove('active', 'prev', 'next');
+        
+        if (index === currentIndex) {
+          card.classList.add('active');
+        } else if (index === getPrevIndex()) {
+          card.classList.add('prev');
+        } else if (index === getNextIndex()) {
+          card.classList.add('next');
+        }
+      });
+      
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    // Get previous index with wrap-around
+    function getPrevIndex() {
+      return currentIndex === 0 ? books.length - 1 : currentIndex - 1;
+    }
+
+    // Get next index with wrap-around
+    function getNextIndex() {
+      return currentIndex === books.length - 1 ? 0 : currentIndex + 1;
+    }
+
+    // Go to specific slide
+    function goToSlide(index) {
+      currentIndex = index;
+      updateCarousel();
+    }
+
+    // Go to previous slide
+    function prevSlide() {
+      currentIndex = getPrevIndex();
+      updateCarousel();
+    }
+
+    // Go to next slide
+    function nextSlide() {
+      currentIndex = getNextIndex();
+      updateCarousel();
+    }
+
+    // Open scroll with tutorial content
+    function openScroll(book) {
+      isScrollOpen = true;
+      scrollContent.innerHTML = `
+        <div class="scroll-header">
+          <h2>${book.title}</h2>
+          <div class="scroll-subtitle">Tusome guys</div>
+        </div>
+        <div class="scroll-body">
+          <div class="instruction-box">
+            <div class="instruction-title">How to Write Your Review:</div>
+            <div class="instruction-content">
+              Replace the placeholder text below with your actual book review. 
+              Focus on key themes, character development, and what makes this book 
+              relevant to legal professionals. Keep your review between 300-500 words.
+            </div>
+          </div>
+          
+          <div class="placeholder">
+            <strong>${book.title} Review</strong><br><br>
+            <strong>${book.summary} Review</strong><br><br>
+            
+            [Your review goes here. Write about the book's main themes, characters, 
+            and why it matters. Consider how it relates to legal practice, ethics, 
+            or human understanding.]<br><br>
+            
+            <strong>Key Insights:</strong><br>
+            • [Insight 1]<br>
+            • [Insight 2]<br>
+            • [Insight 3]<br><br>
+            
+            <strong>Relevance to Legal Practice:</strong><br>
+            [Explain how this book informs legal thinking or practice]
+          </div>
+          
+          <div class="instruction-box">
+            <div class="instruction-title">Writing Tips:</div>
+            <div class="instruction-content">
+              1. Start with a strong opening sentence<br>
+              2. Summarize the plot briefly<br>
+              3. Analyze key themes and characters<br>
+              4. Share your personal response<br>
+              5. Connect to broader legal or ethical concepts<br>
+              6. End with a concise conclusion
+            </div>
+          </div>
+        </div>
+      `;
+      scrollContainer.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close scroll
+    function closeScrollHandler() {
+      isScrollOpen = false;
+      scrollContainer.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Touch/swipe handling
+    function handleTouchStart(e) {
+      isDragging = true;
+      startX = e.touches ? e.touches[0].clientX : e.clientX;
+    }
+
+    function handleTouchMove(e) {
+      if (!isDragging) return;
+      
+      const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+      const diffX = startX - currentX;
+      
+      if (Math.abs(diffX) > 50) { // Swipe threshold
+        if (diffX > 0) {
+          nextSlide(); // Swipe left -> next
+        } else {
+          prevSlide(); // Swipe right -> prev
+        }
+        isDragging = false;
+      }
+    }
+
+    function handleTouchEnd() {
+      isDragging = false;
+    }
+
+    // Keyboard navigation
+    function handleKeyDown(e) {
+      if (isScrollOpen) return;
+      
+      switch(e.key) {
+        case 'ArrowLeft':
+          prevSlide();
+          break;
+        case 'ArrowRight':
+          nextSlide();
+          break;
+        case 'Enter':
+          openScroll(books[currentIndex]);
+          break;
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      initCarousel();
+      
+      // Event listeners for arrows
+      prevArrow.addEventListener('click', prevSlide);
+      nextArrow.addEventListener('click', nextSlide);
+      
+      // Event listeners for touch/swipe
+      carouselContainer.addEventListener('mousedown', handleTouchStart);
+      carouselContainer.addEventListener('mousemove', handleTouchMove);
+      carouselContainer.addEventListener('mouseup', handleTouchEnd);
+      carouselContainer.addEventListener('mouseleave', handleTouchEnd);
+      
+      carouselContainer.addEventListener('touchstart', handleTouchStart);
+      carouselContainer.addEventListener('touchmove', handleTouchMove);
+      carouselContainer.addEventListener('touchend', handleTouchEnd);
+      
+      // Keyboard support
+      document.addEventListener('keydown', handleKeyDown);
+      
+      // Scroll close
+      closeScroll.addEventListener('click', closeScrollHandler);
+      
+      scrollContainer.addEventListener('click', (e) => {
+        if (e.target === scrollContainer) {
+          closeScrollHandler();
+        }
+      });
+      
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isScrollOpen) {
+          closeScrollHandler();
+        }
+      });
+      
+      // Auto-advance carousel (optional)
+      // setInterval(nextSlide, 5000);
+    });
+  </script>
+</body>
+</html>
