@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Intellectual Property — Byron N. & Co. Advocates</title>
-  <meta name="description" content="Expert intellectual property legal services in Kenya. Trademarks, copyrights, patents, industrial designs, IP contracts, and strategic IP enforcement.">
+  <title>Commercial & Corporate Law — Byron N. & Co. Advocates</title>
+  <meta name="description" content="Expert commercial and corporate legal services. Business setup, contracts, compliance, mergers & acquisitions, and ongoing corporate support in Kenya.">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,7 +90,7 @@
     .modern-card {
       background: var(--card-bg);
       border-radius: 0;
-      overflow: visible;
+      overflow: hidden;
       box-shadow: var(--card-shadow);
       border: 1px solid rgba(10, 25, 47, 0.08);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -124,26 +124,31 @@
     }
     
     .card-header {
-      padding: 2.5rem 2rem 1rem 2rem;
+      padding: 2rem 2rem 1rem;
       position: relative;
     }
     
     .card-number {
-      position: absolute;
-      top: -1rem;
-      left: 2rem;
-      background: var(--maroon);
-      color: white;
-      width: 2.5rem;
-      height: 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 0.9rem;
-      font-family: var(--font-body);
-      z-index: 10;
-    }
+  position: absolute;
+  top: -1rem;
+  left: 2rem;
+  background: var(--maroon);
+  color: white;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  z-index: 10; /* Added to ensure it stays on top */
+}
+
+.modern-card {
+  /* ... existing styles ... */
+  overflow: visible; /* Changed from 'hidden' to 'visible' */
+}
     
     .modern-card h2 {
       font-size: 1.75rem;
@@ -318,7 +323,6 @@
     .modern-card:nth-child(4) { animation-delay: 0.4s; }
     .modern-card:nth-child(5) { animation-delay: 0.5s; }
     .modern-card:nth-child(6) { animation-delay: 0.6s; }
-    .modern-card:nth-child(7) { animation-delay: 0.7s; }
     
     /* Responsive */
     @media (max-width: 768px) {
@@ -352,10 +356,6 @@
       
       .card-number {
         left: 1.5rem;
-        top: -0.8rem;
-        width: 2.2rem;
-        height: 2.2rem;
-        font-size: 0.8rem;
       }
     }
     
@@ -373,102 +373,102 @@
       }
     }
 
-    /* ===== FOOTER STYLES ===== */
-    .main-footer {
-      background: var(--navy);
-      color: white;
-      padding: 40px 0 0 0;
-      margin-top: 60px;
-      border-top: 1px solid rgba(201, 168, 106, 0.3);
-      width: 100%;
-    }
+  /* ===== FOOTER STYLES ===== */
+.main-footer {
+  background: var(--navy);
+  color: white;
+  padding: 40px 0 0 0;
+  margin-top: 60px;
+  border-top: 1px solid rgba(201, 168, 106, 0.3);
+  width: 100%;
+}
 
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 var(--space-lg) 40px var(--space-lg);
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 40px;
-    }
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg) 40px var(--space-lg);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
 
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
-    .footer-links h4 {
-      font-family: var(--font-heading);
-      font-size: 16px;
-      color: var(--gold);
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
+.footer-links h4 {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  color: var(--gold);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
 
-    .footer-links a {
-      color: white;
-      text-decoration: none;
-      font-size: 14px;
-      transition: all 0.3s ease;
-      opacity: 0.9;
-      font-family: var(--font-body);
-    }
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+  font-family: var(--font-body);
+}
 
-    .footer-links a:hover {
-      color: var(--gold);
-      opacity: 1;
-      transform: translateX(5px);
-    }
+.footer-links a:hover {
+  color: var(--gold);
+  opacity: 1;
+  transform: translateX(5px);
+}
 
-    .footer-links p {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 0;
-      font-family: var(--font-body);
-    }
+.footer-links p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  font-family: var(--font-body);
+}
 
-    .footer-bottom {
-      text-align: center;
-      padding: 20px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 13px;
-      opacity: 0.9;
-      color: white;
-      font-family: var(--font-heading);
-      width: 100%;
-      background: var(--navy);
-    }
+.footer-bottom {
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+  opacity: 0.9;
+  color: white;
+  font-family: var(--font-heading);
+  width: 100%;
+  background: var(--navy);
+}
 
-    .footer-bottom p {
-      margin: 0;
-      padding: 0;
-    }
+.footer-bottom p {
+  margin: 0;
+  padding: 0;
+}
 
-    /* Responsive footer */
-    @media (max-width: 768px) {
-      .footer-content {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-        text-align: center;
-      }
-      
-      .footer-links h4 {
-        margin-top: 10px;
-      }
-      
-      .footer-links a:hover {
-        transform: none;
-      }
-    }
+/* Responsive footer */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    text-align: center;
+  }
+  
+  .footer-links h4 {
+    margin-top: 10px;
+  }
+  
+  .footer-links a:hover {
+    transform: none;
+  }
+}
 
-    @media (max-width: 480px) {
-      .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-    }
+@media (max-width: 480px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
   </style>
 </head>
 <body>
@@ -487,119 +487,139 @@
     <section class="modern-hero">
       <div class="hero-bg" style="background-image:url('images/kudowarm.JPG');"></div>
       <div class="container">
-        <h1>Intellectual Property</h1>
-        <h2>Protecting your ideas, brand, and creative work as valuable business assets.</h2>
+        <h1>Commercial & Corporate Law</h1>
+        <h2>Strategic legal guidance for businesses at every stage of growth and operation.</h2>
       </div>
     </section>
 
     <!-- Practice Areas Section -->
     <div class="section-title">
-      <h2>Intellectual Property Services</h2>
-      <p>Your ideas, brand, and creative work are valuable. We help you protect them, manage them, and enforce your rights so you can grow with confidence and get the best out of your work. Whether you're a creator, entrepreneur, or business, we make IP simple, practical, and aligned with your goals.</p>
+      <h2>Our Commercial & Corporate Services</h2>
+      <p>Running a business comes with both opportunities and challenges. At Byron N & Co Advocates, we help your business navigate the law and market with clear advice, strong legal protection, and practical solutions that support your growth. Whether you're starting a new venture, signing important agreements, or handling a sensitive business issue, we make sure you understand your options and make decisions confidently.</p>
     </div>
 
     <!-- Modern Grid -->
     <div class="modern-grid">
       
-      <!-- 1. Brand Protection (Trademarks) -->
+      <!-- 1. Business Setup & Structuring -->
       <article class="modern-card">
         <div class="card-number">01</div>
         <div class="card-header">
-          <h2>Brand Protection (Trademarks)</h2>
-          <p class="card-intro">We help you secure, register and protect your business name, logo, and brand identity.</p>
+          <h2>Business Setup & Structuring</h2>
+          <p class="card-intro">Starting a company or partnership shouldn't feel confusing.</p>
         </div>
         <div class="card-content">
+          <h3>We help you</h3>
+          <ul class="modern-list">
+            <li>Choose the right business structure</li>
+            <li>Register your business and draft essential documents</li>
+            <li>Set up shareholder or partnership arrangements</li>
+          </ul>
         </div>
         <div class="card-footer">
-          <p class="card-outcome"><b>Result:</b> A strong brand that's legally yours and safe from imitation.</p>
+          <p class="card-outcome"><b>Outcome:</b> A solid legal foundation that protects your interests from day one.</p>
         </div>
       </article>
 
-      <!-- 2. Copyright for Creative Work -->
+      <!-- 2. Contracts & Agreements -->
       <article class="modern-card">
         <div class="card-number">02</div>
         <div class="card-header">
-          <h2>Copyright for Creative Work</h2>
-          <p class="card-intro">We support artists, writers, designers, developers, and content creators in protecting their original work.</p>
+          <h2>Contracts & Agreements</h2>
+          <p class="card-intro">Every successful business relies on clear agreements.</p>
         </div>
         <div class="card-content">
+          <h3>We prepare, review, and negotiate</h3>
+          <ul class="modern-list">
+            <li>Supplier and service contracts</li>
+            <li>Employment and consultancy agreements</li>
+            <li>Shareholder and partnership agreements</li>
+            <li>Confidentiality and non-disclosure agreements</li>
+          </ul>
         </div>
         <div class="card-footer">
-          <p class="card-outcome"><b>Result:</b> Control over how your work is used — and the ability to act when it's misused.</p>
+          <p class="card-outcome"><b>Outcome:</b> Strong, easy-to-understand contracts that reduce risk and protect your business.</p>
         </div>
       </article>
 
-      <!-- 3. Patents & Innovation Protection -->
+      <!-- 3. Compliance & Regulatory Support -->
       <article class="modern-card">
         <div class="card-number">03</div>
         <div class="card-header">
-          <h2>Patents & Innovation Protection</h2>
-          <p class="card-intro">For inventors and innovators, we provide clear guidance through the patent process.</p>
+          <h2>Compliance & Regulatory Support</h2>
+          <p class="card-intro">We guide you through the rules and obligations that affect your industry.</p>
         </div>
         <div class="card-content">
+          <h3>We assist with</h3>
+          <ul class="modern-list">
+            <li>Licensing and regulatory filings</li>
+            <li>Corporate governance</li>
+            <li>Legal audits and compliance checks</li>
+          </ul>
         </div>
         <div class="card-footer">
-          <p class="card-outcome"><b>Result:</b> Solid protection for new ideas, products, and technological solutions.</p>
+          <p class="card-outcome"><b>Outcome:</b> Peace of mind knowing your business meets all legal requirements.</p>
         </div>
       </article>
 
-      <!-- 4. Industrial Designs -->
+      <!-- 4. Mergers, Acquisitions & Business Transfers -->
       <article class="modern-card">
         <div class="card-number">04</div>
         <div class="card-header">
-          <h2>Industrial Designs</h2>
-          <p class="card-intro">We help you protect the unique look and feel of your products.</p>
+          <h2>Mergers, Acquisitions & Business Transfers</h2>
+          <p class="card-intro">Whether you're buying, selling, or restructuring a business, you need clear advice and careful planning.</p>
         </div>
         <div class="card-content">
-
+          <h3>We guide you through</h3>
+          <ul class="modern-list">
+            <li>Due diligence</li>
+            <li>Negotiation and documentation</li>
+            <li>Post-transaction support</li>
+          </ul>
         </div>
         <div class="card-footer">
-          <p class="card-outcome"><b>Result:</b> Legal rights over the appearance of your creations.</p>
+          <p class="card-outcome"><b>Outcome:</b> Smooth transitions that protect value and reduce unexpected risks.</p>
         </div>
       </article>
 
-      <!-- 5. IP Contracts & Licensing -->
+      <!-- 5. Managing Business Risks & Disputes -->
       <article class="modern-card">
         <div class="card-number">05</div>
         <div class="card-header">
-          <h2>IP Contracts & Licensing</h2>
-          <p class="card-intro">We draft and review agreements involving creative and commercial rights — including licensing, assignments, franchising, and collaboration agreements.</p>
+          <h2>Managing Business Risks & Disputes</h2>
+          <p class="card-intro">When issues arise, we help you address them quickly and strategically.</p>
         </div>
         <div class="card-content">
-         
+          <h3>We support you with</h3>
+          <ul class="modern-list">
+            <li>Contract disputes</li>
+            <li>Shareholder or director disagreements</li>
+            <li>Debt recovery</li>
+            <li>Mediation, arbitration, or litigation if needed</li>
+          </ul>
         </div>
         <div class="card-footer">
-          <p class="card-outcome"><b>Result:</b> Clear deals that protect your ownership and income.</p>
+          <p class="card-outcome"><b>Outcome:</b> Practical solutions that keep your business stable and moving forward.</p>
         </div>
       </article>
 
-      <!-- 6. IP Enforcement & Dispute Resolution -->
+      <!-- 6. Ongoing Legal Support for Businesses -->
       <article class="modern-card">
         <div class="card-number">06</div>
         <div class="card-header">
-          <h2>IP Enforcement & Dispute Resolution</h2>
-          <p class="card-intro">When someone uses your work or brand without permission, we act quickly.</p>
+          <h2>Ongoing Legal Support for Businesses</h2>
+          <p class="card-intro">For growing companies, legal needs don't stop after registration.</p>
         </div>
         <div class="card-content">
-         
+          <h3>We offer</h3>
+          <ul class="modern-list">
+            <li>On-call legal advice</li>
+            <li>Review of ongoing contracts</li>
+            <li>Support with day-to-day business decisions</li>
+          </ul>
         </div>
         <div class="card-footer">
-          <p class="card-outcome"><b>Result:</b> Fast, effective steps to stop infringement and protect your rights.</p>
-        </div>
-      </article>
-
-      <!-- 7. IP Strategy for Businesses & Creatives -->
-      <article class="modern-card">
-        <div class="card-number">07</div>
-        <div class="card-header">
-          <h2>IP Strategy for Businesses & Creatives</h2>
-          <p class="card-intro">We work with startups, businesses, and creatives to build long-term, sustainable IP strategies.</p>
-        </div>
-        <div class="card-content">
-          
-        </div>
-        <div class="card-footer">
-          <p class="card-outcome"><b>Result:</b> Structured protection that supports growth, investment, and market expansion.</p>
+          <p class="card-outcome"><b>Outcome:</b> A long-term partner who helps your business stay protected as it grows.</p>
         </div>
       </article>
 
@@ -610,8 +630,7 @@
       <a href="index.html" class="btn primary">← Back to Home</a>
     </div>
   </main>
-
-  <!-- Footer -->
+<!-- Footer -->
   <footer class="main-footer">
     <div class="footer-content">
       <!-- Connect section -->

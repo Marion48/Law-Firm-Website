@@ -142,7 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (hb) hb.textContent = data.hero.button_text || hb.textContent;
     }
 
-    // PRACTICE AREAS
+    // PRACTICE AREAS (comment out or remove this section)
+/*
     const pa = document.getElementById('practice-area-list');
     if (pa && Array.isArray(data.practiceAreas)) {
       pa.innerHTML = '';
@@ -154,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pa.appendChild(a);
       });
     }
+*/
 
     // TEAM
     const tg = document.getElementById('team-grid');
@@ -283,4 +285,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
   });
+  
 });
+

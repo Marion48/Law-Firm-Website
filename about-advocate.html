@@ -1,44 +1,416 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Byron N. & Co. Advocates</title>
-  <meta name="description" content="Corporate law services by Byron N. & Co. Advocates. Incorporations, M&A, compliance and governance.">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Byron Nyasimi | Advocate & Legal Advisor</title>
+<meta name="description" content="Meet Byron Nyasimi, lead advocate at Byron N. & Co. Advocates. Specializing in commercial law, litigation, intellectual property, and corporate advisory in Nairobi, Kenya.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#0a192f;
+  --maroon:#800020;
+  --white:#ffffff;
+  --gold:#c9a44c;
+  --glass:rgba(10,25,47,0.72);
+}
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  color:var(--white);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* === BACKGROUND IMAGE === */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(10,25,47,.88),rgba(10,25,47,.88)),
+    url("images/Oil painting Byron.png") center right/cover no-repeat;
+  filter:grayscale(100%);
+  z-index:-1;
+}
+
+/* NAV */
+.nav {
+  position: sticky;
+  top: 0;
+  background: rgba(10, 25, 47, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 100;
+  padding: 0;
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-combo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+#main-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+#main-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: opacity 0.3s ease;
+}
+
+#main-nav a:hover {
+  opacity: 0.8;
+}
+
+#mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* HERO */
+.hero{
+  max-width:1200px;
+  margin:90px auto 120px;
+  padding:0 24px;
+  animation:fadeUp 1s ease forwards;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:64px;
+  font-weight:400;
+  letter-spacing:6px;
+}
+.hero h1 span{
+  display:block;
+  font-weight:700;
+}
+.hero h2{
+  margin-top:14px;
+  font-size:14px;
+  letter-spacing:4px;
+  color:var(--gold);
+}
+
+/* GRID */
+.grid{
+  max-width:1200px;
+  margin:auto;
+  padding:0 24px 120px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+}
+
+/* CARDS */
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(14px);
+  border-radius:16px;
+  padding:36px;
+  animation:fadeUp .9s ease forwards;
+}
+.card h3{
+  font-family:'Playfair Display',serif;
+  font-size:18px;
+  margin-bottom:18px;
+  position:relative;
+}
+.card h3::after{
+  content:"";
+  display:block;
+  width:40px;
+  height:2px;
+  background:var(--maroon);
+  margin-top:12px;
+}
+
+/* TEXT */
+.card p, .card li{
+  font-size:14px;
+  line-height:1.8;
+  opacity:.92;
+}
+.card ul{list-style:none}
+
+/* FOOTER */
+.main-footer {
+  background: var(--navy);
+  color: white;
+  padding: 40px 0 0 0;
+  margin-top: 60px;
+  border-top: 1px solid rgba(201, 168, 106, 0.3);
+  width: 100%;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 40px 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  color: var(--gold);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+.footer-links p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+  opacity: 0.9;
+  color: white;
+  font-family: 'Playfair Display', serif;
+  width: 100%;
+  background: var(--navy);
+}
+
+.footer-bottom p {
+  margin: 0;
+  padding: 0;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr;gap:60px}
+  .hero h1{font-size:44px}
+  
+  #mobile-toggle {
+    display: block;
+  }
+  
+  #main-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--navy);
+    padding: 20px;
+  }
+  
+  #main-nav.active {
+    display: block;
+  }
+  
+  #main-nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+@media(max-width:480px){
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .hero h1{font-size:36px}
+}
+</style>
 </head>
+
 <body>
-<header class="nav"><div class="container nav-inner"> <a class="brand brand-combo" href="index.html">
-  <img src="images/logo.png" alt="Firm Logo" class="logo">
-  <span>Byron N. & Co. Advocates</span>
-</a></div></header>
-<main>
-  <section class="hero" style="min-height:40vh">
-    <div class="hero-bg" style="background-image:url('images/practice-corporate.jpg');"></div>
-    <div class="container hero-content">
-      <div class="hero-left">
-        <h1>Meet our Lead Advocate</h1>
-        <p class="lead">Incorporations, M&A, compliance, contracts and governance for growth-stage and enterprise clients.</p>
-      </div>
-    </div>
-  </section>
 
-  <section class="section container">
-    <h2>What we do</h2>
-    <p>We advise on company formations, shareholder agreements, mergers &amp; acquisitions, corporate governance and commercial contracts. Our approach is commercial and pragmatic.</p>
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand brand-combo" href="index.html">
+      <img src="images/logo.png" alt="Firm Logo" class="logo">
+      <span>Byron N. & Co. Advocates</span>
+    </a>
+    <button id="mobile-toggle" class="hamburger" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav id="main-nav" role="navigation" aria-label="Main Navigation">
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="home.html#about">About</a></li>
+        <li><a href="home.html#services">Practice Areas</a></li>
+        <li><a href="home.html#team">Team</a></li>
+        <li><a href="insights.html">Insights</a></li>
+        <li><a href="book-reviews.html">Reading Room</a></li>
+        <li><a href="home.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    <h3>Common questions</h3>
+<!-- HERO -->
+<section class="hero">
+  <h1>BYRON <span>NYASIMI</span></h1>
+  <h2>ADVOCATE & LEGAL ADVISOR</h2>
+</section>
+
+<!-- CONTENT GRID -->
+<section class="grid">
+
+  <div class="card">
+    <h3>Professional Profile</h3>
+    <p>
+      Byron Nyasimi is a Nairobi-based advocate specializing in commercial law,
+      litigation, intellectual property, and corporate advisory. His approach
+      combines precision, clarity, and strategic foresight.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Practice Areas</h3>
     <ul>
-      <li>How long does incorporation take?</li>
-      <li>What warranties are common in M&A?</li>
-      <li>How should we structure shareholder protections?</li>
+      <li>Commercial & Corporate Law</li>
+      <li>Litigation & Dispute Resolution</li>
+      <li>Intellectual Property</li>
+      <li>Property & Conveyancing</li>
+      <li>Criminal Defence</li>
     </ul>
+  </div>
 
-    <h3>Why choose us</h3>
-    <p>We combine transactional experience with regulatory understanding to protect value and reduce risk.</p>
+  <div class="card">
+    <h3>Education & Admission</h3>
+    <p>
+      LL.B – Kabarak University (Second Class Upper)<br>
+      Admitted to the Bar – 2025
+    </p>
+  </div>
 
-    <p><a href="index.html" class="btn primary">Back to Home</a></p>
-  </section>
-</main>
-<footer class="footer"><div class="container footer-inner"><div><p class="brand">Byron N. & Co. Advocates</p></div></div></footer>
+  <div class="card">
+    <h3>Why Clients Choose Byron</h3>
+    <p>
+      Clients value Byron's personalized attention, strong negotiation skills,
+      and ability to translate complex legal issues into practical solutions.
+    </p>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="main-footer">
+  <div class="footer-content">
+    <!-- Connect section -->
+    <div class="footer-links">
+      <h4>Connect</h4>
+      <a href="mailto:marioncherono55@gmail.com">marioncherono55@gmail.com</a>
+      <a href="tel:+254707146880">+254 707 146 880</a>
+      <p>Westlands Square, Nairobi, Kenya</p>
+    </div>
+    
+    <!-- Services section with updated links -->
+    <div class="footer-links">
+      <h4>Services</h4>
+      <a href="litigation-dispute-resolution.html">Litigation & Dispute Resolution</a>
+      <a href="intellectual-property.html">Intellectual Property</a>
+      <a href="Commercial and corporate law.html">Commercial & Corporate Law</a>
+      <a href="Constitutional and Human Rights Law.html">Constitutional and Human Rights Law</a>
+      <a href="conveyancing.html">Conveyancing</a>
+      <a href="Criminal Litigation.html">Criminal Litigation</a>
+      <a href="entertainment.html">Entertainment</a>
+      <a href="Compensation & Liability Matters.html">Compensation & Liability Matters</a>
+    </div>
+    
+    <!-- Quick Links section -->
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="home.html#about">About Us</a>
+      <a href="home.html#team">Our Team</a>
+      <a href="insights.html">Legal Insights</a>
+      <a href="book-reviews.html">Reading Room</a>
+    </div>
+  </div>
+  
+  <!-- Footer bottom -->
+  <div class="footer-bottom">
+    <p>© <span id="current-year"></span> Byron N. & Co. Advocates. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Set current year
+  document.getElementById('current-year').textContent = new Date().getFullYear();
+  
+  // Mobile navigation toggle
+  const mobileToggle = document.getElementById('mobile-toggle');
+  const mainNav = document.getElementById('main-nav');
+  
+  mobileToggle.addEventListener('click', () => {
+    mainNav.classList.toggle('active');
+    mobileToggle.setAttribute('aria-expanded', mainNav.classList.contains('active'));
+  });
+</script>
+
 </body>
 </html>

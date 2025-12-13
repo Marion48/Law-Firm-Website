@@ -1437,3 +1437,104 @@ body.fade-out {
   40%  { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.05); opacity: 1; }
 }
+/* ===== UPDATED FOOTER STYLES (like litigation page) ===== */
+
+
+ .main-footer {
+      background: var(--navy);
+      color: white;
+      padding: 40px 0 20px;
+      margin-top: 60px;
+      border-top: 1px solid var(--tan);
+    }
+
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  text-align: center;
+  justify-content: center;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links h4 {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  color: var(--gold);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+  font-family: var(--font-body);
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+.footer-links p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+
+ .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 13px;
+      opacity: 0.9;
+      color: white;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+.copyright {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Responsive footer */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    text-align: center;
+  }
+  
+  .footer-links h4 {
+    margin-top: 10px;
+  }
+  
+  .footer-links a:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: bottom;
+  }
+}

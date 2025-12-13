@@ -23,6 +23,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <!-- Add this right after the opening <body> tag -->
 <div class="scroll-progress"></div>
@@ -74,12 +75,12 @@
     
     <!-- Centered content block -->
     <div class="about-centered-content">
-      <p>We provide dedicated legal representation for businesses and individuals. Our approach combines careful legal analysis with practical solutions tailored to each client's unique situation.</p>
+      <p>Byron N & Co. Advocates is a modern, client-first law firm built on clarity, integrity, and practical problem-solving. We are committed to delivering excellence in every matter we handle. We offer the personal attention and interest of a small practice alongside the depth and expertise of a larger firm. We take time to understand our clients’ needs and ensure that we get the best solutions.</p>
       <ul class="bullets">
-        <li>Strategic legal counsel.</li>
-        <li>Commercial litigation & dispute resolution.</li>
-        <li>Human rights law.</li>
-        <li>Entertainment law.</li>
+        <li>Focused on understanding your needs.</li>
+        <li>Guidance you can rely on.</li>
+        <li>Always clear.</li>
+        <li>Steady support.</li>
       </ul>
     </div>
     
@@ -91,12 +92,58 @@
     </div>
   </section>
 
-  <!-- PRACTICE AREAS -->
+    <!-- PRACTICE AREAS -->
   <section id="services" class="section bg-ivory animate-up scroll-reveal delay-1" aria-labelledby="services-h">
     <div class="container">
-      <h2 id="services-h">Services.</h2>
-      <div id="practice-area-list" class="services-grid" aria-live="polite">
-        <!-- JS will populate practice cards from content.json -->
+      <h2 id="services-h">Our Services</h2>
+      <div class="services-grid" aria-live="polite">
+        <!-- Litigation & Dispute Resolution -->
+        <a href="litigation-dispute-resolution.html" class="practice-card">
+          <h3>Litigation & Dispute Resolution</h3>
+          <p>Strategic courtroom representation and Alternative Dispute Resolution.</p>
+        </a>
+        
+        <!-- Intellectual Property -->
+        <a href="intellectual-property.html" class="practice-card">
+          <h3>Intellectual Property</h3>
+          <p>Protection and enforcement of patents, trademarks, copyrights, and trade secrets.</p>
+        </a>
+        
+        <!-- Commercial & Corporate Law -->
+        <a href="Commercial & Corporate law.html" class="practice-card">
+          <h3>Commercial & Corporate Law</h3>
+          <p>Business formation, contracts, mergers, acquisitions, and corporate governance.</p>
+        </a>
+        
+        <!-- Constitutional and Human Rights Law -->
+        <a href="Constitutional and Human Rights Law.html" class="practice-card">
+          <h3>Constitutional & Human Rights Law</h3>
+          <p>Protection of fundamental rights and challenges to unconstitutional actions.</p>
+        </a>
+        
+        <!-- Conveyancing -->
+        <a href="conveyancing.html" class="practice-card">
+          <h3>Conveyancing</h3>
+          <p>Property transactions, title verification, and real estate legal documentation.</p>
+        </a>
+        
+        <!-- Criminal Litigation -->
+        <a href="Criminal Litigation.html" class="practice-card">
+          <h3>Criminal Litigation</h3>
+          <p>Defense representation, bail applications, and criminal procedure matters.</p>
+        </a>
+        
+        <!-- Entertainment -->
+        <a href="entertainment.html" class="practice-card">
+          <h3>Entertainment Law</h3>
+          <p>Contracts, rights management, and legal counsel for creative industries.</p>
+        </a>
+        
+        <!-- Compensation & Liability Matters -->
+        <a href="Compensation & Liability Matters.html" class="practice-card">
+          <h3>Compensation & Liability</h3>
+          <p>Personal injury claims, insurance disputes, and liability assessment.</p>
+        </a>
       </div>
     </div>
   </section>
@@ -164,14 +211,19 @@
             <input id="phone" name="phone" type="text">
           </div>
           <div class="form-row">
-            <label for="service">Service of interest</label>
-            <select id="service" name="service">
-              <option>Corporate Law</option>
-              <option>Litigation</option>
-              <option>Real Estate</option>
-              <option>Other</option>
-            </select>
-          </div>
+  <label for="service">Service of interest</label>
+  <select id="service" name="service">
+    <option>Litigation & Dispute Resolution</option>
+    <option>Intellectual Property</option>
+    <option>Commercial & Corporate Law</option>
+    <option>Constitutional and Human Rights Law</option>
+    <option>Conveyancing</option>
+    <option>Criminal Litigation</option>
+    <option>Entertainment Law</option>
+    <option>Compensation & Liability Matters</option>
+    <option>Other</option>
+  </select>
+</div>
           <div class="form-row">
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" required></textarea>
@@ -185,22 +237,38 @@
   </section>
 </main>
 
-<!-- FOOTER -->
-<footer class="footer" role="contentinfo">
-  <div class="container footer-inner">
-    <div>
-      <p class="brand">Byron N. & Co. Advocates</p>
-      <p class="small">© <span id="yr"></span> Byron N. & Co. Advocates. All rights reserved.</p>
+<!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <!-- Connect section -->
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <a href="mailto:marioncherono55@gmail.com">marioncherono55@gmail.com</a>
+        <a href="tel:+254707146880">+254 707 146 880</a>
+        <p>Westlands Square, Nairobi, Kenya</p>
+      </div>
+      
+      <!-- Services section with updated links -->
+      <div class="footer-links">
+        <h4>Services</h4>
+        <a href="litigation-dispute-resolution.html">Litigation & Dispute Resolution</a>
+        <a href="intellectual-property.html">Intellectual Property</a>
+        <a href="Commercial and corporate law.html">Commercial & Corporate Law</a>
+        <a href="Constitutional and Human Rights Law.html">Constitutional and Human Rights Law</a>
+        <a href="conveyancing.html">Conveyancing</a>
+        <a href="Criminal Litigation.html">Criminal Litigation</a>
+        <a href="entertainment.html">Entertainment</a>
+        <a href="Compensation & Liability Matters.html">Compensation & Liability Matters</a>
+      </div>
+      
     </div>
-    <nav aria-label="footer links">
-      <ul>
-        <li><a href="#privacy">Privacy</a></li>
-        <li><a href="#terms">Terms</a></li>
-      </ul>
-    </nav>
+  <!-- Footer bottom -->
+  <div class="footer-bottom">
+    <p>© <span id="yr"></span> Byron N. & Co. Advocates. All rights reserved.</p>
   </div>
 </footer>
 
 <script src="main.js" defer></script>
+
 </body>
 </html>
