@@ -1446,7 +1446,7 @@ body.fade-out {
   /* Fix hero section */
   .hero {
     min-height: 20vh;
-    padding-top: 70px;
+    padding-top: 20px;
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
   }
