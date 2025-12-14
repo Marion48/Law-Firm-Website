@@ -933,7 +933,7 @@ textarea {
   position: relative;
   min-height: 815px; /* Make it taller */
   overflow: hidden;
-  background: var(--ivory);
+  
 }
 #about::before {
   content: '';
