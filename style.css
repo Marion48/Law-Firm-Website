@@ -1441,3 +1441,348 @@ body.fade-out {
     text-align: bottom;
   }
 }
+/* ===== MOBILE OPTIMIZATIONS ===== */
+@media (max-width: 768px) {
+  /* Fix hero section */
+  .hero {
+    min-height: 70vh;
+    padding-top: 100px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+  }
+  
+  .hero-left h1 {
+    font-size: 1.8rem;
+    line-height: 1.3;
+    padding: 0 15px;
+  }
+  
+  .hero-left .lead {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+  
+  /* Fix about section */
+  #about {
+    min-height: auto;
+    padding: 60px 0;
+  }
+  
+  .about-centered-content {
+    min-height: auto;
+    padding: 0 15px;
+  }
+  
+  .about-centered-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+  
+  .about-centered-content .bullets {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .about-centered-content .bullets li {
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 10px auto;
+  }
+  
+  /* Fix practice areas */
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 15px;
+  }
+  
+  .practice-card {
+    padding: 20px 15px;
+    margin: 0 10px;
+  }
+  
+  .practice-card h3 {
+    font-size: 1.1rem;
+  }
+  
+  .practice-card p {
+    font-size: 0.9rem;
+  }
+  
+  /* Fix team section */
+  #team .team-grid {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  
+  .team-card {
+    max-width: 100%;
+    margin: 0 10px;
+  }
+  
+  .team-card img {
+    height: 250px;
+  }
+  
+  /* Fix insights */
+  .post-card {
+    flex-direction: column;
+    margin: 0 10px;
+  }
+  
+  .post-card img {
+    width: 100%;
+    height: 180px;
+  }
+  
+  .post-card .post-content {
+    padding: 15px;
+  }
+  
+  /* Fix contact form */
+  form {
+    padding: 20px 15px;
+    margin: 0 10px;
+  }
+  
+  .form-row {
+    margin-bottom: 15px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  select,
+  textarea {
+    padding: 10px;
+  }
+  
+  /* Fix buttons */
+  .btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .btn.primary, .btn.ghost {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  /* Fix container spacing */
+  .container {
+    padding: 0 15px;
+  }
+  
+  .section {
+    padding: 40px 0;
+  }
+  
+  /* Fix headings for mobile */
+  h1 {
+    font-size: 2rem;
+    padding: 0 15px;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    padding: 0 15px;
+    margin-bottom: 20px;
+  }
+  
+  h3 {
+    font-size: 1.4rem;
+  }
+  
+  /* Fix text alignment */
+  p, .lead, .bullets, address {
+    padding: 0 15px;
+    text-align: center;
+  }
+  
+  /* Fix footer */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 0 20px;
+  }
+  
+  .footer-links {
+    text-align: center;
+  }
+  
+  /* Fix navigation */
+  .nav {
+    height: 70px;
+  }
+  
+  .logo {
+    height: 50px;
+  }
+  
+  .brand-combo span {
+    font-size: 0.9rem;
+  }
+  
+  /* Fix section titles */
+  .section-title {
+    padding: 0 15px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .hero-left h1 {
+    font-size: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .hero-left .lead {
+    font-size: 0.95rem;
+  }
+  
+  .about-centered-content .bullets li {
+    font-size: 0.95rem;
+  }
+  
+  .team-card img {
+    height: 220px;
+  }
+  
+  /* Ensure everything is centered */
+  .container > * {
+    text-align: center;
+  }
+  
+  /* Fix list alignment */
+  ul, ol {
+    padding-left: 20px;
+    text-align: left;
+    display: inline-block;
+  }
+  
+  /* Fix image backgrounds on mobile */
+  #about::before,
+  #services::before,
+  #contact::before,
+  #insights-preview::before,
+  #team::before {
+    background-attachment: scroll;
+    background-position: center;
+  }
+}
+
+/* Tablet specific fixes */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+  }
+  
+  .practice-card {
+    padding: 20px;
+  }
+  
+  .hero-left h1 {
+    font-size: 2.2rem;
+  }
+  
+  .container {
+    padding: 0 30px;
+  }
+}
+
+/* ===== TOUCH-FRIENDLY ELEMENTS ===== */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch target sizes */
+  .practice-card,
+  .team-card,
+  .post-card,
+  .btn {
+    min-height: 44px; /* Minimum touch target size */
+  }
+  
+  /* Remove hover effects on mobile */
+  .practice-card:hover,
+  .team-card:hover,
+  .post-card:hover {
+    transform: none;
+  }
+  
+  /* Keep essential hover states as active states */
+  .practice-card:active,
+  .team-card:active,
+  .post-card:active {
+    transform: translateY(-2px);
+  }
+}
+
+/* ===== PREVENT HORIZONTAL SCROLL ===== */
+@media (max-width: 768px) {
+  body, html {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .container, .section, .hero, #about, #services, #team, #contact {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* ===== CONSISTENT SPACING MOBILE ===== */
+@media (max-width: 768px) {
+  * {
+    margin: 0;
+  }
+  
+  .section {
+    margin: 0;
+    padding: 40px 0;
+  }
+  
+  .container > * + * {
+    margin-top: 25px;
+  }
+  
+  /* Ensure all content fits within viewport */
+  img, video, iframe {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ===== ABOUT SECTION MOBILE SPECIFIC ===== */
+@media (max-width: 768px) {
+  #about {
+    position: relative;
+    min-height: auto;
+    padding: 40px 0;
+  }
+  
+  #about::before {
+    background-position: center 50%;
+    background-size: cover;
+    opacity: 0.15; /* Slightly lower opacity on mobile for better readability */
+  }
+  
+  .about-centered-content {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px 15px;
+    border-radius: 0;
+    margin: 0 10px;
+  }
+  
+  .about-centered-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
