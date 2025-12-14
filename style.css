@@ -1446,10 +1446,15 @@ body.fade-out {
   /* Fix hero section */
   .hero {
     min-height: 20vh;
-    padding-top: 20px;
+    padding-top: 60px;
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
   }
+  .hero-bg {
+    background-size: 120% auto; /* Zoom in */
+    background-position: center 50%;
+  }
+  
   
   .hero-left h1 {
     font-size: 1.8rem;
