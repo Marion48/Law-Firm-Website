@@ -1445,13 +1445,13 @@ body.fade-out {
 @media (max-width: 768px) {
   /* Fix hero section */
   .hero {
-    min-height: 20vh;
+    min-height: 60vh;
     padding-top: 60px;
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
   }
   .hero-bg {
-    background-size: 120% auto; /* Zoom in */
+    background-size: 100% auto; /* Zoom in */
     background-position: center 50%;
   }
   
