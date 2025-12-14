@@ -1450,10 +1450,7 @@ body.fade-out {
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
   }
-  .hero-bg {
-    background-size: 100% auto; /* Zoom in */
-    background-position: center 50%;
-  }
+  
   
   
   .hero-left h1 {
