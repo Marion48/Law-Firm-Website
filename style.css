@@ -412,21 +412,71 @@ nav#main-nav a:hover::after {
   margin-bottom: var(--space-lg);
 }
 
+/* Premium Bullet Points - SMALLER VERSION */
 .about-centered-content .bullets {
   list-style: none;
   padding: 0;
-  display: inline-block;
+  margin: var(--space-xl) auto;
+  max-width: 600px;
   text-align: left;
+  display: inline-block;
 }
 
 .about-centered-content .bullets li {
   position: relative;
-  font-size: var(--text-l);
-  padding-left: var(--space-md);
-  margin-bottom: var(--space-sm);
-  color: var(--charcoal);
+  font-size: var(--text-lg);
+  padding-left: 2rem; /* Reduced from 2.5rem */
+  margin-bottom: var(--space-lg);
+  color: var(--navy);
+  line-height: 1.6;
+  font-weight: 400;
+  transition: all 0.3s ease;
 }
 
+.about-centered-content .bullets li:last-child {
+  margin-bottom: 0;
+}
+
+.about-centered-content .bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.4rem; /* Adjusted for smaller size */
+  width: 16px; /* Reduced from 20px */
+  height: 16px; /* Reduced from 20px */
+  background: var(--maroon);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.about-centered-content .bullets li::after {
+  content: '';
+  position: absolute;
+  left: 4px; /* Adjusted for smaller size */
+  top: 0.65rem; /* Adjusted for smaller size */
+  width: 8px; /* Reduced from 10px */
+  height: 8px; /* Reduced from 10px */
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s ease;
+}
+
+.about-centered-content .bullets li:hover {
+  color: var(--maroon-dark);
+  transform: translateX(5px);
+}
+
+.about-centered-content .bullets li:hover::before {
+  background: var(--maroon-dark);
+  transform: scale(1.1);
+}
+
+.about-centered-content .bullets li:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
 
 
 /* ===== TEAM SECTION ONLY - CORRECTED ===== */
@@ -1764,68 +1814,153 @@ body.fade-out {
 /* ===== MOBILE FIXES FOR ABOUT SECTION ===== */
 @media (max-width: 768px) {
   #about {
-    min-height: auto; /* Remove fixed height on mobile */
+    min-height: auto;
     padding: 40px 0;
-    display: block; /* Change from flex to block */
+    display: block;
   }
   
   #about::before {
-    background-position: center; /* Center the image */
-    opacity: 0.15; /* Slightly less opaque for better readability */
+    background-position: center;
+    opacity: 0.15;
   }
   
   #about .container {
-    background: rgba(255, 255, 255, 0.9); /* More opaque on mobile */
-    padding: 25px 20px;
-    margin: 0 15px; /* Smaller margins on mobile */
-    border-radius: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: var(--space-xl);
+    margin: 0 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+  
+  #about h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
   }
   
   .about-centered-content {
     padding: 0;
-    min-height: auto; /* Remove min-height */
   }
   
   .about-centered-content p {
-    font-size: 1rem;
+    font-size: var(--text-base);
     line-height: 1.6;
-    text-align: center;
-    padding: 0;
+    margin-bottom: var(--space-lg);
   }
   
+  /* Updated bullet points for tablet */
   .about-centered-content .bullets {
+    margin: var(--space-lg) auto;
+    max-width: 100%;
     text-align: center;
-    display: block;
-    margin: 0 auto;
   }
   
   .about-centered-content .bullets li {
+    font-size: var(--text-base);
+    padding-left: 1.8rem; /* Reduced from 2rem */
+    margin-bottom: var(--space-md);
     text-align: left;
-    display: inline-block;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto 10px auto;
-    font-size: 1rem;
+    display: block;
+    max-width: 100%;
+  }
+  
+  .about-centered-content .bullets li::before {
+    width: 14px; /* Reduced from 16px */
+    height: 14px; /* Reduced from 16px */
+    top: 0.35rem; /* Adjusted for smaller size */
+  }
+  
+  .about-centered-content .bullets li::after {
+    left: 3.5px; /* Adjusted for smaller size */
+    top: 0.6rem; /* Adjusted for smaller size */
+    width: 7px; /* Reduced from 8px */
+    height: 7px; /* Reduced from 8px */
+  }
+  
+  .about-centered-content .bullets li:hover {
+    transform: translateX(3px);
   }
 }
 
+/* Extra small devices */
 @media (max-width: 480px) {
   #about {
     padding: 30px 0;
   }
   
   #about .container {
-    padding: 20px 15px;
-    margin: 0 10px;
-    background: rgba(255, 255, 255, 0.95); /* Even more opaque on very small screens */
+    padding: var(--space-lg);
+    margin: 0 15px;
+  }
+  
+  #about h2 {
+    font-size: var(--text-2xl);
   }
   
   .about-centered-content p {
-    font-size: 0.95rem;
+    font-size: 1rem;
+  }
+  
+  /* Updated bullet points for mobile */
+  .about-centered-content .bullets {
+    margin: var(--space-md) auto;
   }
   
   .about-centered-content .bullets li {
-    font-size: 0.95rem;
-    max-width: 100%;
+    font-size: 1rem;
+    padding-left: 1.6rem; /* Reduced from 1.8rem */
+    margin-bottom: var(--space-sm);
+  }
+  
+  .about-centered-content .bullets li::before {
+    width: 12px; /* Reduced from 14px */
+    height: 12px; /* Reduced from 14px */
+    top: 0.3rem; /* Adjusted for smaller size */
+  }
+  
+  .about-centered-content .bullets li::after {
+    left: 3px; /* Adjusted for smaller size */
+    top: 0.55rem; /* Adjusted for smaller size */
+    width: 6px; /* Reduced from 7px */
+    height: 6px; /* Reduced from 7px */
+  }
+}
+
+/* For very small screens (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .about-centered-content .bullets li {
+    padding-left: 1.5rem; /* Even smaller for tiny screens */
+  }
+  
+  .about-centered-content .bullets li::before {
+    width: 11px; /* Even smaller for tiny screens */
+    height: 11px; /* Even smaller for tiny screens */
+    top: 0.25rem;
+  }
+  
+  .about-centered-content .bullets li::after {
+    left: 2.5px;
+    top: 0.5rem;
+    width: 5px; /* Even smaller for tiny screens */
+    height: 5px; /* Even smaller for tiny screens */
+  }
+}
+
+/* Tablet specific fixes */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .about-centered-content .bullets li {
+    padding-left: 1.9rem; /* Slightly smaller than desktop but larger than mobile */
+  }
+  
+  .about-centered-content .bullets li::before {
+    width: 15px; /* Between desktop and mobile */
+    height: 15px; /* Between desktop and mobile */
+    top: 0.38rem;
+  }
+  
+  .about-centered-content .bullets li::after {
+    left: 3.75px;
+    top: 0.63rem;
+    width: 7.5px; /* Between desktop and mobile */
+    height: 7.5px; /* Between desktop and mobile */
   }
 }
