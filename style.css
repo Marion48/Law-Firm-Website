@@ -228,21 +228,23 @@ nav#main-nav a:hover::after {
 
 /* ===== HERO SECTION ===== */
 .hero {
-  min-height: 20vh; /* Adjusted for better proportions */
+  min-height: 60vh; /* Adjusted for better proportions */
   display: flex;
   align-items: center;
   padding-top: 120px; /* Increased for nav clearance */
   position: relative;
   overflow: hidden;
   margin-top: 0;
+  border-bottom-left-radius: 80px;
+  border-bottom-right-radius: 80px;
 }
 
 .hero-bg {
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center;
-  filter: brightness(0.7) contrast(1.08);
+  background-position: center 30%;
+  filter: brightness(0.9) contrast(1.08);
   transform: scale(1.02);
   will-change: transform;
 }
@@ -380,11 +382,13 @@ nav#main-nav a:hover::after {
 }
 
 /* ===== ABOUT SECTION ===== */
+
 #about {
   position: relative;
-  background: transparent !important;
   overflow: hidden;
+  text-align: center;
 }
+
 
 #about h2 {
   text-align: center;
@@ -393,8 +397,9 @@ nav#main-nav a:hover::after {
 
 /* Centered content */
 .about-centered-content {
-  text-align: center;
+  text-align: center !important;
   max-width: 800px;
+  min-height: 400px;
   font-weight: 400;
   font-size: var(--text-l);
   margin: 0 auto var(--space-xl) auto;
@@ -420,70 +425,6 @@ nav#main-nav a:hover::after {
   padding-left: var(--space-md);
   margin-bottom: var(--space-sm);
   color: var(--charcoal);
-}
-
-
-/* ===== SLEEK STATS ===== */
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--space-md);
-  margin: var(--space-xl) auto;
-  max-width: 1000px;
-}
-
-.stat {
-  position: relative;
-  padding: var(--space-lg) var(--space-md);
-  background: #fff;
-  border: 1px solid rgba(7, 18, 37, 0.08);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.04);
-  border-radius: 0;
-  transition: all 0.3s ease;
-  text-align: center;
-  overflow: hidden;
-}
-
-.stat::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--maroon);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-}
-
-.stat:hover::before {
-  transform: scaleX(1);
-}
-
-.stat span {
-  display: block;
-  font-size: var(--text-lg);
-  font-weight: 700;
-  color: var(--charcoal);
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.01em;
-  font-family: var(--font-heading);
-}
-
-.stat small {
-  display: block;
-  font-size: 0.9rem;
-  color: var(--muted);
-  line-height: 1.5;
-  font-weight: 400;
-  opacity: 0.9;
-}
-
-.stat:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(128, 0, 32, 0.08);
-  border-color: rgba(128, 0, 32, 0.1);
 }
 
 
@@ -759,49 +700,7 @@ nav#main-nav a:hover::after {
   border-color: rgba(128, 0, 32, 0.15);
 }
 
-/* ===== STATS ===== */
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-lg);
-  margin: var(--space-xl) auto;
-  max-width: 1000px;
-}
 
-.stat {
-  position: relative;
-  padding: var(--space-lg) var(--space-md) var(--space-lg) 2.5rem;
-  background: #fff;
-  border-left: 4px solid var(--maroon);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  border-radius: 0;
-  transition: all 0.3s ease;
-  text-align: left;
-}
-
-.stat:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(128, 0, 32, 0.1);
-  border-left-width: 6px;
-}
-
-.stat span {
-  display: block;
-  font-size: var(--text-xl);
-  font-weight: 700;
-  color: var(--charcoal);
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-  font-family: var(--font-heading);
-}
-
-.stat small {
-  display: block;
-  font-size: 0.95rem;
-  color: #666;
-  line-height: 1.5;
-  font-weight: 400;
-}
 
 /* ===== INSIGHTS ===== */
 .blog-grid {
@@ -1030,21 +929,29 @@ textarea {
 
 /* ===== BACKGROUND SECTIONS WITH IMAGES ===== */
 /* About Our Firm - Off White background */
+#about {
+  position: relative;
+  min-height: 815px; /* Make it taller */
+  overflow: hidden;
+  background: var(--ivory);
+}
 #about::before {
   content: '';
   position: absolute;
-  top: 0;
+   top: 0;
   left: 0;
-  width: 100vw;
-  height: 105%;
+  width: 100%;
+  height: 100%;
+  inset: 0; /* top:0 right:0 bottom:0 left:0 */
   background-image: url('images/Mask.jpg');
   background-size: cover;
-  background-position: center center;
+  background-position: center 45%;
   background-repeat: no-repeat;
   opacity: 0.35;
   z-index: -1;
-  margin-left: calc(-50vw + 50%);
 }
+
+
 
 /* Practice Areas - Dark Blue background */
 #services::before {
@@ -1162,10 +1069,6 @@ textarea {
   
   .hero-left h1 {
     font-size: 2rem;
-  }
-  
-  .about-stats {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 
