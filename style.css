@@ -429,7 +429,7 @@ nav#main-nav a:hover::after {
   margin-bottom: var(--space-lg);
   color: var(--navy);
   line-height: 1.6;
-  font-weight: 400;
+  font-weight: 350;
   transition: all 0.3s ease;
 }
 
@@ -442,8 +442,8 @@ nav#main-nav a:hover::after {
   position: absolute;
   left: 0;
   top: 0.4rem; /* Adjusted for smaller size */
-  width: 16px; /* Reduced from 20px */
-  height: 16px; /* Reduced from 20px */
+  width: 14px; /* Reduced from 20px */
+  height: 14px; /* Reduced from 20px */
   background: var(--maroon);
   border-radius: 50%;
   transition: all 0.3s ease;
@@ -997,7 +997,7 @@ textarea {
   background-size: cover;
   background-position: center 45%;
   background-repeat: no-repeat;
-  opacity: 0.2;
+  opacity: 0.3;
   z-index: -1;
 }
 
