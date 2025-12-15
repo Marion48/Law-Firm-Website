@@ -1518,7 +1518,7 @@ body.fade-out {
   
   .about-centered-content {
     min-height: auto;
-    padding: 0 15px;
+    padding: 15px;
   }
   
   .about-centered-content p {
@@ -1822,7 +1822,7 @@ body.fade-out {
   
   #about .container {
     background: rgba(255, 255, 255, 0.95);
-    padding: var(--space-xl);
+    padding: 0;
     margin: 0 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   }
@@ -1959,4 +1959,17 @@ body.fade-out {
     width: 7.5px;
     height: 7.5px;
   }
+}
+/* Fix for about section vertical centering */
+#about.section {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  min-height: 820px;
+}
+
+#about .container {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
