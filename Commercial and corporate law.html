@@ -27,6 +27,15 @@
       position: relative;
       padding-top: 100px;
     }
+    .modern-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+  filter: brightness(0.9999) contrast(1.08);
+  transform: scale(1.02);
+  will-change: transform;
+}
     
     .modern-hero .container {
       position: relative;
@@ -37,7 +46,7 @@
     }
     
     .modern-hero h1 {
-      font-size: 3.5rem;
+      font-size: 2.5rem;
       line-height: 1.1;
       margin-bottom: 2rem;
       color: white;
@@ -366,6 +375,7 @@
       
       .modern-hero h1 {
         font-size: 2rem;
+        text-align: left!important;
       }
       
       .modern-hero h2 {
@@ -485,10 +495,9 @@
   <main>
     <!-- Modern Hero -->
     <section class="modern-hero">
-      <div class="hero-bg" style="background-image:url('images/kudowarm.JPG');"></div>
+      <div class="modern-hero-bg" style="background-image:url('images/Corporatepic2.jpg');"></div>
       <div class="container">
         <h1>Commercial & Corporate Law</h1>
-        <h2>Strategic legal guidance for businesses at every stage of growth and operation.</h2>
       </div>
     </section>
 
