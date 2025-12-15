@@ -1962,30 +1962,27 @@ body.fade-out {
     height: 7.5px;
   }
 }
-/* ===== SPECIFIC PRACTICE AREA HERO FIX ===== */
+/* ===== CLEAN PRACTICE AREA HERO FIX ===== */
 @media (max-width: 768px) {
-  /* Target hero background in practice area pages */
-  section.modern-hero > .hero-bg {
-    background-size: contain !important;
+  /* Target ONLY the hero-bg inside practice area pages */
+  .modern-hero .hero-bg {
+    background-size: cover !important;
     background-position: center center !important;
     transform: none !important;
-    background-color: var(--navy); /* Add background color for any empty space */
+    background-repeat: no-repeat !important;
   }
   
-  /* Darken overlay for better text contrast */
-  section.modern-hero > .hero-bg::before {
-    background: rgba(0, 0, 0, 0.5);
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  /* Adjust hero height for mobile */
+  .modern-hero {
+    min-height: 50vh;
+    max-height: 500px;
   }
   
-  /* Ensure hero content is readable */
-  section.modern-hero .container {
-    position: relative;
-    z-index: 2;
+  /* Better text contrast */
+  .modern-hero .container {
+    background: rgba(10, 25, 47, 0.7);
+    padding: var(--space-lg);
+    margin: 0 20px;
+    backdrop-filter: blur(5px);
   }
 }
