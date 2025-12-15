@@ -1962,3 +1962,86 @@ body.fade-out {
     height: 7.5px;
   }
 }
+/* ===================================================
+   MOBILE RESPONSIVE FIXES — PREMIUM HERO STABILITY
+   Place at the VERY END of your CSS
+   =================================================== */
+
+@media (max-width: 768px) {
+
+  /* ---------- Global overflow protection ---------- */
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ---------- HERO SECTION FIX ---------- */
+  .hero {
+    position: relative;
+    height: 75svh;              /* modern safe viewport height */
+    min-height: 520px;
+    padding-top: 80px;          /* accounts for fixed header */
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    overflow: hidden;
+  }
+
+  /* Hero background image */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    transform: none !important; /* STOP mobile zoom */
+    will-change: auto;
+  }
+
+  /* Optional subtle overlay consistency */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(7, 18, 37, 0.55),
+      rgba(7, 18, 37, 0.75)
+    );
+    z-index: 1;
+  }
+
+  /* ---------- HERO CONTENT LAYER ---------- */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+  }
+
+  /* ---------- TYPOGRAPHY SCALING ---------- */
+  .hero h1 {
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    line-height: 1.25;
+  }
+
+  .hero p {
+    font-size: 1rem;
+    max-width: 90%;
+  }
+
+  /* ---------- FULL-WIDTH SECTION FIX ---------- */
+  #about::before,
+  #services::before,
+  #contact::before,
+  #insights-preview::before,
+  #team::before {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  /* ---------- PREVENT SCROLL BUGS ---------- */
+  section {
+    overflow-x: hidden;
+  }
+
+}
