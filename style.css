@@ -235,8 +235,8 @@ nav#main-nav a:hover::after {
   position: relative;
   overflow: hidden;
   margin-top: 0;
-  border-bottom-left-radius: 80px;
-  border-bottom-right-radius: 80px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .hero-bg {
@@ -398,7 +398,7 @@ nav#main-nav a:hover::after {
 /* Centered content */
 .about-centered-content {
   text-align: center !important;
-  max-width: 800px;
+  max-width: 600px;
   min-height: 400px;
   font-weight: 400;
   font-size: var(--text-l);
@@ -407,7 +407,7 @@ nav#main-nav a:hover::after {
 
 .about-centered-content p {
   text-align: center;
-  max-width: 800px;
+  max-width: 600px;
   font-weight: 400;
   margin-bottom: var(--space-lg);
 }
@@ -981,7 +981,7 @@ textarea {
 /* About Our Firm - Off White background */
 #about {
   position: relative;
-  min-height: 815px; /* Make it taller */
+  min-height: 820px; /* Make it taller */
   overflow: hidden;
   
 }
@@ -991,7 +991,7 @@ textarea {
    top: 0;
   left: 0;
   width: 100vw;
-  height: 100%;
+  height: 108%;
   inset: 0; /* top:0 right:0 bottom:0 left:0 */
   background-image: url('images/Mask.jpg');
   background-size: cover;
@@ -1496,8 +1496,6 @@ body.fade-out {
   .hero {
     min-height: 60vh;
     padding-top: 60px;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
   }
   
   
