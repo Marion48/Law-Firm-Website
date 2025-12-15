@@ -652,15 +652,14 @@
       </div>
     </div>
     
-    <!-- Footer bottom - Fixed to be at complete bottom -->
-    <div class="footer-bottom">
-      <p>© <span id="current-year"></span> Byron N. & Co. Advocates. All rights reserved.</p>
-    </div>
+    <div class="footer-bottom" style="text-align: center !important; width: 100%; margin: 40px auto 0 auto; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
+  <p style="text-align: center !important; margin: 0 auto !important; display: block !important;">© <span id="yr">2025</span> Byron N. & Co. Advocates. All rights reserved.</p>
+</div>
   </footer>
 
   <script>
     // Set current year
-    document.getElementById('current-year').textContent = new Date().getFullYear();
+    document.getElementById('yr').textContent = new Date().getFullYear();
     
     // Add scroll animations
     document.addEventListener('DOMContentLoaded', function() {
