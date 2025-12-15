@@ -1510,36 +1510,59 @@ body.fade-out {
     padding: 0 10px;
   }
   
-  /* Fix about section */
+/* ===== MOBILE ABOUT SECTION FIX ===== */
+@media (max-width: 768px) {
   #about {
-    min-height: auto;
-    padding: 60px 0;
+    min-height: 600px !important; /* Keep some height */
+    padding: 60px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  #about::before {
+    background-image: url('images/Mask1.jpeg') !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    opacity: 0.6 !important; /* Restore opacity */
+    background-attachment: scroll !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin-left: 0 !important;
+  }
+  
+  #about .container {
+    background: transparent !important; /* Remove white background */
+    padding: var(--space-lg) !important;
+    margin: 0 auto !important;
+    box-shadow: none !important; /* Remove shadow */
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  #about h2 {
+    color: var(--navy) !important;
+    font-size: var(--text-3xl) !important;
+    margin-bottom: var(--space-lg) !important;
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
   }
   
   .about-centered-content {
-    min-height: auto;
-    padding: 15px;
+    max-width: 100% !important;
+    min-height: auto !important;
+    margin: 0 auto !important;
+    padding: 0 15px !important;
   }
   
   .about-centered-content p {
-    font-size: 2rem;
-    line-height: 1.6;
-    text-align: center;
+    font-size: 1.1rem !important;
+    line-height: 1.7 !important;
+    color: var(--navy) !important;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    font-weight: 500 !important;
+    margin-bottom: var(--space-lg) !important;
   }
-  
-  .about-centered-content .bullets {
-    text-align: center;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  .about-centered-content .bullets li {
-    text-align: left;
-    display: inline-block;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto 10px auto;
-  }
+}
   
   /* Fix practice areas */
   .services-grid {
@@ -1807,75 +1830,7 @@ body.fade-out {
     height: auto;
   }
 }
-/* ===== MOBILE FIXES FOR ABOUT SECTION ===== */
-@media (max-width: 768px) {
-  #about {
-    min-height: auto;
-    padding: 40px 0;
-    display: block;
-  }
-  
-  #about::before {
-    background-position: center;
-    opacity: 0.15;
-  }
-  
-  #about .container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 0;
-    margin: 0 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  }
-  
-  #about h2 {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-sm);
-  }
-  
-  .about-centered-content {
-    padding: 0;
-  }
-  
-  .about-centered-content p {
-    font-size: var(--text-base);
-    line-height: 1.6;
-    margin-bottom: var(--space-lg);
-  }
-  
-  /* FIXED: Target bullets directly without .about-centered-content prefix */
-  #about .bullets {
-    margin: var(--space-lg) auto;
-    max-width: 100%;
-    text-align: center;
-  }
-  
-  #about .bullets li {
-    font-size: var(--text-base);
-    padding-left: 1.8rem;
-    margin-bottom: var(--space-md);
-    text-align: left;
-    display: block;
-    max-width: 100%;
-  }
-  
-  #about .bullets li::before {
-    width: 14px;
-    height: 14px;
-    top: 0.35rem;
-  }
-  
-  #about .bullets li::after {
-    left: 3.5px;
-    top: 0.6rem;
-    width: 7px;
-    height: 7px;
-  }
-  
-  #about .bullets li:hover {
-    transform: translateX(3px);
-  }
-}
+
 
 /* Extra small devices */
 @media (max-width: 480px) {
