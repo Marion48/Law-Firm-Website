@@ -997,7 +997,7 @@ textarea {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  opacity: 0.3;
+  opacity: 0.6;
   z-index: -1;
 }
 
@@ -1522,7 +1522,7 @@ body.fade-out {
   }
   
   .about-centered-content p {
-    font-size: 1rem;
+    font-size: 2rem;
     line-height: 1.6;
     text-align: center;
   }
