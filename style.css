@@ -1962,27 +1962,3 @@ body.fade-out {
     height: 7.5px;
   }
 }
-/* ===== CLEAN PRACTICE AREA HERO FIX ===== */
-@media (max-width: 768px) {
-  /* Target ONLY the hero-bg inside practice area pages */
-  .modern-hero .hero-bg {
-    background-size: cover !important;
-    background-position: center center !important;
-    transform: none !important;
-    background-repeat: no-repeat !important;
-  }
-  
-  /* Adjust hero height for mobile */
-  .modern-hero {
-    min-height: 50vh;
-    max-height: 500px;
-  }
-  
-  /* Better text contrast */
-  .modern-hero .container {
-    background: rgba(10, 25, 47, 0.7);
-    padding: var(--space-lg);
-    margin: 0 20px;
-    backdrop-filter: blur(5px);
-  }
-}
