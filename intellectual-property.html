@@ -93,59 +93,64 @@
   border-left: 3px solid var(--maroon);
   margin: 0;
 }
-/* MOBILE OPTIMIZATION - CORRECTED (shows entire image) */
+/* MOBILE OPTIMIZATION - No blue background, seamless flow */
 @media (max-width: 768px) {
   .modern-hero {
     min-height: auto;
     background-attachment: scroll !important;
     padding-top: 80px;
-    display: flex; /* Keep as flex for centering */
-    flex-direction: column; /* Stack image then text */
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    background: white; /* Set white background for hero section */
   }
   
   .modern-hero .container {
     padding-top: 2rem;
-    padding-bottom: 2rem;
-    order: 2; /* Move text container to appear AFTER the image */
+    padding-bottom: 1rem; /* Less bottom padding */
+    order: 2;
+    background: transparent; /* Ensure container is transparent */
   }
   
   .modern-hero::before {
     background-attachment: scroll;
-    background-size: contain; /* Shows whole image */
+    background-size: contain;
     background-position: top center;
-    background-color: var(--navy); /* Adds solid color behind image if needed */
-    height: 60vh; /* Adjust this value: 50vh, 40vh, etc. */
+    /* REMOVE this line: background-color: var(--navy); */
+    height: 60vh; /* Adjust as needed: 50vh, 70vh */
     width: 100%;
-    position: relative; /* Takes it out of absolute positioning */
+    position: relative;
     display: block;
-    order: 1; /* Make image appear FIRST */
+    order: 1;
     margin-bottom: 0;
     top: auto;
     left: auto;
   }
   
   .modern-hero::after {
-    display: none; /* Hide the dark overlay on mobile */
+    display: none;
   }
   
   .modern-hero h1 {
     font-size: 2.5rem;
-    color: var(--navy); /* Change text color since no overlay */
+    color: var(--navy);
     text-shadow: none;
-    margin-top: 1rem;
+    margin-top: 0.5rem; /* Reduce top margin */
+    margin-bottom: 0.5rem;
   }
   
   .modern-hero h2 {
     font-size: 1.25rem;
-    color: var(--charcoal); /* Darker color for better readability */
+    color: var(--charcoal);
+    margin-bottom: 1rem;
   }
   
   .modern-hero .lead {
     font-size: 1.1rem;
     padding: 1.5rem;
-    background: rgba(10, 25, 47, 0.9); /* Stronger background for mobile */
-    color: white; /* Keep text white on dark box */
+    background: rgba(10, 25, 47, 0.9);
+    color: white;
+    margin-bottom: 1rem; /* Add bottom margin */
   }
 }
     /* Modern Grid Layout */
