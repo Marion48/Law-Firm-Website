@@ -15,6 +15,7 @@ if (toggle) {
 function initServicesCarousel() {
   const scrollContainer = document.getElementById('services-scroll');
   const dotsContainer = document.getElementById('scroll-dots');
+
   
   // Only run if the new scroll container exists
   if (!scrollContainer || !dotsContainer) return;
