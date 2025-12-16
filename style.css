@@ -1783,9 +1783,14 @@ body.fade-out {
   /* Remove arrows on mobile only */
 @media (max-width: 768px) {
   .slider-nav {
-    display: none !important;
+    display: none !important;  /* Hides arrows */
+  }
+  
+  .scroll-indicator {
+    display: none !important;  /* Hides scroll dots */
   }
 }
+
   
   /* Improve tap targets */
   .slide-view-more-link {
