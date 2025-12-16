@@ -1863,3 +1863,42 @@ body.fade-out {
     touch-action: manipulation; /* Prevent double-tap zoom */
   }
 }
+/* Target iPhone XS, X, XR, 11 Pro, 12, 13, etc. (375px wide) */
+@media only screen and (max-width: 375px) {
+  .service-slide-card {
+    flex: 0 0 calc(100vw - 1rem); /* Maximize width, minimal margin */
+    height: 500px; /* Significantly taller card */
+    margin: 0 0.25rem; /* Tiny side margin for visual separation */
+  }
+
+  /* Optimize the image to fill the new space perfectly */
+  .slide-image-background {
+    object-position: center 25%; /* Adjusts focus: try 20%, 30% based on your images */
+  }
+
+  /* Reduce the dark overlay to show much more of the image */
+  .slide-image-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(10, 25, 47, 0.5) 0%,    /* Lighter at top */
+      rgba(10, 25, 47, 0.2) 40%,   /* Very transparent in middle */
+      rgba(10, 25, 47, 0.8) 100%   /* Dark only at bottom for text */
+    );
+  }
+
+  /* Adjust content to sit neatly at the bottom */
+  .slide-card-content {
+    padding: 2.5rem 1.5rem 2rem; /* Ample padding, slightly more at bottom */
+    justify-content: flex-end;
+  }
+
+  .service-slide-title {
+    font-size: 1.9rem; /* Slightly larger title for the tall card */
+    margin-bottom: 1.5rem;
+  }
+
+  /* Optional: Slightly reduce top section padding to give more space to the slider */
+  .services-slider-section {
+    padding-top: 2rem;
+  }
+}
