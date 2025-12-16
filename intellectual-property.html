@@ -94,19 +94,39 @@
   margin: 0;
 }
 
-/* MOBILE OPTIMIZATION - Critical for preventing zoom */
+/* MOBILE OPTIMIZATION - Shows entire image without cropping */
 @media (max-width: 768px) {
   .modern-hero {
-    min-height: 70vh; /* Slightly smaller height on mobile */
-    background-attachment: scroll !important; /* Force-disable fixed background */
+    min-height: auto; /* Let height be determined by content/image */
+    background-attachment: scroll !important;
+    padding-top: 80px; /* Adjust based on your nav height */
+    display: block; /* Change from flex for better flow */
+  }
+  
+  .modern-hero .container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
   
   .modern-hero::before {
-    background-attachment: scroll; /* Consistent behavior */
+    background-attachment: scroll;
+    background-size: contain; /* KEY CHANGE: Shows whole image */
+    background-position: top center; /* Aligns image to top */
+    height: 70vh; /* Controls how much of the vertical space the image takes */
+    position: relative; /* Allows content to flow below it */
+    margin-bottom: 2rem;
+  }
+  
+  /* Optional: Add a solid background color below the image */
+  .modern-hero::after {
+    display: none; /* Hide the overlay if it's interfering */
   }
   
   .modern-hero h1 {
     font-size: 2.5rem;
+    position: relative; /* Ensure text appears below image */
+    z-index: 3;
+    margin-top: 0;
   }
   
   .modern-hero h2 {
@@ -116,8 +136,11 @@
   .modern-hero .lead {
     font-size: 1.1rem;
     padding: 1.5rem;
+    position: relative;
+    z-index: 3;
   }
 }
+
     
     /* Modern Grid Layout */
     .modern-grid {
