@@ -1,15 +1,79 @@
 // main.js - dynamic loader + basic interactions + form handling
 document.addEventListener('DOMContentLoaded', () => {
-  // NAV toggle
-  const toggle = document.getElementById('mobile-toggle');
-  const nav = document.getElementById('main-nav');
-  if (toggle) {
-    toggle.addEventListener('click', () => {
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!expanded));
-      nav.classList.toggle('open');
+ // NAV toggle
+const toggle = document.getElementById('mobile-toggle');
+const nav = document.getElementById('main-nav');
+if (toggle) {
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    nav.classList.toggle('open');
+  });
+}
+
+// Enhanced Horizontal Scroll with Dot Navigation for Services
+function initServicesCarousel() {
+  const scrollContainer = document.getElementById('services-scroll');
+  const dotsContainer = document.getElementById('scroll-dots');
+  
+  // Only run if the new scroll container exists
+  if (!scrollContainer || !dotsContainer) return;
+  
+  const cards = scrollContainer.querySelectorAll('.service-card-hz');
+  const cardCount = cards.length;
+  
+  // Create navigation dots
+  for (let i = 0; i < cardCount; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'scroll-dot';
+    dot.setAttribute('aria-label', `Go to service ${i + 1}`);
+    dot.addEventListener('click', () => {
+      scrollToCard(i);
+    });
+    dotsContainer.appendChild(dot);
+  }
+  
+  const dots = dotsContainer.querySelectorAll('.scroll-dot');
+  if (dots.length > 0) dots[0].classList.add('active');
+  
+  function updateDots() {
+    if (!scrollContainer.firstElementChild) return;
+    
+    const scrollLeft = scrollContainer.scrollLeft;
+    const cardWidth = scrollContainer.firstElementChild.offsetWidth + 
+                      parseInt(getComputedStyle(scrollContainer).gap);
+    const activeIndex = Math.min(cardCount - 1, Math.round(scrollLeft / cardWidth));
+    
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === activeIndex);
     });
   }
+  
+  function scrollToCard(index) {
+    const cardWidth = scrollContainer.firstElementChild.offsetWidth + 
+                      parseInt(getComputedStyle(scrollContainer).gap);
+    const targetScroll = index * cardWidth;
+    
+    scrollContainer.scrollTo({
+      left: targetScroll,
+      behavior: 'smooth'
+    });
+  }
+  
+  scrollContainer.addEventListener('scroll', updateDots);
+  
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(updateDots, 150);
+  });
+  
+  updateDots();
+}
+
+// Call this function after the DOM is loaded
+initServicesCarousel();
+    });
 
   // Animated hero title word rotation
   const heroTitle = document.getElementById('hero-title');
@@ -246,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-});
+
 // Floating page scroll effects
 document.addEventListener('DOMContentLoaded', function() {
   let lastScrollTop = 0;

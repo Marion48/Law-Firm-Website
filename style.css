@@ -228,7 +228,7 @@ nav#main-nav a:hover::after {
 
 /* ===== HERO SECTION ===== */
 .hero {
-  min-height: 60vh; /* Adjusted for better proportions */
+  min-height: 80vh; /* Adjusted for better proportions */
   display: flex;
   align-items: center;
   padding-top: 120px; /* Increased for nav clearance */
@@ -243,7 +243,7 @@ nav#main-nav a:hover::after {
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center 30%;
+  background-position: center 50%;
   filter: brightness(0.9) contrast(1.08);
   transform: scale(1.02);
   will-change: transform;
@@ -408,7 +408,7 @@ nav#main-nav a:hover::after {
 .about-centered-content p {
   text-align: center;
   max-width: 600px;
-  font-weight: 400;
+  font-weight: 300;
   margin-bottom: var(--space-lg);
 }
 
@@ -914,27 +914,7 @@ textarea {
 
 /* ===== BACKGROUND SECTIONS WITH IMAGES ===== */
 /* About Our Firm - Off White background */
-#about {
-  position: relative;
-  min-height: 820px; /* Make it taller */
-  overflow: hidden;
-  
-}
-#about::before {
-  content: '';
-  position: absolute;
-   top: 0;
-  left: 0;
-  width: 100vw;
-  height: 108%;
-  inset: 0; /* top:0 right:0 bottom:0 left:0 */
-  background-image: url('images/Mask1.jpeg');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  opacity: 0.6;
-  z-index: -1;
-}
+
 
 
 /* Practice Areas - Dark Blue background */
@@ -1456,7 +1436,7 @@ body.fade-out {
   }
   
   #about::before {
-    background-image: url('images/Mask1.jpeg') !important;
+    background-image: url('images/WhiteBlackish.jpeg') !important;
     background-size: cover !important;
     background-position: center center !important;
     opacity: 0.6 !important; /* Restore opacity */
@@ -1778,4 +1758,5 @@ body.fade-out {
 #about .container {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
+  
 }

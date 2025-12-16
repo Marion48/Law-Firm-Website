@@ -6,171 +6,859 @@
   <title>Byron N. & Co. Advocates & Commercial Law | Nairobi, Kenya</title>
   <meta name="description" content="Corporate, litigation and commercial law firm in Nairobi, Kenya. Expert counsel for businesses and individuals. Schedule a consultation." />
 
-  <link rel="icon" href="images/favicon.ico" />
+  <link rel="icon" href="images/logo.png" />
   <meta name="theme-color" content="#071225">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Byron N. & Co. Advocates &amp; Commercial Law | Nairobi, Kenya">
   <meta property="og:description" content="Premium corporate and commercial legal services based in Nairobi — corporate transactions, litigation, real estate and dispute resolution.">
-  <meta property="og:image" content="images/Blue.png">
+  <meta property="og:image" content="images/Heroimage.png">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://example.com/">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== PREMIUM HORIZONTAL SERVICE SLIDER ===== */
+    .services-slider-section {
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 0;
+    }
+
+    /* Section Background */
+    #services {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #services::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100%;
+      background-image: url('images/Darkblue.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 1;
+      z-index: -1;
+      margin-left: calc(-50vw + 50%);
+    }
+
+    /* Section Header */
+    .section-title-bar {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 0 2rem;
+    }
+
+    #services-h {
+      color: white !important;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      font-family: 'Inter', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 300;
+      letter-spacing: 0.01em;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Slider Container */
+    .slider-container {
+      position: relative;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 4rem;
+    }
+
+    /* Slider Track */
+    .slider-track {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+      padding: 2rem 0;
+      cursor: grab;
+    }
+
+    .slider-track::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    .slider-track:active {
+      cursor: grabbing;
+    }
+
+    /* Service Card */
+    .service-slide-card {
+      flex: 0 0 380px;
+      height: 420px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: flex;
+      flex-direction: column;
+      background: var(--navy);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      scroll-snap-align: start;
+    }
+
+    .service-slide-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.35);
+      border-color: var(--gold);
+    }
+
+    /* Image as background with overlay */
+    .slide-image-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: 1;
+    }
+
+    .service-slide-card:hover .slide-image-background {
+      transform: scale(1.08);
+    }
+
+    /* Dark overlay for better text readability */
+    .slide-image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 25, 47, 0.85) 0%,
+        rgba(10, 25, 47, 0.7) 50%,
+        rgba(10, 25, 47, 0.9) 100%
+      );
+      z-index: 2;
+      transition: opacity 0.4s ease;
+    }
+
+    .service-slide-card:hover .slide-image-overlay {
+      opacity: 0.2;
+    }
+
+    /* Content container */
+    .slide-card-content {
+      position: relative;
+      z-index: 3;
+      padding: 2.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Premium Title */
+    .service-slide-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: white;
+      margin: 0 0 1.5rem 0;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      padding: 0 1rem;
+    }
+
+    /* View More Link - Premium & Elegant */
+    .slide-view-more-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: white;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      padding: 0.75rem 1.5rem;
+      background: rgba(201, 168, 106, 0.15);
+      border: 1px solid rgba(201, 168, 106, 0.3);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .slide-view-more-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .slide-view-more-link:hover {
+      background: rgba(201, 168, 106, 0.25);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(201, 168, 106, 0.2);
+      color: var(--gold);
+      gap: 1rem;
+    }
+
+    .slide-view-more-link:hover::before {
+      left: 100%;
+    }
+
+    .slide-view-more-link svg {
+      transition: transform 0.3s ease;
+    }
+
+    .slide-view-more-link:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Navigation Arrows */
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3.5rem;
+      height: 3.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .slider-container:hover .slider-nav {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .slider-nav:hover {
+      background: rgba(201, 168, 106, 0.2);
+      border-color: var(--gold);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .slider-nav.prev {
+      left: 0.5rem;
+    }
+
+    .slider-nav.next {
+      right: 0.5rem;
+    }
+
+    .slider-nav svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: white;
+      stroke-width: 2;
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 1rem 0;
+    }
+
+    .scroll-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+
+    .scroll-dot.active {
+      background: var(--gold);
+      transform: scale(1.5);
+      box-shadow: 0 0 10px rgba(201, 168, 106, 0.5);
+    }
+
+    /* Swipe Hint */
+    .swipe-hint {
+      color: rgba(255, 255, 255, 0.7);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .swipe-hint svg {
+      animation: swipeHint 2s ease-in-out infinite;
+    }
+
+    @keyframes swipeHint {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(10px);
+      }
+    }
+
+    /* CTA Button */
+    .services-cta {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Remove visited link styles for service cards */
+    .service-slide-card,
+    .service-slide-card:visited,
+    .service-slide-card:hover,
+    .service-slide-card:active,
+    .service-slide-card:focus {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Specifically target the title inside the link */
+    .service-slide-title,
+    .service-slide-title:visited,
+    .service-slide-title:hover,
+    .service-slide-title:active,
+    .service-slide-title:focus {
+      color: white !important;
+      text-decoration: none;
+    }
+
+    /* Specifically target the view more link */
+    .slide-view-more-link,
+    .slide-view-more-link:visited,
+    .slide-view-more-link:hover,
+    .slide-view-more-link:active,
+    .slide-view-more-link:focus {
+      color: white;
+      text-decoration: none;
+    }
+
+    .slide-view-more-link:hover {
+      color: var(--gold);
+    }
+    
+    /* ===== UPDATED ABOUT SECTION ===== */
+    #about {
+      position: relative;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      padding: 5rem 0;
+      background: var(--ivory);
+    }
+    
+    .about-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    
+    .about-content {
+      padding-right: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+    
+    #about-h {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    
+    .about-text {
+      font-family: 'sans-serif', sans-serif;
+      font-size: 0.5rem;
+      line-height: 1.5;
+      color: var(--text);
+      font-weight: 350;
+      letter-spacing: 0.0111em;
+    }
+    
+    .about-text p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .about-image-container {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+      border-radius: 0;
+      box-shadow: 0 30px 60px -15px rgba(10, 25, 47, 0.15);
+    }
+    
+    .about-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .about-image-container:hover .about-image {
+      transform: scale(1.05);
+    }
+    
+    .about-image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        45deg,
+        rgba(10, 25, 47, 0.05) 0%,
+        rgba(128, 0, 32, 0.02) 50%,
+        transparent 100%
+      );
+      z-index: 1;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .slider-container {
+        padding: 0 3rem;
+      }
+      
+      .service-slide-card {
+        flex: 0 0 350px;
+        height: 400px;
+      }
+      
+      .about-container {
+        gap: 3rem;
+      }
+      
+      .about-image-container {
+        height: 450px;
+      }
+      
+      #about-h {
+        font-size: 2.5rem;
+      }
+      
+      .about-text {
+        font-size: 1.15rem;
+      }
+    }
+
+    @media (max-width: 992px) {
+      #about {
+        min-height: auto;
+        padding: 4rem 0;
+      }
+      
+      .about-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .about-content {
+        padding-right: 0;
+        text-align: center;
+      }
+      
+      .about-image-container {
+        height: 400px;
+        max-width: 600px;
+        margin: 0 auto;
+        order: -1;
+      }
+      
+      #about-h {
+        font-size: 2.5rem;
+      }
+      
+      .about-text {
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .slider-container {
+        padding: 0 2rem;
+      }
+      
+      .service-slide-card {
+        flex: 0 0 320px;
+        height: 380px;
+      }
+      
+      .service-slide-title {
+        font-size: 1.5rem;
+      }
+      
+      #services-h {
+        font-size: 2.5rem;
+      }
+      
+      .slider-nav {
+        opacity: 1;
+        visibility: visible;
+        width: 3rem;
+        height: 3rem;
+      }
+      
+      .slider-nav.prev {
+        left: 0;
+      }
+      
+      .slider-nav.next {
+        right: 0;
+      }
+      
+      #about {
+        padding: 3rem 0;
+      }
+      
+      #about-h {
+        font-size: 2.2rem;
+      }
+      
+      .about-text {
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+      
+      .about-image-container {
+        height: 350px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .slider-container {
+        padding: 0 1rem;
+      }
+      
+      .service-slide-card {
+        flex: 0 0 300px;
+        height: 350px;
+      }
+      
+      .slide-card-content {
+        padding: 2rem;
+      }
+      
+      .service-slide-title {
+        font-size: 1.35rem;
+        padding: 0;
+      }
+      
+      .slide-view-more-link {
+        padding: 0.65rem 1.25rem;
+        font-size: 0.9rem;
+      }
+      
+      #about {
+        padding: 2.5rem 0;
+      }
+      
+      #about-h {
+        font-size: 2rem;
+      }
+      
+      .about-text {
+        font-size: 1rem;
+      }
+      
+      .about-image-container {
+        height: 300px;
+      }
+    }
+
+    /* Remove old service styles */
+    .services-image-grid,
+    .services-scroll-wrapper,
+    .services-grid,
+    .practice-card {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- Add this right after the opening <body> tag -->
-<div class="scroll-progress"></div>
+  <!-- Scroll Progress -->
+  <div class="scroll-progress"></div>
 
-<!-- Wrap your main content like this -->
-<main class="main-content-container">
-  <!-- All your existing content here -->
-</main>
+  <!-- NAV -->
+  <header class="nav" role="banner">
+    <div class="container nav-inner">
+      <a class="brand brand-combo" href="index.html">
+        <img src="images/logo.png" alt="Firm Logo" class="logo">
+        <span>Byron N. & Co. Advocates</span>
+      </a>
+      <button id="mobile-toggle" class="hamburger" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <nav id="main-nav" role="navigation" aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html#home" class="active">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#services">Practice Areas</a></li>
+          <li><a href="index.html#team">Team</a></li>
+          <li><a href="insights.html">Insights</a></li>
+          <li><a href="book-reviews.html">Reading Room</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<!-- NAV -->
-<header class="nav" role="banner">
-  <div class="container nav-inner">
-   <a class="brand brand-combo" href="index.html">
-  <img src="images/logo.png" alt="Firm Logo" class="logo">
-  <span>Byron N. & Co. Advocates</span>
-</a>
-    <button id="mobile-toggle" class="hamburger" aria-label="Open navigation" aria-expanded="false">☰</button>
-    <nav id="main-nav" role="navigation" aria-label="Main Navigation">
-      <ul>
-        <li><a href="index.html#home" class="active">Home</a></li>
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#services">Practice Areas</a></li>
-        <li><a href="index.html#team">Team</a></li>
-        <li><a href="insights.html">Insights</a></li>
-        <li><a href="book-reviews.html">Reading Room</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <!-- HERO -->
-  <section id="home" class="hero" aria-label="Hero">
-    <div class="hero-bg" style="background-image:url('images/Blue.png');" aria-hidden="true"></div>
-
-    <div class="container hero-content">
-      <div class="hero-left animate-up">
-        <div class="hero-title centered-content"></div>
-        <h1 id="hero-title">Here To Make Your Path Forward Simpler. Sharp and Reliable Legal insights.</h1>
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero" aria-label="Hero">
+      <div class="hero-bg" style="background-image:url('images/Heroimage.png');" aria-hidden="true"></div>
+      <div class="container hero-content">
+        <div class="hero-left animate-up">
+          <h1 id="hero-title">Here To Make Your Path Forward Simpler. Sharp and Reliable Legal insights.</h1>
         </div>
-    </div>
-  </div>
-  </section>
-
-<!-- ABOUT -->
-<section id="about" class="section animate-up scroll-reveal" aria-labelledby="about-h" style="display: grid; place-items: center; min-height: 820px; padding: 0;">
-  <div class="container" style="width: 100%;">
-    <h2 id="about-h">About Our Firm</h2>
-    
-    <!-- Centered content block -->
-    <div class="about-centered-content" style="max-width: 600px; margin: 0 auto;">
-      <p style="font-size: 1.25rem; line-height: 1.7; font-weight: 500; color: #0e0000;">Byron N & Co. Advocates is a modern, client-first law firm built on clarity, integrity, and practical problem-solving. We are committed to delivering excellence in every matter we handle. We offer the personal attention and interest of a small practice alongside the depth and expertise of a larger firm. We take time to understand our clients' needs and ensure that we get the best solutions.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PRACTICE AREAS -->
-  <section id="services" class="section bg-ivory animate-up scroll-reveal delay-1" aria-labelledby="services-h">
-    <div class="container">
-      <h2 id="services-h">Our Services</h2>
-      <div class="services-grid" aria-live="polite">
-        <!-- Litigation & Dispute Resolution -->
-        <a href="litigation-dispute-resolution.html" class="practice-card">
-          <h3>Litigation & Dispute Resolution</h3>
-          <p>Strategic courtroom representation and Alternative Dispute Resolution.</p>
-           <span style="display: block; color: #800020; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">
-    View more →
-  </span>
-        </a>
-        
-        <!-- Intellectual Property -->
-        <a href="intellectual-property.html" class="practice-card">
-          <h3>Intellectual Property</h3>
-          <p>Protection and enforcement of patents, trademarks, copyrights, and trade secrets.</p>
-           <span style="display: block; color: #800020; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">
-    View more →
-  </span>
-        </a>
-        
-        <!-- Commercial & Corporate Law -->
-        <a href="Commercial and corporate law.html" class="practice-card">
-          <h3>Commercial & Corporate Law</h3>
-          <p>Business formation, contracts, mergers, acquisitions, and corporate governance.</p>
-            <span style="display: block; color: #800020; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">
-    View more →
-  </span>
-        </a>
-        
-      <!-- Constitutional and Human Rights Law -->
-        <a href="Constitutional and Human Rights Law.html" class="practice-card">
-          <h3>Constitutional & Human Rights Law</h3>
-          <p>Protection of fundamental rights and challenges to unconstitutional actions.</p>
-            <span style="display: block; color: #800020; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">
-    View more →
-  </span>
-        </a>
-        
-        <!-- Conveyancing -->
-        <a href="conveyancing.html" class="practice-card">
-          <h3>Conveyancing</h3>
-          <p>Property transactions, title verification, and real estate legal documentation.</p>
-            <span style="display: block; color: #800020; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">
-    View more →
-  </span>
-        </a>
-        
-        <!-- Criminal Litigation -->
-        <a href="Criminal Litigation.html" class="practice-card">
-          <h3>Criminal Litigation</h3>
-          <p>Defense representation, bail applications, and criminal procedure matters.</p>
-            <span style="display: block; color: #800020; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">
-    View more →
-  </span>
-        </a>
-        
-        <!-- Entertainment -->
-        <a href="Entertainment.html" class="practice-card">
-          <h3>Entertainment Law</h3>
-          <p>Contracts, rights management, and legal counsel for creative industries.</p>
-            <span style="display: block; color: #800020; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">
-    View more →
-  </span>
-        </a>
-        
-        <!-- Compensation & Liability Matters -->
-        <a href="Compensation & Liability Matters.html" class="practice-card">
-          <h3>Compensation & Liability</h3>
-          <p>Personal injury claims, insurance disputes, and liability assessment.</p>
-            <span style="display: block; color: #800020; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">
-    View more →
-  </span>
-        </a>
       </div>
-    </div>
-  </section>
+    </section>
 
-     <!-- TEAM -->
-  <section id="team" class="section container animate-up scroll-reveal delay-2" aria-labelledby="team-h">
-    <h2 id="team-h">Lead Advocate</h2>
-    
-   <!-- Team Grid for other members (if any) -->
-    <div id="team-grid" class="team-grid" role="list">
-      <!-- JS will populate team cards from content.json -->
-    </div>
+    <!-- ABOUT - TEXT LEFT, IMAGE RIGHT -->
+    <section id="about" class="section animate-up scroll-reveal" aria-labelledby="about-h">
+      <div class="container about-container">
+        <div class="about-content">
+          <h2 id="about-h">About Our Firm</h2>
+          <div class="about-text">
+            Byron N & Co. Advocates is a modern, client-first law firm built on clarity, integrity, and practical problem-solving. We are committed to delivering excellence in every matter we handle. We offer the personal attention and interest of a small practice alongside the depth and expertise of a larger firm. We take time to understand our clients' needs and ensure that we get the best solutions.
+          </div>
+        </div>
+        
+        <div class="about-image-container">
+          <img src="images/Aboutimage.png" alt="Byron N. & Co. Advocates" class="about-image">
+          <div class="about-image-overlay"></div>
+        </div>
+      </div>
+    </section>
 
-    <!-- Meet Our Lead Advocate Link -->
+    <!-- HORIZONTAL SERVICE SLIDER -->
+    <section id="services" class="section bg-ivory animate-up scroll-reveal delay-1" aria-labelledby="services-h">
+      <div class="container">
+        <div class="section-title-bar">
+          <h2 id="services-h">Our Services</h2>
+          <p class="section-subtitle">Expert legal counsel tailored to your specific needs</p>
+        </div>
+
+        <div class="slider-container">
+          <!-- Previous Button -->
+          <button class="slider-nav prev" aria-label="Previous services">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+
+          <!-- Slider Track -->
+          <div class="slider-track" id="services-slider">
+            <!-- Slide 1 -->
+            <a href="litigation-dispute-resolution.html" class="service-slide-card">
+              <img src="images/LitigationTrial1.png" alt="Litigation & Dispute Resolution" class="slide-image-background">
+              <div class="slide-image-overlay"></div>
+              <div class="slide-card-content">
+                <h3 class="service-slide-title">Litigation & Dispute Resolution</h3>
+                <span class="slide-view-more-link">
+                  View more
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+
+            <!-- Slide 2 -->
+            <a href="intellectual-property.html" class="service-slide-card">
+              <img src="images/Mask1.jpeg" alt="Intellectual Property" class="slide-image-background">
+              <div class="slide-image-overlay"></div>
+              <div class="slide-card-content">
+                <h3 class="service-slide-title">Intellectual Property</h3>
+                <span class="slide-view-more-link">
+                  View more
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+
+            <!-- Slide 3 -->
+            <a href="Commercial and corporate law.html" class="service-slide-card">
+              <img src="images/Corporatecover.jpeg" alt="Commercial & Corporate Law" class="slide-image-background">
+              <div class="slide-image-overlay"></div>
+              <div class="slide-card-content">
+                <h3 class="service-slide-title">Commercial & Corporate Law</h3>
+                <span class="slide-view-more-link">
+                  View more
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+
+            <!-- Slide 4 -->
+            <a href="Constitutional and Human Rights Law.html" class="service-slide-card">
+              <img src="images/Constitution1.png" alt="Constitutional & Human Rights Law" class="slide-image-background">
+              <div class="slide-image-overlay"></div>
+              <div class="slide-card-content">
+                <h3 class="service-slide-title">Constitutional & Human Rights Law</h3>
+                <span class="slide-view-more-link">
+                  View more
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+
+            <!-- Slide 5 -->
+            <a href="conveyancing.html" class="service-slide-card">
+              <img src="images/ConveyancyFinal.png" alt="Conveyancing" class="slide-image-background">
+              <div class="slide-image-overlay"></div>
+              <div class="slide-card-content">
+                <h3 class="service-slide-title">Conveyancing</h3>
+                <span class="slide-view-more-link">
+                  View more
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+
+            <!-- Slide 6 -->
+            <a href="Criminal Litigation.html" class="service-slide-card">
+              <img src="images/Criminalfinal.png" alt="Criminal Litigation" class="slide-image-background">
+              <div class="slide-image-overlay"></div>
+              <div class="slide-card-content">
+                <h3 class="service-slide-title">Criminal Litigation</h3>
+                <span class="slide-view-more-link">
+                  View more
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+
+            <!-- Slide 7 -->
+            <a href="Entertainment.html" class="service-slide-card">
+              <img src="images/Maasai.png" alt="Entertainment Law" class="slide-image-background">
+              <div class="slide-image-overlay"></div>
+              <div class="slide-card-content">
+                <h3 class="service-slide-title">Entertainment Law</h3>
+                <span class="slide-view-more-link">
+                  View more
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+
+            <!-- Slide 8 -->
+            <a href="Compensation & Liability Matters.html" class="service-slide-card">
+              <img src="images/Compensation.png" alt="Compensation & Liability Matters" class="slide-image-background">
+              <div class="slide-image-overlay"></div>
+              <div class="slide-card-content">
+                <h3 class="service-slide-title">Compensation & Liability</h3>
+                <span class="slide-view-more-link">
+                  View more
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Next Button -->
+          <button class="slider-nav next" aria-label="Next services">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Scroll Dots -->
+        <div class="scroll-indicator" id="scroll-indicator">
+          <!-- Dots will be generated by JavaScript -->
+        </div>
+
+        <!-- Swipe Hint -->
+        <div class="swipe-hint">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 6l6 6-6 6"/>
+          </svg>
+          <span>Swipe or use arrows to explore</span>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="services-cta">
+          <a href="#contact" class="btn primary">Schedule a Consultation</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" class="section container animate-up scroll-reveal delay-2" aria-labelledby="team-h">
+      <h2 id="team-h">Lead Advocate</h2>
+      <div id="team-grid" class="team-grid" role="list">
+        <!-- JS will populate team cards from content.json -->
+      </div>
       <div class="advocate-links">
         <a href="about-advocate.html" class="meet-advocate-link">
           Meet Our Lead Advocate
@@ -178,99 +866,242 @@
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
         </a>
-        
-        <!-- Request Callback Button -->
         <a class="btn primary" href="#contact">Request a callback</a>
       </div>
-  </section>
-  <!-- INSIGHTS (homepage small preview) -->
-  <section id="insights-preview" class="section animate-up scroll-reveal delay-1" aria-labelledby="insights-preview-h">
-    <div class="container">
-      <h2>Stay Ahead.</h2>
-      <div id="insights-container" class="blog-grid" aria-live="polite">
-        <!-- JS will inject insight cards from content.json -->
+    </section>
+
+    <!-- INSIGHTS -->
+    <section id="insights-preview" class="section animate-up scroll-reveal delay-1" aria-labelledby="insights-preview-h">
+      <div class="container">
+        <h2>Stay Ahead.</h2>
+        <div id="insights-container" class="blog-grid" aria-live="polite">
+          <!-- JS will inject insight cards from content.json -->
+        </div>
+        <div style="margin-top:18px;">
+          <a class="btn ghost" href="insights.html">Read all insights</a>
+        </div>
       </div>
-      <div style="margin-top:18px;">
-        <a class="btn ghost" href="insights.html">Read all insights</a>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section animate-up scroll-reveal" aria-labelledby="contact-h">
+      <div class="container grid-2">
+        
+        <div>
+          <h2 id="contact-h">Get in Touch</h2>
+          <form id="contact-form" action="https://formspree.io/f/xpwbwqkq" method="POST" novalidate>
+            <div class="form-row">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" required>
+            </div>
+            <div class="form-row">
+              <label for="email">Email</label>
+              <input id="email" name="_replyto" type="email" required>
+            </div>
+            <div class="form-row">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="text">
+            </div>
+            <div class="form-row">
+              <label for="service">Service of interest</label>
+              <select id="service" name="service">
+                <option>Litigation & Dispute Resolution</option>
+                <option>Intellectual Property</option>
+                <option>Commercial & Corporate Law</option>
+                <option>Constitutional and Human Rights Law</option>
+                <option>Conveyancing</option>
+                <option>Criminal Litigation</option>
+                <option>Entertainment Law</option>
+                <option>Compensation & Liability Matters</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <input type="hidden" name="_subject" value="New contact from website">
+            <button class="btn primary" type="submit">Send Message</button>
+            <p id="form-msg" aria-live="polite" style="margin-top:8px;"></p>
+          </form>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-
-
-      <div>
-        <!-- Contact form using Formspree (replace FORM_ID below with your Formspree ID) -->
-        <form id="contact-form" action="https://formspree.io/f/xpwbwqkq" method="POST" novalidate>
-          <div class="form-row">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" required>
-          </div>
-          <div class="form-row">
-            <label for="email">Email</label>
-            <input id="email" name="_replyto" type="email" required>
-          </div>
-          <div class="form-row">
-            <label for="phone">Phone</label>
-            <input id="phone" name="phone" type="text">
-          </div>
-          <div class="form-row">
-  <label for="service">Service of interest</label>
-  <select id="service" name="service">
-    <option>Litigation & Dispute Resolution</option>
-    <option>Intellectual Property</option>
-    <option>Commercial & Corporate Law</option>
-    <option>Constitutional and Human Rights Law</option>
-    <option>Conveyancing</option>
-    <option>Criminal Litigation</option>
-    <option>Entertainment Law</option>
-    <option>Compensation & Liability Matters</option>
-    <option>Other</option>
-  </select>
-</div>
-          <div class="form-row">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-          </div>
-          <input type="hidden" name="_subject" value="New contact from website">
-          <button class="btn primary" type="submit">Send Message</button>
-          <p id="form-msg" aria-live="polite" style="margin-top:8px;"></p>
-        </form>
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <!-- Services on the LEFT -->
+      <div class="footer-links">
+        <h4>Services</h4>
+        <a href="litigation-dispute-resolution.html">Litigation & Dispute Resolution</a>
+        <a href="intellectual-property.html">Intellectual Property</a>
+        <a href="Commercial and corporate law.html">Commercial & Corporate Law</a>
+        <a href="Constitutional and Human Rights Law.html">Constitutional and Human Rights Law</a>
+        <a href="conveyancing.html">Conveyancing</a>
+        <a href="Criminal Litigation.html">Criminal Litigation</a>
+        <a href="Entertainment.html">Entertainment</a>
+        <a href="Compensation & Liability Matters.html">Compensation & Liability Matters</a>
       </div>
-    </div>
-  </section>
-</main>
-
-<!-- Footer -->
-<footer class="main-footer">
-  <div class="footer-content">
-    <!-- Services on the LEFT -->
-    <div class="footer-links">
-      <h4>Services</h4>
-      <a href="litigation-dispute-resolution.html">Litigation & Dispute Resolution</a>
-      <a href="intellectual-property.html">Intellectual Property</a>
-      <a href="Commercial and corporate law.html">Commercial & Corporate Law</a>
-      <a href="Constitutional and Human Rights Law.html">Constitutional and Human Rights Law</a>
-      <a href="conveyancing.html">Conveyancing</a>
-      <a href="Criminal Litigation.html">Criminal Litigation</a>
-      <a href="Entertainment.html">Entertainment</a>
-      <a href="Compensation & Liability Matters.html">Compensation & Liability Matters</a>
+      
+      <!-- Connect on the RIGHT -->
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <a href="mailto:marioncherono55@gmail.com">marioncherono55@gmail.com</a>
+        <a href="tel:+254707146880">+254 707 146 880</a>
+        <p>Westlands Square, Nairobi, Kenya</p>
+      </div>
     </div>
     
-    <!-- Connect on the RIGHT -->
-    <div class="footer-links">
-      <h4>Connect</h4>
-      <a href="mailto:marioncherono55@gmail.com">marioncherono55@gmail.com</a>
-      <a href="tel:+254707146880">+254 707 146 880</a>
-      <p>Westlands Square, Nairobi, Kenya</p>
+    <div class="footer-bottom" style="text-align: center !important; width: 100%; margin: 40px auto 0 auto; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
+      <p style="text-align: center !important; margin: 0 auto !important; display: block !important;">© <span id="yr">2025</span> Byron N. & Co. Advocates. All rights reserved.</p>
     </div>
-  </div>
-  
- <!-- Footer bottom -->
-<div class="footer-bottom" style="text-align: center !important; width: 100%; margin: 40px auto 0 auto; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
-  <p style="text-align: center !important; margin: 0 auto !important; display: block !important;">© <span id="yr">2025</span> Byron N. & Co. Advocates. All rights reserved.</p>
-</div>
+  </footer>
 
-<script src="main.js" defer></script>
-
+  <script src="main.js" defer></script>
+  <script>
+    // Services Slider Functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const sliderTrack = document.getElementById('services-slider');
+      const prevBtn = document.querySelector('.slider-nav.prev');
+      const nextBtn = document.querySelector('.slider-nav.next');
+      const scrollIndicator = document.getElementById('scroll-indicator');
+      const slides = document.querySelectorAll('.service-slide-card');
+      
+      if (!sliderTrack) return;
+      
+      // Create scroll dots
+      slides.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'scroll-dot';
+        dot.setAttribute('aria-label', `Go to service ${index + 1}`);
+        dot.addEventListener('click', () => {
+          scrollToSlide(index);
+        });
+        scrollIndicator.appendChild(dot);
+      });
+      
+      const dots = document.querySelectorAll('.scroll-dot');
+      if (dots.length > 0) dots[0].classList.add('active');
+      
+      // Slide width calculation
+      function getSlideWidth() {
+        const slide = slides[0];
+        if (!slide) return 380; // Default width
+        const style = getComputedStyle(slide);
+        return slide.offsetWidth + parseInt(style.marginRight || 0);
+      }
+      
+      // Scroll to specific slide
+      function scrollToSlide(index) {
+        const slideWidth = getSlideWidth();
+        const targetScroll = index * slideWidth;
+        
+        sliderTrack.scrollTo({
+          left: targetScroll,
+          behavior: 'smooth'
+        });
+      }
+      
+      // Update dots on scroll
+      function updateDots() {
+        const scrollLeft = sliderTrack.scrollLeft;
+        const slideWidth = getSlideWidth();
+        const activeIndex = Math.min(
+          slides.length - 1,
+          Math.round(scrollLeft / slideWidth)
+        );
+        
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === activeIndex);
+        });
+      }
+      
+      // Navigation buttons
+      prevBtn.addEventListener('click', () => {
+        const scrollAmount = getSlideWidth() * 2; // Scroll 2 slides at a time
+        sliderTrack.scrollBy({
+          left: -scrollAmount,
+          behavior: 'smooth'
+        });
+      });
+      
+      nextBtn.addEventListener('click', () => {
+        const scrollAmount = getSlideWidth() * 2; // Scroll 2 slides at a time
+        sliderTrack.scrollBy({
+          left: scrollAmount,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Mouse drag functionality
+      let isDragging = false;
+      let startX;
+      let startScrollLeft;
+      
+      sliderTrack.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.pageX;
+        startScrollLeft = sliderTrack.scrollLeft;
+        sliderTrack.style.cursor = 'grabbing';
+        sliderTrack.style.scrollBehavior = 'auto';
+      });
+      
+      sliderTrack.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX;
+        const walk = (x - startX) * 2; // Scroll speed multiplier
+        sliderTrack.scrollLeft = startScrollLeft - walk;
+      });
+      
+      sliderTrack.addEventListener('mouseup', () => {
+        isDragging = false;
+        sliderTrack.style.cursor = 'grab';
+        sliderTrack.style.scrollBehavior = 'smooth';
+      });
+      
+      sliderTrack.addEventListener('mouseleave', () => {
+        isDragging = false;
+        sliderTrack.style.cursor = 'grab';
+        sliderTrack.style.scrollBehavior = 'smooth';
+      });
+      
+      // Touch support for mobile
+      sliderTrack.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].pageX;
+        startScrollLeft = sliderTrack.scrollLeft;
+      });
+      
+      sliderTrack.addEventListener('touchmove', (e) => {
+        if (!startX) return;
+        const x = e.touches[0].pageX;
+        const walk = (x - startX) * 2;
+        sliderTrack.scrollLeft = startScrollLeft - walk;
+      });
+      
+      sliderTrack.addEventListener('touchend', () => {
+        startX = null;
+      });
+      
+      // Initialize
+      sliderTrack.addEventListener('scroll', updateDots);
+      updateDots();
+      
+      // Auto-hide arrows on scroll
+      let scrollTimeout;
+      sliderTrack.addEventListener('scroll', () => {
+        prevBtn.style.opacity = '0.5';
+        nextBtn.style.opacity = '0.5';
+        
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          prevBtn.style.opacity = '';
+          nextBtn.style.opacity = '';
+        }, 300);
+      });
+    });
+  </script>
 </body>
 </html>
