@@ -93,64 +93,70 @@
   border-left: 3px solid var(--maroon);
   margin: 0;
 }
-/* MOBILE OPTIMIZATION - Smaller image, cleaner flow */
+
+/* MOBILE: Image only, no background below */
 @media (max-width: 768px) {
   .modern-hero {
     min-height: auto;
+    background: transparent !important; /* REMOVE any hero background */
     background-attachment: scroll !important;
     padding-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background: white; REMOVE THIS LINE */
+    overflow: visible; /* Allow image to determine height */
   }
   
   .modern-hero .container {
-    padding-top: 1rem; /* Reduced from 2rem */
-    padding-bottom: 0rem; /* Reduced from 1rem */
+    padding-top: 0; /* No padding above text */
+    padding-bottom: 0; /* No padding below text */
     order: 2;
     background: transparent;
+    position: relative;
+    z-index: 2;
   }
   
   .modern-hero::before {
     background-attachment: scroll;
     background-size: contain;
     background-position: top center;
-    height: 80vh; /* SMALLER: Changed from 60vh to 40vh */
+    height: 80vh; /* Image height */
     width: 100%;
     position: relative;
     display: block;
     order: 1;
     margin-bottom: 0;
-    padding-bottom: 80px;
+    /* REMOVE: padding-bottom: 80px; */
     top: auto;
     left: auto;
+    background-color: transparent; /* Ensure no color behind image */
   }
   
   .modern-hero::after {
     display: none;
   }
   
+  /* Text styling - keep as is or adjust */
   .modern-hero h1 {
-    font-size: 2.2rem; /* Slightly smaller */
+    font-size: 2.2rem;
     color: var(--navy);
     text-shadow: none;
     margin-top: 0.5rem;
-    margin-bottom: 0.25rem; /* Reduced */
+    margin-bottom: 0.25rem;
   }
   
   .modern-hero h2 {
-    font-size: 1.1rem; /* Slightly smaller */
+    font-size: 1.1rem;
     color: var(--charcoal);
-    margin-bottom: 0.75rem; /* Reduced */
+    margin-bottom: 0.75rem;
   }
   
   .modern-hero .lead {
-    font-size: 1rem; /* Smaller font */
-    padding: 1.25rem; /* Less padding */
+    font-size: 1rem;
+    padding: 1.25rem;
     background: rgba(10, 25, 47, 0.9);
     color: white;
-    margin-bottom: 0.5rem; /* Reduced */
+    margin-bottom: 0.5rem;
   }
 }
     /* Modern Grid Layout */
@@ -572,8 +578,10 @@
   </header>
 
   <main>
+   
     <!-- Modern Hero -->
-    <section class="modern-hero">
+<section class="modern-hero">
+  <div class="container"> <!-- ADD THIS BACK -->
     <h1></h1>
     <h2></h2>
   </div>
