@@ -93,55 +93,61 @@
   border-left: 3px solid var(--maroon);
   margin: 0;
 }
-
-/* MOBILE OPTIMIZATION - Shows entire image without cropping */
+/* MOBILE OPTIMIZATION - CORRECTED (shows entire image) */
 @media (max-width: 768px) {
   .modern-hero {
-    min-height: auto; /* Let height be determined by content/image */
+    min-height: auto;
     background-attachment: scroll !important;
-    padding-top: 80px; /* Adjust based on your nav height */
-    display: block; /* Change from flex for better flow */
+    padding-top: 80px;
+    display: flex; /* Keep as flex for centering */
+    flex-direction: column; /* Stack image then text */
+    align-items: center;
   }
   
   .modern-hero .container {
     padding-top: 2rem;
     padding-bottom: 2rem;
+    order: 2; /* Move text container to appear AFTER the image */
   }
   
   .modern-hero::before {
     background-attachment: scroll;
-    background-size: contain; /* KEY CHANGE: Shows whole image */
-    background-position: top center; /* Aligns image to top */
-    height: 70vh; /* Controls how much of the vertical space the image takes */
-    position: relative; /* Allows content to flow below it */
-    margin-bottom: 2rem;
+    background-size: contain; /* Shows whole image */
+    background-position: top center;
+    background-color: var(--navy); /* Adds solid color behind image if needed */
+    height: 60vh; /* Adjust this value: 50vh, 40vh, etc. */
+    width: 100%;
+    position: relative; /* Takes it out of absolute positioning */
+    display: block;
+    order: 1; /* Make image appear FIRST */
+    margin-bottom: 0;
+    top: auto;
+    left: auto;
   }
   
-  /* Optional: Add a solid background color below the image */
   .modern-hero::after {
-    display: none; /* Hide the overlay if it's interfering */
+    display: none; /* Hide the dark overlay on mobile */
   }
   
   .modern-hero h1 {
     font-size: 2.5rem;
-    position: relative; /* Ensure text appears below image */
-    z-index: 3;
-    margin-top: 0;
+    color: var(--navy); /* Change text color since no overlay */
+    text-shadow: none;
+    margin-top: 1rem;
   }
   
   .modern-hero h2 {
     font-size: 1.25rem;
+    color: var(--charcoal); /* Darker color for better readability */
   }
   
   .modern-hero .lead {
     font-size: 1.1rem;
     padding: 1.5rem;
-    position: relative;
-    z-index: 3;
+    background: rgba(10, 25, 47, 0.9); /* Stronger background for mobile */
+    color: white; /* Keep text white on dark box */
   }
 }
-
-    
     /* Modern Grid Layout */
     .modern-grid {
       display: grid;
