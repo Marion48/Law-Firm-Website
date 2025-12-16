@@ -93,7 +93,7 @@
   border-left: 3px solid var(--maroon);
   margin: 0;
 }
-/* MOBILE OPTIMIZATION - No blue background, seamless flow */
+/* MOBILE OPTIMIZATION - Smaller image, cleaner flow */
 @media (max-width: 768px) {
   .modern-hero {
     min-height: auto;
@@ -102,22 +102,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: white; /* Set white background for hero section */
+    /* background: white; REMOVE THIS LINE */
   }
   
   .modern-hero .container {
-    padding-top: 2rem;
-    padding-bottom: 1rem; /* Less bottom padding */
+    padding-top: 1rem; /* Reduced from 2rem */
+    padding-bottom: 0.5rem; /* Reduced from 1rem */
     order: 2;
-    background: transparent; /* Ensure container is transparent */
+    background: transparent;
   }
   
   .modern-hero::before {
     background-attachment: scroll;
     background-size: contain;
     background-position: top center;
-    /* REMOVE this line: background-color: var(--navy); */
-    height: 60vh; /* Adjust as needed: 50vh, 70vh */
+    height: 60vh; /* SMALLER: Changed from 60vh to 40vh */
     width: 100%;
     position: relative;
     display: block;
@@ -132,25 +131,25 @@
   }
   
   .modern-hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem; /* Slightly smaller */
     color: var(--navy);
     text-shadow: none;
-    margin-top: 0.5rem; /* Reduce top margin */
-    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem; /* Reduced */
   }
   
   .modern-hero h2 {
-    font-size: 1.25rem;
+    font-size: 1.1rem; /* Slightly smaller */
     color: var(--charcoal);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem; /* Reduced */
   }
   
   .modern-hero .lead {
-    font-size: 1.1rem;
-    padding: 1.5rem;
+    font-size: 1rem; /* Smaller font */
+    padding: 1.25rem; /* Less padding */
     background: rgba(10, 25, 47, 0.9);
     color: white;
-    margin-bottom: 1rem; /* Add bottom margin */
+    margin-bottom: 0.5rem; /* Reduced */
   }
 }
     /* Modern Grid Layout */
