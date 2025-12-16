@@ -40,8 +40,20 @@
 }
 
 /* This creates the background image layer */
-
-
+.modern-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('images/IP2.jpg'); /* Your IP image */
+  background-size: cover;
+  background-position: center center; /* Ensures focal point is centered */
+  background-repeat: no-repeat;
+  background-attachment: scroll; /* PREVENTS MOBILE ZOOM */
+  z-index: 1;
+}
 
 /* Optional dark overlay for text readability */
 .modern-hero::after {
@@ -50,7 +62,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 110%;
   background: rgba(10, 25, 47, 0); /* Adjust opacity here (0.5 = 50% dark) */
   z-index: 2;
 }
@@ -82,20 +94,6 @@
   margin: 0;
 }
 /* MOBILE OPTIMIZATION - Smaller image, cleaner flow */
-.modern-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('images/IPmobile.jpg'); /* Your IP image */
-  background-size: cover;
-  background-position: center center; /* Ensures focal point is centered */
-  background-repeat: no-repeat;
-  background-attachment: scroll; /* PREVENTS MOBILE ZOOM */
-  z-index: 1;
-}
 @media (max-width: 768px) {
   .modern-hero {
     min-height: auto;
@@ -118,7 +116,7 @@
     background-attachment: scroll;
     background-size: contain;
     background-position: top center;
-    height: 80vh; /* SMALLER: Changed from 60vh to 40vh */
+    height: 20vh; /* SMALLER: Changed from 60vh to 40vh */
     width: 100%;
     position: relative;
     display: block;
@@ -575,8 +573,6 @@
   <main>
     <!-- Modern Hero -->
     <section class="modern-hero">
-      <div class="hero-bg" style="background-image:url('images/IP2.jpg');"></div>
-      <div class="container">
     <h1></h1>
     <h2></h2>
   </div>
