@@ -1779,23 +1779,13 @@ body.fade-out {
   }
   
   /* Make arrows always visible and larger on mobile */
+  
+  /* Remove arrows on mobile only */
+@media (max-width: 768px) {
   .slider-nav {
-    opacity: 1 !important;
-    visibility: visible !important;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    display: none !important;
   }
-  
-  .slider-nav.prev {
-    left: 0.25rem;
-  }
-  
-  .slider-nav.next {
-    right: 0.25rem;
-  }
+}
   
   /* Improve tap targets */
   .slide-view-more-link {
