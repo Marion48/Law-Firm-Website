@@ -1836,7 +1836,7 @@ body.fade-out {
 @media (max-width: 768px) {
   .slider-track {
     -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
-    scroll-snap-type: x mandatory; /* Snap each card into view */
+    scroll-snap-type: x proximity; /* Snap each card into view */
     scroll-padding: 0 1rem; /* Account for side padding */
   }
   
@@ -1905,5 +1905,15 @@ body.fade-out {
   /* Optional: Slightly reduce top section padding to give more space to the slider */
   .services-slider-section {
     padding-top: 2rem;
+  }
+}
+@media (max-width: 768px) {
+  .slider-track {
+    scroll-snap-type: none !important; /* This stops the aggressive snapping */
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .service-slide-card {
+    scroll-snap-align: none !important;
   }
 }
