@@ -1760,3 +1760,116 @@ body.fade-out {
   padding-bottom: 0 !important;
   
 }
+/* Add these styles to your existing CSS */
+
+/* Improve mobile touch scrolling for slider */
+@media (max-width: 768px) {
+  .slider-track {
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    scroll-snap-type: x mandatory; /* Better snap behavior */
+    padding: 1.5rem 0;
+    cursor: default; /* Don't show grab cursor on mobile */
+  }
+  
+  .service-slide-card {
+    flex: 0 0 85vw; /* Use viewport width for better mobile sizing */
+    height: 350px;
+    scroll-snap-align: center; /* Center snapping */
+    margin: 0 0.5rem;
+  }
+  
+  /* Make arrows always visible and larger on mobile */
+  .slider-nav {
+    opacity: 1 !important;
+    visibility: visible !important;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+  }
+  
+  .slider-nav.prev {
+    left: 0.25rem;
+  }
+  
+  .slider-nav.next {
+    right: 0.25rem;
+  }
+  
+  /* Improve tap targets */
+  .slide-view-more-link {
+    padding: 0.85rem 1.5rem;
+    min-height: 44px; /* Minimum touch target size */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Better scroll indicator for mobile */
+  .scroll-indicator {
+    margin-top: 1.5rem;
+  }
+  
+  .scroll-dot {
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+  }
+  
+  .swipe-hint {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-slide-card {
+    flex: 0 0 90vw;
+    height: 320px;
+  }
+  
+  .slide-card-content {
+    padding: 1.5rem;
+  }
+  
+  .service-slide-title {
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+}
+/* Improve touch scrolling experience */
+@media (max-width: 768px) {
+  .slider-track {
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+    scroll-snap-type: x mandatory; /* Snap each card into view */
+    scroll-padding: 0 1rem; /* Account for side padding */
+  }
+  
+  .service-slide-card {
+    scroll-snap-align: center; /* Center cards when scrolling stops */
+  }
+  
+  /* Remove grab cursor on mobile (touch devices don't need it) */
+  .slider-track,
+  .slider-track:active {
+    cursor: default;
+  }
+  
+  /* Section spacing improvements */
+  .services-slider-section {
+    padding: 3rem 0;
+  }
+  
+  .section-title-bar {
+    margin-bottom: 2.5rem;
+    padding: 0 1rem;
+  }
+  
+  /* Increase tap target sizes for better usability */
+  .service-slide-card,
+  .slider-nav,
+  .scroll-dot,
+  .slide-view-more-link {
+    touch-action: manipulation; /* Prevent double-tap zoom */
+  }
+}

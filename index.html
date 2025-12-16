@@ -469,15 +469,138 @@
     }
     
     /* Responsive */
-    @media (max-width: 1200px) {
-      .slider-container {
-        padding: 0 3rem;
-      }
-      
-      .service-slide-card {
-        flex: 0 0 350px;
-        height: 400px;
-      }
+    @media (max-width: 768px) {
+  .slider-container {
+    padding: 0 0.5rem; /* Reduce side padding to give more space */
+  }
+  
+  .slider-track {
+    gap: 0.75rem; /* Slightly smaller gap */
+    padding: 1.5rem 0.5rem; /* Add side padding for visual breathing room */
+  }
+  
+  .service-slide-card {
+    flex: 0 0 calc(100vw - 2rem); /* Use almost full viewport width */
+    height: 400px; /* Taller for better visibility */
+    min-width: 0; /* Allow flex item to shrink if needed */
+    margin: 0 0.25rem; /* Small side margins */
+  }
+  
+  .slide-card-content {
+    padding: 2.5rem 1.5rem; /* More padding for better content spacing */
+  }
+  
+  .service-slide-title {
+    font-size: 1.8rem; /* Larger text for better readability */
+    margin-bottom: 1.75rem;
+    line-height: 1.3;
+  }
+  
+  .slide-view-more-link {
+    padding: 0.9rem 2rem; /* Larger tap target */
+    font-size: 1rem;
+    min-height: 48px; /* Minimum touch target size */
+  }
+  
+  #services-h {
+    font-size: 2.8rem; /* Larger heading */
+  }
+  
+  .section-subtitle {
+    font-size: 1.3rem; /* Larger subtitle */
+  }
+  
+  .slider-nav {
+    opacity: 1 !important;
+    visibility: visible !important;
+    width: 3rem;
+    height: 3rem;
+    background: rgba(255, 255, 255, 0.25);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+  }
+  
+  .slider-nav.prev {
+    left: 0.5rem;
+  }
+  
+  .slider-nav.next {
+    right: 0.5rem;
+  }
+  
+  /* Make arrows more prominent */
+  .slider-nav svg {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-slide-card {
+    flex: 0 0 calc(100vw - 1.5rem); /* Even larger on very small screens */
+    height: 380px;
+  }
+  
+  .service-slide-title {
+    font-size: 1.6rem;
+  }
+  
+  #services-h {
+    font-size: 2.4rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1.15rem;
+    padding: 0 1rem;
+  }
+  
+  .slide-card-content {
+    padding: 2rem 1.25rem;
+  }
+  
+  /* Enhance scroll indicator visibility */
+  .scroll-indicator {
+    margin-top: 2rem;
+  }
+  
+  .scroll-dot {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+  }
+  
+  .scroll-dot.active {
+    transform: scale(1.8);
+  }
+  
+  /* Make swipe hint more visible */
+  .swipe-hint {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .swipe-hint svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Add this for extra small screens */
+@media (max-width: 360px) {
+  .service-slide-card {
+    flex: 0 0 calc(100vw - 1rem);
+    height: 360px;
+  }
+  
+  .service-slide-title {
+    font-size: 1.5rem;
+  }
+  
+  .slide-view-more-link {
+    padding: 0.85rem 1.75rem;
+    font-size: 0.95rem;
+  }
+}
       
       .about-container {
         gap: 3rem;
@@ -494,42 +617,69 @@
       .about-text {
         font-size: 1.15rem;
       }
-    }
+    
 
     @media (max-width: 992px) {
-      #about {
-        min-height: auto;
-        padding: 4rem 0;
-      }
-      
-      .about-container {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-      
-      .about-content {
-        padding-right: 0;
-        text-align: center;
-      }
-      
-      .about-image-container {
-        height: 400px;
-        max-width: 600px;
-        margin: 0 auto;
-        order: -1;
-      }
-      
-      #about-h {
-        font-size: 2.5rem;
-      }
-      
-      .about-text {
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-    }
+  #about {
+    min-height: auto;
+    padding: 4rem 0;
+  }
+  
+  .about-container {
+    grid-template-columns: 1fr 1fr; /* Keep side-by-side on tablet */
+    gap: 2rem; /* Reduce gap for smaller screens */
+  }
+  
+  .about-content {
+    padding-right: 0;
+    text-align: left; /* Keep left-aligned text */
+    order: 1; /* Text comes first (left side) */
+  }
+  
+  .about-image-container {
+    height: 350px; /* Slightly smaller for mobile */
+    order: 2; /* Image comes second (right side) */
+    margin: 0;
+  }
+  
+  #about-h {
+    font-size: 2.2rem;
+  }
+  
+  .about-text {
+    font-size: 1.05rem;
+    max-width: none; /* Remove max-width constraint */
+    margin: 0;
+    line-height: 1.7;
+  }
+}
 
+/* Add new media query for very small screens */
+@media (max-width: 768px) {
+  .about-container {
+    grid-template-columns: 1fr; /* Stack only on very small screens */
+    gap: 2.5rem;
+  }
+  
+  .about-content {
+    text-align: center;
+  }
+  
+  .about-image-container {
+    height: 300px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  #about-h {
+    font-size: 2rem;
+  }
+  
+  .about-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+}
     @media (max-width: 768px) {
       .slider-container {
         padding: 0 2rem;
@@ -1068,40 +1218,53 @@
         sliderTrack.style.scrollBehavior = 'smooth';
       });
       
-      // Touch support for mobile
-      sliderTrack.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].pageX;
-        startScrollLeft = sliderTrack.scrollLeft;
-      });
-      
-      sliderTrack.addEventListener('touchmove', (e) => {
-        if (!startX) return;
-        const x = e.touches[0].pageX;
-        const walk = (x - startX) * 2;
-        sliderTrack.scrollLeft = startScrollLeft - walk;
-      });
-      
-      sliderTrack.addEventListener('touchend', () => {
-        startX = null;
-      });
-      
-      // Initialize
-      sliderTrack.addEventListener('scroll', updateDots);
-      updateDots();
-      
-      // Auto-hide arrows on scroll
-      let scrollTimeout;
-      sliderTrack.addEventListener('scroll', () => {
-        prevBtn.style.opacity = '0.5';
-        nextBtn.style.opacity = '0.5';
-        
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          prevBtn.style.opacity = '';
-          nextBtn.style.opacity = '';
-        }, 300);
-      });
+     
+        // Touch support for mobile - IMPROVED VERSION
+let touchStartX = 0;
+let touchStartScrollLeft = 0;
+let isTouchScrolling = false;
+
+sliderTrack.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartScrollLeft = sliderTrack.scrollLeft;
+  isTouchScrolling = true;
+  sliderTrack.style.scrollBehavior = 'auto'; // Disable smooth scroll during drag
+}, { passive: true });
+
+sliderTrack.addEventListener('touchmove', (e) => {
+  if (!isTouchScrolling) return;
+  
+  const touchX = e.touches[0].clientX;
+  const diff = touchStartX - touchX;
+  
+  // Apply scroll with momentum
+  sliderTrack.scrollLeft = touchStartScrollLeft + diff * 1.5;
+}, { passive: true });
+
+sliderTrack.addEventListener('touchend', (e) => {
+  if (!isTouchScrolling) return;
+  
+  isTouchScrolling = false;
+  sliderTrack.style.scrollBehavior = 'smooth'; // Re-enable smooth scroll
+  
+  // Calculate momentum for natural feel
+  const touchEndX = e.changedTouches[0].clientX;
+  const velocity = (touchStartX - touchEndX) * 0.5;
+  
+  // Apply momentum scroll
+  if (Math.abs(velocity) > 10) {
+    sliderTrack.scrollBy({
+      left: velocity,
+      behavior: 'smooth'
     });
+  }
+  
+  // Reset
+  touchStartX = 0;
+  touchStartScrollLeft = 0;
+});
+      });
+    
   </script>
 </body>
 </html>
