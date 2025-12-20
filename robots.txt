@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marion48.github.io/Law-firm-website/sitemap.xml

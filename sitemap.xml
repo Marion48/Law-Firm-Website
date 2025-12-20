@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Core Pages -->
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/about.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/meet our advocate.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/contact.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services Overview -->
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/services.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Individual Service Pages -->
+
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/Criminal Litigation.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/intellectual-property.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/commercial and corporate law.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/litigation dispute resolution.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/Entertainment.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/conveyancing.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/compensation & liability matters.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://marion48.github.io/Law-firm-website/constitution and human rights-law.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>
