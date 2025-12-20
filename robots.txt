@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://marion48.github.io/Law-firm-website/sitemap.xml
+Sitemap: https://marion48.github.io/Law-Firm-Website//sitemap.xml
