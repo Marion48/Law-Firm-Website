@@ -1921,6 +1921,7 @@ body.fade-out {
   position: fixed;
   bottom: 25px;
   left: 25px;
+  
 
   width: auto !important;
   max-width: fit-content !important;
