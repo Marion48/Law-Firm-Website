@@ -759,12 +759,12 @@
       }
       
       .service-slide-card {
-        flex: 0 0 320px;
-        height: 380px;
+        flex: 0 0 340px;
+        height: 400px;
       }
       
       .service-slide-title {
-        font-size: 1.5rem;
+        font-size: 2rem;
       }
       
       #services-h, #team-h, #contact-h, #about-h {
@@ -808,18 +808,18 @@
         margin: 0 1rem;
       }
     }
-
-    @media (max-width: 480px) {
-      .slider-container {
-        padding: 0 1rem;
-      }
-      
-      .service-slide-card {
-        flex: 0 0 300px;
-        height: 350px;
-      }
-      
-      .slide-card-content {
+      @media (max-width: 480px) {
+  /* Make slider images even bigger on phones */
+  .service-slide-card {
+    flex: 0 0 320px !important;    /* Wider than original 300px */
+    height: 380px !important;      /* Taller than original 350px */
+  }
+  
+  .slider-container {
+    padding: 0 0.5rem !important;  /* Reduce side padding for more image space */
+  }
+  
+     .slide-card-content {
         padding: 2rem;
       }
       
@@ -831,8 +831,31 @@
       .slide-view-more-link {
         padding: 0.65rem 1.25rem;
         font-size: 0.9rem;
-      }
-      
+
+  /* Make arrow buttons more visible on mobile */
+  .slider-nav {
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+  }
+  
+  .slider-nav.prev {
+    left: 0.25rem !important;
+  }
+  
+  .slider-nav.next {
+    right: 0.25rem !important;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 360px) {
+  /* Use most of the screen width for the slider image */
+  .service-slide-card {
+    flex: 0 0 300px !important;    /* Use nearly full width on small phones */
+    height: 380px !important;
+  }
+}
       #about {
         padding: 2.5rem 0;
       }
