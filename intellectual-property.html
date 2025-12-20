@@ -18,147 +18,63 @@
       --card-shadow-hover: 0 10px 40px rgba(128, 0, 32, 0.1);
       --section-spacing: 6rem;
     }
-
     
-    /* Modern Hero */
-   /* Premium Hero Section - FIX FOR INTELLECTUAL PROPERTY PAGE */
-.modern-hero {
-  min-height: 85vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding-top: 100px;
-  overflow: hidden; /* Keeps everything contained */
-}
-
-.modern-hero .container {
-  position: relative;
-  z-index: 3;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: var(--space-2xl) var(--space-lg);
-}
-
-/* This creates the background image layer */
-.modern-hero::before {
-  content: '';
+    .hero-bg {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('images/IP2.png'); /* Your IP image */
+  inset: 0;
   background-size: cover;
-  background-position: center center; /* Ensures focal point is centered */
+  background-position: center;
   background-repeat: no-repeat;
-  background-attachment: scroll; /* PREVENTS MOBILE ZOOM */
   z-index: 1;
 }
 
-/* Optional dark overlay for text readability */
-.modern-hero::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 25, 47, 0); /* Adjust opacity here (0.5 = 50% dark) */
-  z-index: 2;
-}
 
-.modern-hero h1 {
-  font-size: 3.5rem;
-  line-height: 1.1;
-  margin-bottom: 2rem;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-.modern-hero h2 {
-  font-size: 1.5rem;
-  line-height: 1.4;
-  margin-bottom: 2rem;
-  color: white;
-  font-weight: 300;
-}
 
-.modern-hero .lead {
-  font-size: 1.25rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.95);
-  background: rgba(10, 25, 47, 0.7);
-  backdrop-filter: blur(10px);
-  padding: 2rem;
-  border-radius: 0;
-  border-left: 3px solid var(--maroon);
-  margin: 0;
-}
-
-/* MOBILE: Image only, no background below */
-@media (max-width: 768px) {
-  .modern-hero {
-    min-height: auto;
-    background: transparent !important; /* REMOVE any hero background */
-    background-attachment: scroll !important;
-    padding-top: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: visible; /* Allow image to determine height */
-  }
-  
-  .modern-hero .container {
-    padding-top: 0; /* No padding above text */
-    padding-bottom: 0; /* No padding below text */
-    order: 2;
-    background: transparent;
-    position: relative;
-    z-index: 2;
-  }
-  
-  .modern-hero::before {
-    background-attachment: scroll;
-    background-size: contain;
-    background-position: top center;
-    height: 80vh; /* Image height */
-    width: 100%;
-    position: relative;
-    display: block;
-    order: 1;
-    margin-bottom: 0;
-    /* REMOVE: padding-bottom: 80px; */
-    top: auto;
-    left: auto;
-    background-color: transparent; /* Ensure no color behind image */
-  }
-  
-  .modern-hero::after {
-    display: none;
-  }
-  
-  /* Text styling - keep as is or adjust */
-  .modern-hero h1 {
-    font-size: 2.2rem;
-    color: var(--navy);
-    text-shadow: none;
-    margin-top: 0.5rem;
-    margin-bottom: 0.25rem;
-  }
-  
-  .modern-hero h2 {
-    font-size: 1.1rem;
-    color: var(--charcoal);
-    margin-bottom: 0.75rem;
-  }
-  
-  .modern-hero .lead {
-    font-size: 1rem;
-    padding: 1.25rem;
-    background: rgba(10, 25, 47, 0.9);
-    color: white;
-    margin-bottom: 0.5rem;
-  }
-}
+    /* Modern Hero */
+    .modern-hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 100px;
+    }
+    
+    .modern-hero .container {
+      position: relative;
+      z-index: 3;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-lg);
+    }
+    
+    .modern-hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .modern-hero h2 {
+      font-size: 1.5rem;
+      line-height: 1.4;
+      margin-bottom: 2rem;
+      color: white;
+      font-weight: 300;
+    }
+    
+    .modern-hero .lead {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.95);
+      background: rgba(10, 25, 47, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 0;
+      border-left: 3px solid var(--maroon);
+      margin: 0;
+    }
+    
     /* Modern Grid Layout */
     .modern-grid {
       display: grid;
@@ -331,7 +247,7 @@
     }
     
     .section-title h2 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: var(--navy);
       margin-bottom: 1rem;
       position: relative;
@@ -413,7 +329,6 @@
     .modern-card:nth-child(4) { animation-delay: 0.4s; }
     .modern-card:nth-child(5) { animation-delay: 0.5s; }
     .modern-card:nth-child(6) { animation-delay: 0.6s; }
-    .modern-card:nth-child(7) { animation-delay: 0.7s; }
     
     /* Responsive */
     @media (max-width: 768px) {
@@ -581,9 +496,12 @@
    
     <!-- Modern Hero -->
 <section class="modern-hero">
-  <div class="container"> <!-- ADD THIS BACK -->
+  <!-- HERO IMAGE GOES HERE -->
+  <div class="hero-bg" style="background-image: url('images/IP2.png');"></div>
+
+  <div class="container">
     <h1>Intellectual Property</h1>
-    <h2></h2>
+    <h2>Protecting your ideas, brands, and innovations</h2>
   </div>
 </section>
 

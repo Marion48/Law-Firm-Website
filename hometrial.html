@@ -1,938 +1,107 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Compensation & Liability Matters — Byron N. & Co. Advocates</title>
-  <meta name="description" content="Expert legal services for compensation claims and liability matters in Kenya. Personal injury, medical negligence, motor accidents, employment claims, and product liability.">
+/* Premium Hero Section - FIXED */
+.modern-hero {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-top: 100px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.7)); /* Fallback solid color */
+}
+
+.modern-hero .container {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+}
+
+/* Desktop background image */
+@media (min-width: 769px) {
+  .modern-hero {
+    background: linear-gradient(135deg, rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.6)),
+                url('images/IP2.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
   
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  .modern-hero::before,
+  .modern-hero::after {
+    display: none; /* Remove pseudo-element backgrounds */
+  }
+}
+
+/* Mobile: NO background image, just solid color */
+@media (max-width: 768px) {
+  .modern-hero {
+    min-height: auto;
+    padding-top: 80px;
+    padding-bottom: 40px;
+    background: var(--navy) !important; /* Solid navy blue on mobile */
+    overflow: visible;
+    display: block; /* Change from flex to block */
+  }
   
-  <link rel="stylesheet" href="style.css">
-  <style>
-    :root {
-      --navy: #0a192f;
-      --navy-light: #112240;
-      --ivory: #f8f5f0;
-      --maroon: #800020;
-      --maroon-dark: #67001a;
-      --gold: #c9a86a;
-      --gold-dark: #b38a45;
-      --charcoal: #1a1a1a;
-      --stone: #e8e5de;
-      --muted: #6e7680;
-      
-      /* Typography */
-      --font-heading: 'Cormorant Garamond', serif;
-      --font-body: 'Inter', sans-serif;
-      --text-base: 1rem;
-      --text-lg: 1.125rem;
-      --text-xl: 1.25rem;
-      --text-2xl: 1.5rem;
-      --text-3xl: 1.875rem;
-      --text-4xl: 2.25rem;
-      --text-5xl: 3rem;
-      
-      /* Spacing */
-      --space-xs: 0.5rem;
-      --space-sm: 1rem;
-      --space-md: 1.5rem;
-      --space-lg: 2rem;
-      --space-xl: 3rem;
-      --space-2xl: 4rem;
-      --space-3xl: 6rem;
-    }
-    
-    /* Modern Practice Page Layout */
-    .practice-page {
-      background: var(--ivory);
-      min-height: 100vh;
-      color: var(--charcoal);
-      line-height: 1.7;
-      font-family: var(--font-body);
-      font-size: var(--text-base);
-    }
-    
-    /* Premium Hero with Overlay */
-    .practice-hero {
-      min-height: 65vh;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding-top: 100px;
-      overflow: hidden;
-      background: linear-gradient(rgba(10, 25, 47, 0.85), rgba(10, 25, 47, 0.9)), url('images/kudowarm.JPG');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-    
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(128, 0, 32, 0.1) 0%, rgba(10, 25, 47, 0.7) 50%, rgba(10, 25, 47, 0.9) 100%);
-      z-index: 1;
-    }
-    
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 1000px;
-      padding: var(--space-2xl) var(--space-lg);
-      color: white;
-    }
-    
-    .hero-content h1 {
-      font-family: var(--font-heading);
-      font-size: var(--text-5xl);
-      font-weight: 600;
-      line-height: 1.1;
-      margin-bottom: var(--space-md);
-      letter-spacing: -0.02em;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-    
-    .hero-subtitle {
-      font-size: var(--text-xl);
-      font-weight: 300;
-      max-width: 700px;
-      margin: 0 auto var(--space-xl);
-      opacity: 0.95;
-      line-height: 1.6;
-    }
-    
-    /* Main Content Grid */
-    .practice-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--space-3xl);
-      padding: var(--space-3xl) var(--space-lg);
-    }
-    
-    @media (min-width: 992px) {
-      .practice-container {
-        grid-template-columns: 300px 1fr;
-        gap: var(--space-2xl);
-      }
-    }
-    
-    /* Premium Sidebar Navigation */
-    .practice-sidebar {
-      position: sticky;
-      top: 120px;
-      height: fit-content;
-      background: white;
-      border-radius: 0;
-      box-shadow: 0 10px 40px rgba(10, 25, 47, 0.08);
-      padding: var(--space-xl);
-      border-left: 4px solid var(--maroon);
-    }
-    
-    .sidebar-title {
-      font-family: var(--font-heading);
-      font-size: var(--text-xl);
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: var(--space-lg);
-      padding-bottom: var(--space-sm);
-      border-bottom: 1px solid var(--stone);
-    }
-    
-    .sidebar-nav {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    
-    .sidebar-nav li {
-      margin-bottom: var(--space-xs);
-    }
-    
-    .sidebar-nav a {
-      display: block;
-      padding: var(--space-sm);
-      color: var(--muted);
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border-left: 3px solid transparent;
-      position: relative;
-    }
-    
-    .sidebar-nav a:hover,
-    .sidebar-nav a.active {
-      color: var(--maroon);
-      background: rgba(128, 0, 32, 0.05);
-      border-left-color: var(--maroon);
-      transform: translateX(4px);
-    }
-    
-    .sidebar-nav a::before {
-      content: '→';
-      position: absolute;
-      left: -15px;
-      opacity: 0;
-      transition: all 0.3s ease;
-    }
-    
-    .sidebar-nav a:hover::before {
-      left: 8px;
-      opacity: 1;
-    }
-    
-    .sidebar-contact {
-      margin-top: var(--space-xl);
-      padding-top: var(--space-lg);
-      border-top: 1px solid var(--stone);
-    }
-    
-    .contact-card {
-      background: linear-gradient(135deg, rgba(10, 25, 47, 0.03) 0%, rgba(128, 0, 32, 0.03) 100%);
-      padding: var(--space-lg);
-      border-radius: 0;
-      text-align: center;
-    }
-    
-    .contact-card h3 {
-      font-family: var(--font-heading);
-      font-size: var(--text-lg);
-      color: var(--navy);
-      margin-bottom: var(--space-sm);
-    }
-    
-    .contact-btn {
-      display: inline-block;
-      background: var(--maroon);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      font-weight: 600;
-      border: 2px solid var(--maroon);
-      transition: all 0.3s ease;
-      margin-top: var(--space-sm);
-    }
-    
-    .contact-btn:hover {
-      background: var(--maroon-dark);
-      border-color: var(--maroon-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(128, 0, 32, 0.2);
-    }
-    
-    /* Main Content Area */
-    .practice-content {
-      background: white;
-      border-radius: 0;
-      box-shadow: 0 10px 40px rgba(10, 25, 47, 0.08);
-      overflow: hidden;
-    }
-    
-    .content-section {
-      padding: var(--space-2xl);
-      border-bottom: 1px solid var(--stone);
-    }
-    
-    .content-section:last-child {
-      border-bottom: none;
-    }
-    
-    .section-title {
-      font-family: var(--font-heading);
-      font-size: var(--text-3xl);
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: var(--space-lg);
-      position: relative;
-      padding-bottom: var(--space-sm);
-    }
-    
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--maroon), var(--gold));
-    }
-    
-    /* Practice Area Cards - Inspired by Premium Firms */
-    .practice-areas-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--space-lg);
-      margin-top: var(--space-xl);
-    }
-    
-    .area-card {
-      background: white;
-      border-radius: 0;
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(10, 25, 47, 0.05);
-      border: 1px solid rgba(10, 25, 47, 0.08);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      height: 100%;
-      position: relative;
-    }
-    
-    .area-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 50px rgba(10, 25, 47, 0.15);
-      border-color: rgba(128, 0, 32, 0.2);
-    }
-    
-    .area-icon {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 1.2rem;
-      position: absolute;
-      top: -24px;
-      left: var(--space-lg);
-      z-index: 2;
-    }
-    
-    .area-content {
-      padding: var(--space-xl);
-      padding-top: calc(var(--space-xl) + 12px);
-    }
-    
-    .area-content h3 {
-      font-family: var(--font-heading);
-      font-size: var(--text-xl);
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: var(--space-sm);
-      line-height: 1.3;
-    }
-    
-    .area-description {
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: var(--space-md);
-    }
-    
-    .area-features {
-      list-style: none;
-      padding: 0;
-      margin: var(--space-md) 0 0 0;
-    }
-    
-    .area-features li {
-      padding: var(--space-xs) 0;
-      color: var(--charcoal);
-      font-size: 0.9rem;
-      position: relative;
-      padding-left: 1.5rem;
-    }
-    
-    .area-features li::before {
-      content: '•';
-      color: var(--maroon);
-      font-weight: bold;
-      position: absolute;
-      left: 0;
-    }
-    
-    /* Process Steps */
-    .process-steps {
-      counter-reset: step-counter;
-      margin: var(--space-xl) 0;
-    }
-    
-    .process-step {
-      position: relative;
-      padding-left: 4rem;
-      margin-bottom: var(--space-xl);
-    }
-    
-    .process-step::before {
-      counter-increment: step-counter;
-      content: counter(step-counter);
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 2.5rem;
-      height: 2.5rem;
-      background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      border-radius: 50%;
-      font-size: 0.9rem;
-    }
-    
-    .process-step h4 {
-      font-family: var(--font-heading);
-      font-size: var(--text-lg);
-      color: var(--navy);
-      margin-bottom: var(--space-xs);
-    }
-    
-    /* Testimonials Section */
-    .testimonial-slider {
-      position: relative;
-      margin: var(--space-xl) 0;
-    }
-    
-    .testimonial-card {
-      background: linear-gradient(135deg, rgba(10, 25, 47, 0.02) 0%, rgba(128, 0, 32, 0.02) 100%);
-      padding: var(--space-xl);
-      border-radius: 0;
-      border-left: 3px solid var(--maroon);
-    }
-    
-    .testimonial-text {
-      font-style: italic;
-      color: var(--charcoal);
-      line-height: 1.8;
-      margin-bottom: var(--space-md);
-      position: relative;
-    }
-    
-    .testimonial-text::before {
-      content: '"';
-      font-family: var(--font-heading);
-      font-size: 4rem;
-      color: rgba(128, 0, 32, 0.1);
-      position: absolute;
-      top: -20px;
-      left: -10px;
-    }
-    
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-    }
-    
-    .author-avatar {
-      width: 50px;
-      height: 50px;
-      background: var(--stone);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--maroon);
-      font-weight: 600;
-    }
-    
-    .author-info h4 {
-      margin: 0;
-      font-weight: 600;
-      color: var(--navy);
-    }
-    
-    .author-info p {
-      margin: 2px 0 0 0;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    
-    /* CTA Section */
-    .practice-cta {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-      color: white;
-      padding: var(--space-3xl) var(--space-2xl);
-      text-align: center;
-      border-radius: 0;
-      margin-top: var(--space-3xl);
-    }
-    
-    .cta-content {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    .cta-content h2 {
-      font-family: var(--font-heading);
-      font-size: var(--text-3xl);
-      font-weight: 600;
-      margin-bottom: var(--space-md);
-      color: white;
-    }
-    
-    .cta-content p {
-      opacity: 0.9;
-      margin-bottom: var(--space-xl);
-      font-size: var(--text-lg);
-    }
-    
-    .cta-buttons {
-      display: flex;
-      gap: var(--space-md);
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    
-    .btn-primary {
-      background: var(--gold);
-      color: var(--navy);
-      padding: 1rem 2rem;
-      text-decoration: none;
-      font-weight: 600;
-      border: 2px solid var(--gold);
-      transition: all 0.3s ease;
-      font-family: var(--font-body);
-    }
-    
-    .btn-primary:hover {
-      background: var(--gold-dark);
-      border-color: var(--gold-dark);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(201, 168, 106, 0.3);
-    }
-    
-    .btn-secondary {
-      background: transparent;
-      color: white;
-      padding: 1rem 2rem;
-      text-decoration: none;
-      font-weight: 600;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      transition: all 0.3s ease;
-      font-family: var(--font-body);
-    }
-    
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: white;
-      transform: translateY(-3px);
-    }
-    
-    /* Back to Home Link */
-    .back-home {
-      text-align: center;
-      margin: var(--space-3xl) 0;
-    }
-    
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-xs);
-      color: var(--maroon);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: var(--text-lg);
-      transition: all 0.3s ease;
-      padding: var(--space-sm) var(--space-lg);
-      border: 1px solid rgba(128, 0, 32, 0.2);
-      background: rgba(128, 0, 32, 0.05);
-    }
-    
-    .back-link:hover {
-      background: rgba(128, 0, 32, 0.1);
-      border-color: var(--maroon);
-      transform: translateY(-2px);
-      gap: var(--space-md);
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .practice-hero {
-        min-height: 50vh;
-      }
-      
-      .hero-content h1 {
-        font-size: var(--text-3xl);
-      }
-      
-      .hero-subtitle {
-        font-size: var(--text-base);
-      }
-      
-      .practice-container {
-        padding: var(--space-xl) var(--space-md);
-      }
-      
-      .content-section {
-        padding: var(--space-xl);
-      }
-      
-      .section-title {
-        font-size: var(--text-2xl);
-      }
-      
-      .practice-areas-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .cta-content h2 {
-        font-size: var(--text-2xl);
-      }
-      
-      .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .btn-primary,
-      .btn-secondary {
-        width: 100%;
-        text-align: center;
-      }
-    }
-    
-    /* Animation Effects */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .fade-in {
-      animation: fadeInUp 0.6s ease forwards;
-      opacity: 0;
-    }
-    
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .delay-4 { animation-delay: 0.4s; }
-    .delay-5 { animation-delay: 0.5s; }
-    
-    /* Smooth Scrolling */
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
-</head>
-<body class="practice-page">
-  <!-- Navigation (From Your Main Page) -->
-  <header class="nav" role="banner">
-    <div class="container nav-inner">
-      <a class="brand brand-combo" href="index.html">
-        <img src="images/logo.png" alt="Firm Logo" class="logo">
-        <span>Byron N. & Co. Advocates</span>
-      </a>
-      <button id="mobile-toggle" class="hamburger" aria-label="Open navigation" aria-expanded="false">☰</button>
-      <nav id="main-nav" role="navigation" aria-label="Main Navigation">
-        <ul>
-          <li><a href="index.html#home">Home</a></li>
-          <li><a href="index.html#about">About</a></li>
-          <li><a href="index.html#services" class="active">Practice Areas</a></li>
-          <li><a href="index.html#team">Team</a></li>
-          <li><a href="insights.html">Insights</a></li>
-          <li><a href="book-reviews.html">Reading Room</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  .modern-hero .container {
+    padding: var(--space-xl) var(--space-md);
+    background: transparent;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* COMPLETELY REMOVE the background image on mobile */
+  .modern-hero::before,
+  .modern-hero::after {
+    display: none !important;
+    content: none !important;
+  }
+  
+  .modern-hero h1 {
+    font-size: 2.2rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+  }
+  
+  .modern-hero h2 {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  
+  .modern-hero .lead {
+    font-size: 1rem;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    color: white;
+    border-left: 3px solid var(--maroon);
+    margin: 0;
+  }
+}
 
-  <main>
-    <!-- Premium Hero Section -->
-    <section class="practice-hero fade-in">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1>Compensation & Liability Matters</h1>
-        <p class="hero-subtitle">Expert legal representation for personal injury claims, medical negligence, workplace accidents, and liability disputes. We pursue justice and fair compensation when you've been wronged.</p>
-      </div>
-    </section>
-
-    <!-- Main Content Area -->
-    <div class="practice-container">
-      <!-- Sidebar Navigation -->
-      <aside class="practice-sidebar fade-in delay-1">
-        <h2 class="sidebar-title">Practice Areas</h2>
-        <ul class="sidebar-nav">
-          <li><a href="#overview" class="active">Overview</a></li>
-          <li><a href="#personal-injury">Personal Injury Claims</a></li>
-          <li><a href="#medical-negligence">Medical Negligence</a></li>
-          <li><a href="#motor-accidents">Motor Accident Claims</a></li>
-          <li><a href="#employment-disease">Employment & Industrial Disease</a></li>
-          <li><a href="#product-liability">Product Liability</a></li>
-          <li><a href="#process">Our Legal Process</a></li>
-          <li><a href="#testimonials">Client Testimonials</a></li>
-        </ul>
-        
-        <div class="sidebar-contact">
-          <div class="contact-card">
-            <h3>Need Immediate Assistance?</h3>
-            <p>Contact our compensation law specialists for a confidential consultation.</p>
-            <a href="index.html#contact" class="contact-btn">Schedule Consultation</a>
-          </div>
-        </div>
-      </aside>
-
-      <!-- Main Content -->
-      <article class="practice-content fade-in delay-2">
-        <!-- Overview Section -->
-        <section id="overview" class="content-section">
-          <h2 class="section-title">Comprehensive Compensation & Liability Representation</h2>
-          <p>When accidents, injuries, or losses occur due to another party's negligence or wrongdoing, securing fair compensation becomes essential. At Byron N. & Co. Advocates, we combine deep legal expertise with compassionate client care to navigate complex liability matters.</p>
-          <p>Our approach focuses on thorough investigation, strategic negotiation, and when necessary, assertive litigation to protect your rights and secure the compensation you deserve for medical expenses, lost income, pain and suffering, and other damages.</p>
-          
-          <div class="practice-areas-grid">
-            <div class="area-card fade-in delay-3">
-              <div class="area-icon">01</div>
-              <div class="area-content">
-                <h3>Personal Injury</h3>
-                <p class="area-description">Compensation for injuries from accidents, unsafe premises, and other negligent acts.</p>
-                <ul class="area-features">
-                  <li>Road traffic accidents</li>
-                  <li>Workplace injuries</li>
-                  <li>Slip and fall incidents</li>
-                  <li>Assault and battery claims</li>
-                </ul>
-              </div>
-            </div>
-            
-            <div class="area-card fade-in delay-4">
-              <div class="area-icon">02</div>
-              <div class="area-content">
-                <h3>Medical Negligence</h3>
-                <p class="area-description">Holding medical professionals accountable for errors causing harm or worsening conditions.</p>
-                <ul class="area-features">
-                  <li>Surgical errors</li>
-                  <li>Misdiagnosis cases</li>
-                  <li>Birth injuries</li>
-                  <li>Medication errors</li>
-                </ul>
-              </div>
-            </div>
-            
-            <div class="area-card fade-in delay-5">
-              <div class="area-icon">03</div>
-              <div class="area-content">
-                <h3>Motor Accidents</h3>
-                <p class="area-description">Comprehensive representation for victims of road traffic collisions and accidents.</p>
-                <ul class="area-features">
-                  <li>Insurance claims</li>
-                  <li>Hit-and-run cases</li>
-                  <li>Passenger injuries</li>
-                  <li>Fatal accident claims</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Personal Injury Section -->
-        <section id="personal-injury" class="content-section">
-          <h2 class="section-title">Personal Injury Claims</h2>
-          <p>When you suffer physical or psychological harm due to someone else's negligence, you have the right to seek compensation. Our personal injury practice covers a wide range of incidents where duty of care has been breached.</p>
-          
-          <div class="process-steps">
-            <div class="process-step">
-              <h4>Comprehensive Case Evaluation</h4>
-              <p>We begin with a thorough assessment of your case, gathering evidence, medical records, and witness statements to establish liability and quantify damages.</p>
-            </div>
-            
-            <div class="process-step">
-              <h4>Strategic Claim Development</h4>
-              <p>Our team develops a compelling claim strategy, working with medical experts, accident reconstruction specialists, and economic analysts to build a strong case.</p>
-            </div>
-            
-            <div class="process-step">
-              <h4>Negotiation & Settlement</h4>
-              <p>We engage in strategic negotiations with insurance companies and opposing counsel, aiming for fair settlement while preparing for trial if necessary.</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- Medical Negligence Section -->
-        <section id="medical-negligence" class="content-section">
-          <h2 class="section-title">Medical Negligence & Malpractice</h2>
-          <p>When healthcare providers fail to meet accepted standards of care, causing injury or worsening medical conditions, we pursue accountability through medical negligence claims.</p>
-          
-          <div class="practice-areas-grid">
-            <div class="area-card">
-              <div class="area-content">
-                <h3>Surgical Errors</h3>
-                <p>Wrong-site surgery, unnecessary procedures, retained surgical instruments, and anesthesia errors.</p>
-              </div>
-            </div>
-            
-            <div class="area-card">
-              <div class="area-content">
-                <h3>Diagnostic Failures</h3>
-                <p>Failure to diagnose, delayed diagnosis, misdiagnosis of serious conditions including cancer and heart disease.</p>
-              </div>
-            </div>
-            
-            <div class="area-card">
-              <div class="area-content">
-                <h3>Treatment Errors</h3>
-                <p>Medication errors, improper treatment, failure to obtain informed consent, and substandard postoperative care.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="content-section">
-          <h2 class="section-title">Client Testimonials</h2>
-          
-          <div class="testimonial-slider">
-            <div class="testimonial-card">
-              <p class="testimonial-text">After my serious car accident, Byron N. & Co. Advocates handled everything with exceptional professionalism. They secured a settlement that covered all my medical expenses and lost income, allowing me to focus on recovery.</p>
-              <div class="testimonial-author">
-                <div class="author-avatar">JK</div>
-                <div class="author-info">
-                  <h4>James Kariuki</h4>
-                  <p>Road Accident Victim</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="practice-cta">
-          <div class="cta-content">
-            <h2>Ready to Pursue Your Compensation Claim?</h2>
-            <p>Contact our specialist team for a confidential evaluation of your case. We work on a no-win, no-fee basis for eligible claims.</p>
-            <div class="cta-buttons">
-              <a href="index.html#contact" class="btn-primary">Schedule Consultation</a>
-              <a href="tel:+254707146880" class="btn-secondary">Call +254 707 146 880</a>
-            </div>
-          </div>
-        </section>
-      </article>
-    </div>
-
-    <!-- Back to Home -->
-    <div class="back-home">
-      <a href="index.html" class="back-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-        Back to Home
-      </a>
-    </div>
-  </main>
-
-  <!-- Footer (From Your Main Page) -->
-  <footer class="main-footer">
-    <div class="footer-content">
-      <!-- Services on the LEFT -->
-      <div class="footer-links">
-        <h4>Services</h4>
-        <a href="litigation-dispute-resolution.html">Litigation & Dispute Resolution</a>
-        <a href="intellectual-property.html">Intellectual Property</a>
-        <a href="Commercial and corporate law.html">Commercial & Corporate Law</a>
-        <a href="Constitutional and Human Rights Law.html">Constitutional and Human Rights Law</a>
-        <a href="conveyancing.html">Conveyancing</a>
-        <a href="Criminal Litigation.html">Criminal Litigation</a>
-        <a href="Entertainment.html">Entertainment</a>
-        <a href="Compensation & Liability Matters.html">Compensation & Liability Matters</a>
-      </div>
-      
-      <!-- Connect on the RIGHT -->
-      <div class="footer-links">
-        <h4>Connect</h4>
-        <a href="mailto:marioncherono55@gmail.com">marioncherono55@gmail.com</a>
-        <a href="tel:+254707146880">+254 707 146 880</a>
-        <p>Westlands Square, Nairobi, Kenya</p>
-      </div>
-    </div>
-    
-    <div class="footer-bottom" style="text-align: center !important; width: 100%; margin: 40px auto 0 auto; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
-      <p style="text-align: center !important; margin: 0 auto !important; display: block !important;">© <span id="yr">2025</span> Byron N. & Co. Advocates. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script>
-    // Set current year in footer
-    document.getElementById('yr').textContent = new Date().getFullYear();
-    
-    // Smooth scrolling for sidebar navigation
-    document.querySelectorAll('.sidebar-nav a').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-          // Update active state
-          document.querySelectorAll('.sidebar-nav a').forEach(link => {
-            link.classList.remove('active');
-          });
-          this.classList.add('active');
-          
-          // Scroll to section
-          window.scrollTo({
-            top: targetElement.offsetTop - 100,
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-    
-    // Animation on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
-        }
-      });
-    }, observerOptions);
-    
-    // Observe all sections for animation
-    document.querySelectorAll('.content-section, .area-card').forEach(el => {
-      observer.observe(el);
-    });
-    
-    // Mobile navigation toggle (from your main page)
-    const mobileToggle = document.getElementById('mobile-toggle');
-    const mainNav = document.getElementById('main-nav');
-    
-    if (mobileToggle && mainNav) {
-      mobileToggle.addEventListener('click', () => {
-        const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-        mobileToggle.setAttribute('aria-expanded', String(!expanded));
-        mainNav.classList.toggle('open');
-      });
-    }
-    
-    // Update active sidebar link on scroll
-    window.addEventListener('scroll', () => {
-      const sections = document.querySelectorAll('.content-section');
-      const navLinks = document.querySelectorAll('.sidebar-nav a');
-      
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= (sectionTop - 150)) {
-          current = section.getAttribute('id');
-        }
-      });
-      
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-          link.classList.add('active');
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+/* Extra small devices */
+@media (max-width: 480px) {
+  .modern-hero {
+    padding-top: 70px;
+    padding-bottom: 30px;
+  }
+  
+  .modern-hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .modern-hero h2 {
+    font-size: 1rem;
+  }
+  
+  .modern-hero .lead {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+}
