@@ -28,7 +28,23 @@
       position: relative;
       padding-top: 100px;
     }
-    
+    .modern-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('images/criminal.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+
+
     .modern-hero .container {
       position: relative;
       z-index: 3;
@@ -64,20 +80,7 @@
       border-left: 3px solid var(--maroon);
       margin: 0;
     }
-    @media (max-width: 768px) {
-    .hero-bg {
-        background-image: url('images/criminal.png') !important;
-        background-size: cover !important;
-        background-position: center !important;
-    }
-}
-@media (max-width: 430px) {
-    .hero-bg {
-        background-image: url('images/criminal.png') !important;
-        background-size: cover !important;
-        background-position: center !important;
-    }
-}
+    
     /* Modern Grid Layout */
     .modern-grid {
       display: grid;
@@ -685,7 +688,6 @@
         <a href="index.html#about">About Us</a>
         <a href="index.html#team">Our Team</a>
         <a href="insights.html">Legal Insights</a>
-        <a href="book-reviews.html">Reading Room</a>
       </div>
     </div>
     
