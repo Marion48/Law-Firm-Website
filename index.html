@@ -468,6 +468,58 @@
       z-index: 1;
     }
     
+    /* ===== MOBILE SPACING FIXES ===== */
+
+@media (max-width: 768px) {
+  /* Tablet & Mobile: Space between Hero image and About heading */
+  #about {
+    padding-top: 3rem !important;  /* Creates space below hero */
+  }
+  
+  /* Tablet & Mobile: Space between About image and Services section */
+  #services {
+    margin-top: 2.5rem !important;  /* Creates space above services */
+  }
+  
+  /* Tablet & Mobile: Extra space below About image */
+  .about-image-container {
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+/* Extra small screens (phones) */
+@media (max-width: 480px) {
+  /* Small phones: More space between Hero and About */
+  #about {
+    padding-top: 2.5rem !important;
+  }
+  
+  /* Small phones: Slightly less space between About and Services */
+  #services {
+    margin-top: 2rem !important;
+  }
+  
+  /* Small phones: Less space below About image */
+  .about-image-container {
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  /* Very small phones: Minimal spacing for limited screen space */
+  #about {
+    padding-top: 2rem !important;
+  }
+  
+  #services {
+    margin-top: 1.5rem !important;
+  }
+  
+  .about-image-container {
+    margin-bottom: 0.75rem !important;
+  }
+}
     /* ===== PREMIUM TEAM SECTION ===== */
     #team {
       padding: 6rem 0;
