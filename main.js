@@ -271,7 +271,7 @@ initServicesCarousel();
           <div style="padding:12px;">
             <h3>${item.title}</h3>
             <p class="excerpt">${item.excerpt || ''}</p>
-            <p style="margin-top:10px;"><a href="${item.url}" target="_blank" rel="noopener noreferrer" class="btn-sm">Read on LinkedIn</a></p>
+            <p style="margin-top:10px;"><a href="${item.url}" target="_blank" rel="noopener noreferrer" class="btn-sm">Read Article</a></p>
           </div>
         `;
         all.appendChild(div);
