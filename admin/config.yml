@@ -1,56 +1,23 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Marion48/Law-Firm-Website
   branch: main
-  squash_merges: true
+  auth_type: oauth
+  app_id: "Ov23lisEkOXNO7VIr6XR"
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
 
 collections:
-  - name: "site_content"
-    label: "Site Content"
-    files:
-      - label: "Hero Section"
-        name: "hero"
-        file: "content/site/hero.yml"
-        fields:
-          - { label: "Hero Title", name: "title", widget: "string" }
-          - { label: "Hero Subtitle", name: "subtitle", widget: "string" }
-          - label: "Highlights"
-            name: "highlights"
-            widget: "list"
-            field: { label: "Item", name: "item", widget: "string" }
-          - { label: "Hero Card Name", name: "card_name", widget: "string" }
-          - { label: "Hero Card Role", name: "card_role", widget: "string" }
-          - { label: "Hero Card Photo", name: "card_photo", widget: "image" }
-
   - name: "insights"
     label: "Insights"
     folder: "content/insights"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Featured Image", name: "image", widget: "image" }
-      - { label: "Body", name: "body", widget: "markdown" }
-
-  - name: "practice"
-    label: "Practice Areas"
-    folder: "content/practice"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Body", name: "body", widget: "markdown" }
-
-  - name: "team"
-    label: "Team Members"
-    folder: "content/team"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "Name", name: "name", widget: "string" }
-      - { label: "Role", name: "role", widget: "string" }
-      - { label: "Photo", name: "photo", widget: "image" }
-      - { label: "Bio", name: "bio", widget: "markdown" }
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm"}
+      - {label: "Hero Image", name: "hero_image", widget: "image"}
+      - {label: "Summary", name: "summary", widget: "text"}
+      - {label: "Slug", name: "slug", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
