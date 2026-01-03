@@ -1,10 +1,185 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Admin - Insights</title>
+  <meta charset="utf-8" />
+  <title>Admin — Manage Insights</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .admin-container {
+      max-width: 900px;
+      margin: auto;
+      background: #020617;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px;
+      border-radius: 6px;
+      border: none;
+      background: #020617;
+      color: #e5e7eb;
+      border: 1px solid #1e293b;
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 28px;
+      padding: 14px 22px;
+      background: #c9a86a;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #020617;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .note {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-weight: 600;
+    }
+  </style>
 </head>
+
 <body>
-  <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
+
+<div class="admin-container">
+  <h1>Insights Admin</h1>
+
+  <p class="note">
+    Create or edit legal insights. Publishing will automatically update:
+    <br>• Homepage (latest 3)
+    <br>• Insights page (older posts)
+    <br>• Individual insight pages
+  </p>
+  
+<h2>Manage Insights</h2>
+<div id="admin-insights"></div>
+
+  <form id="insight-form">
+
+    <label>
+      Insight Title
+      <input type="text" id="title" required>
+    </label>
+
+    <label>
+      Slug (auto-generated if empty)
+      <input type="text" id="slug">
+    </label>
+
+    <label>
+      Publish Date
+      <input type="date" id="date">
+    </label>
+
+    <label>
+      Hero Image URL
+      <input type="url" id="image">
+    </label>
+
+    <label>
+      Short Summary
+      <textarea id="excerpt" required></textarea>
+    </label>
+
+    <label>
+      Full Insight Content (Markdown)
+      <textarea id="body" required></textarea>
+    </label>
+
+    <button type="submit">Publish Insight</button>
+
+    <div class="status" id="status"></div>
+
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('insight-form');
+  const status = document.getElementById('status');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    status.textContent = 'Publishing insight…';
+    status.style.color = '#9ca3af';
+
+    const payload = {
+      title: title.value.trim(),
+      slug: slug.value.trim() || title.value
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, ''),
+      date: date.value || new Date().toISOString().split('T')[0],
+      image: image.value.trim(),
+      excerpt: excerpt.value.trim(),
+      body: body.value.trim()
+    };
+
+    try {
+      const res = await fetch('/api/publish-insights', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Publishing failed');
+      }
+
+      status.textContent = '✅ Insight published successfully';
+      status.style.color = '#22c55e';
+      form.reset();
+
+    } catch (err) {
+      console.error(err);
+      status.textContent = '❌ Failed to publish insight';
+      status.style.color = '#ef4444';
+    }
+  });
+</script>
 </body>
 </html>

@@ -1210,6 +1210,36 @@
         <h2>Stay Ahead.</h2>
         <div id="insights-container" class="blog-grid" aria-live="polite">
           <!-- JS will inject insight cards from content.json -->
+           async function loadInsightsPreview() {
+  const container = document.getElementById("insights-container");
+  if (!container) return;
+
+  try {
+    const res = await fetch("insights/data.json");
+    const insights = await res.json();
+
+    const latest = insights.slice(0, 3);
+
+    container.innerHTML = latest.map(insight => `
+      <article class="post-card">
+        <a href="${insight.url}" target="_blank" rel="noopener noreferrer">
+          <div class="blog-img">
+            <img src="${insight.image}" alt="${insight.title}">
+          </div>
+          <div class="post-content">
+            <h3>${insight.title}</h3>
+            <p>${insight.excerpt}</p>
+          </div>
+        </a>
+      </article>
+    `).join("");
+  } catch (err) {
+    console.error("Failed to load preview insights", err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadInsightsPreview);
+
         </div>
         <div style="margin-top:18px;">
           <a class="btn ghost" href="insights.html">Read all insights</a>

@@ -352,4 +352,32 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
 });
+async function loadAllInsights() {
+  const container = document.getElementById("all-insights");
+  if (!container) return;
+
+  try {
+    const res = await fetch("insights/data.json");
+    const insights = await res.json();
+
+    container.innerHTML = insights.map(insight => `
+      <article class="post-card">
+        <a href="${insight.url}" target="_blank" rel="noopener noreferrer" class="insight-link">
+          <div class="blog-img">
+            <img src="${insight.image}" alt="${insight.title}">
+          </div>
+          <div class="post-content">
+            <h3>${insight.title}</h3>
+            <p>${insight.excerpt}</p>
+            <span class="read-article">Read Article</span>
+          </div>
+        </a>
+      </article>
+    `).join("");
+  } catch (err) {
+    console.error("Failed to load insights", err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadAllInsights);
 
