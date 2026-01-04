@@ -1204,48 +1204,25 @@
       </div>
     </section>
 
-    <!-- INSIGHTS -->
-    <section id="insights-preview" class="section animate-up scroll-reveal delay-1" aria-labelledby="insights-preview-h">
-      <div class="container">
-        <h2>Stay Ahead.</h2>
-        <div id="insights-container" class="blog-grid" aria-live="polite">
-          <!-- JS will inject insight cards from content.json -->
-           async function loadInsightsPreview() {
-  const container = document.getElementById("insights-container");
-  if (!container) return;
-
-  try {
-    const res = await fetch("insights/data.json");
-    const insights = await res.json();
-
-    const latest = insights.slice(0, 3);
-
-    container.innerHTML = latest.map(insight => `
-      <article class="post-card">
-        <a href="${insight.url}" target="_blank" rel="noopener noreferrer">
-          <div class="blog-img">
-            <img src="${insight.image}" alt="${insight.title}">
-          </div>
-          <div class="post-content">
-            <h3>${insight.title}</h3>
-            <p>${insight.excerpt}</p>
-          </div>
-        </a>
-      </article>
-    `).join("");
-  } catch (err) {
-    console.error("Failed to load preview insights", err);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", loadInsightsPreview);
-
-        </div>
-        <div style="margin-top:18px;">
-          <a class="btn ghost" href="insights.html">Read all insights</a>
-        </div>
+    <!-- INSIGHTS SECTION - FIXED -->
+<section id="insights-preview" class="section animate-up scroll-reveal delay-1" aria-labelledby="insights-preview-h">
+  <div class="container">
+    <h2>Stay Ahead.</h2>
+    <div id="insights-container" class="blog-grid" aria-live="polite">
+      <!-- JS will inject insight cards from content.json -->
+      <div style="text-align: center; padding: 2rem; color: #666; grid-column: 1 / -1;">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Loading insights...</p>
       </div>
-    </section>
+    </div>
+    <div style="margin-top:18px;">
+      <a class="btn ghost" href="insights.html">Read all insights</a>
+    </div>
+  </div>
+</section>
+
+<!-- Add Font Awesome for spinner -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- CENTERED CONTACT SECTION -->
     <section id="contact" class="section animate-up scroll-reveal" aria-labelledby="contact-h">
@@ -1491,5 +1468,148 @@ document.addEventListener("DOMContentLoaded", loadInsightsPreview);
     <span class="whatsapp-text">Chat with us</span>
   </a>
  
+<script>
+// ===== HYBRID INSIGHTS LOADER =====
+// Loads from BOTH content.json (old) and API (new)
+async function loadInsightsPreview() {
+  const container = document.getElementById("insights-container");
+  if (!container) return;
+
+  try {
+    console.log("Loading insights from both sources...");
+    
+    // Load from BOTH sources in parallel
+    const [oldInsightsResult, newInsightsResult] = await Promise.allSettled([
+      // OLD SYSTEM: From content.json
+      fetch("content.json").then(r => {
+        if (!r.ok) throw new Error(`content.json: ${r.status}`);
+        return r.json();
+      }),
+      
+      // NEW SYSTEM: From API
+      fetch("/api/insights", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "get" })
+      }).then(r => {
+        if (!r.ok) throw new Error(`API: ${r.status}`);
+        return r.json();
+      }).catch(() => {
+        // Fallback to local file
+        return fetch("/data/insights.json")
+          .then(r => r.ok ? r.json() : [])
+          .catch(() => []);
+      })
+    ]);
+
+    // Extract results
+    const oldInsights = oldInsightsResult.status === 'fulfilled' ? oldInsightsResult.value : [];
+    const newInsights = newInsightsResult.status === 'fulfilled' ? newInsightsResult.value : [];
+    
+    console.log(`Loaded: ${oldInsights.length} old insights, ${newInsights.length} new insights`);
+
+    // Transform and combine
+    const allInsights = [
+      ...newInsights.map(insight => ({
+        ...insight,
+        source: 'new',
+        isExternal: false,
+        url: insight.url || `/insight/${insight.slug || 'untitled'}`,
+        image: insight.image || '/images/default-insight.jpg'
+      })),
+      ...oldInsights.map(insight => ({
+        ...insight,
+        source: 'old',
+        isExternal: true,
+        url: insight.url || insight.link || '#',
+        image: insight.image || insight['blog-img'] || '/images/default-insight.jpg',
+        excerpt: insight.excerpt || insight.summary || ''
+      }))
+    ];
+
+    // Remove duplicates
+    const uniqueInsights = [];
+    const seenUrls = new Set();
+    
+    for (const insight of allInsights) {
+      if (!insight.url || seenUrls.has(insight.url)) continue;
+      seenUrls.add(insight.url);
+      uniqueInsights.push(insight);
+    }
+
+    // Sort by date (newest first)
+    uniqueInsights.sort((a, b) => {
+      const dateA = new Date(a.date || a.createdAt || 0);
+      const dateB = new Date(b.date || b.createdAt || 0);
+      return dateB - dateA;
+    });
+
+    // Take first 3
+    const latest = uniqueInsights.slice(0, 3);
+    
+    if (latest.length === 0) {
+      container.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+          <p>No insights available yet. Check back soon!</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Render cards
+    container.innerHTML = latest.map(insight => {
+      const target = insight.isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+      
+      return `
+        <article class="post-card">
+          <a href="${insight.url}"${target}>
+            <div class="blog-img">
+              <img src="${insight.image}" alt="${insight.title || 'Insight'}" loading="lazy">
+            </div>
+            <div class="post-content">
+              <h3>${insight.title || 'Untitled Insight'}</h3>
+              <p>${insight.excerpt || ''}</p>
+              <div class="post-meta">
+                ${insight.date ? `<span class="post-date">${formatDate(insight.date)}</span>` : ''}
+                <span class="read-article">Read Article →</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      `;
+    }).join("");
+    
+  } catch (err) {
+    console.error("Failed to load insights:", err);
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #666;">
+        <p>Unable to load insights. Please check your connection.</p>
+      </div>
+    `;
+  }
+}
+
+function formatDate(dateString) {
+  if (!dateString) return '';
+  try {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  } catch (error) {
+    return dateString;
+  }
+}
+
+// Initialize
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadInsightsPreview);
+} else {
+  loadInsightsPreview();
+}
+</script>
+
 </body>
 </html>

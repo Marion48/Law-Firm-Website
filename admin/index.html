@@ -1,185 +1,294 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Admin — Manage Insights</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <style>
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-      margin: 0;
-      padding: 40px;
-    }
-
-    .admin-container {
-      max-width: 900px;
-      margin: auto;
-      background: #020617;
-      padding: 32px;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.5);
-    }
-
-    h1 {
-      margin-top: 0;
-      font-size: 1.8rem;
-    }
-
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: 600;
-    }
-
-    input, textarea {
-      width: 100%;
-      margin-top: 6px;
-      padding: 12px;
-      border-radius: 6px;
-      border: none;
-      background: #020617;
-      color: #e5e7eb;
-      border: 1px solid #1e293b;
-    }
-
-    textarea {
-      min-height: 180px;
-      resize: vertical;
-    }
-
-    button {
-      margin-top: 28px;
-      padding: 14px 22px;
-      background: #c9a86a;
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-      color: #020617;
-    }
-
-    button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    .note {
-      margin-top: 16px;
-      font-size: 0.9rem;
-      color: #9ca3af;
-    }
-
-    .status {
-      margin-top: 20px;
-      font-weight: 600;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights Admin • Byron N. & Co. Advocates</title>
+    
+    <!-- Quill Editor -->
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Admin Styles -->
+    <link rel="stylesheet" href="admin.css">
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #666;
+            flex-direction: column;
+        }
+        
+        .loading-spinner i {
+            font-size: 3rem;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            display: block;
+        }
+    </style>
 </head>
-
 <body>
-
-<div class="admin-container">
-  <h1>Insights Admin</h1>
-
-  <p class="note">
-    Create or edit legal insights. Publishing will automatically update:
-    <br>• Homepage (latest 3)
-    <br>• Insights page (older posts)
-    <br>• Individual insight pages
-  </p>
-  
-<h2>Manage Insights</h2>
-<div id="admin-insights"></div>
-
-  <form id="insight-form">
-
-    <label>
-      Insight Title
-      <input type="text" id="title" required>
-    </label>
-
-    <label>
-      Slug (auto-generated if empty)
-      <input type="text" id="slug">
-    </label>
-
-    <label>
-      Publish Date
-      <input type="date" id="date">
-    </label>
-
-    <label>
-      Hero Image URL
-      <input type="url" id="image">
-    </label>
-
-    <label>
-      Short Summary
-      <textarea id="excerpt" required></textarea>
-    </label>
-
-    <label>
-      Full Insight Content (Markdown)
-      <textarea id="body" required></textarea>
-    </label>
-
-    <button type="submit">Publish Insight</button>
-
-    <div class="status" id="status"></div>
-
-  </form>
-</div>
-
-<script>
-  const form = document.getElementById('insight-form');
-  const status = document.getElementById('status');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    status.textContent = 'Publishing insight…';
-    status.style.color = '#9ca3af';
-
-    const payload = {
-      title: title.value.trim(),
-      slug: slug.value.trim() || title.value
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, ''),
-      date: date.value || new Date().toISOString().split('T')[0],
-      image: image.value.trim(),
-      excerpt: excerpt.value.trim(),
-      body: body.value.trim()
-    };
-
-    try {
-      const res = await fetch('/api/publish-insights', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Publishing failed');
-      }
-
-      status.textContent = '✅ Insight published successfully';
-      status.style.color = '#22c55e';
-      form.reset();
-
-    } catch (err) {
-      console.error(err);
-      status.textContent = '❌ Failed to publish insight';
-      status.style.color = '#ef4444';
-    }
-  });
-</script>
+    <div class="loading" id="loading">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading admin panel...</p>
+        </div>
+    </div>
+    
+    <div class="notion-admin" id="notionAdmin" style="display: none;">
+        <!-- Your admin content (keep as is) -->
+        <!-- TOP HEADER -->
+        <header class="admin-header">
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fas fa-scale-balanced"></i>
+                    <span>Byron N. & Co. Insights</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="btn-save" id="publishBtn">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    Publish Insight
+                </button>
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </div>
+        </header>
+        
+        <div class="admin-container">
+            <!-- LEFT SIDEBAR -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-file-lines"></i> Insights</h3>
+                    <button class="btn-new" id="newInsightBtn">
+                        <i class="fas fa-plus"></i> New Insight
+                    </button>
+                </div>
+                
+                <div class="sidebar-content">
+                    <div class="insights-list" id="insightsList">
+                        <div class="loading-sidebar">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Loading insights...</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-footer">
+                    <div class="stats">
+                        <i class="fas fa-chart-bar"></i>
+                        <span id="insightCount">0 insights</span>
+                    </div>
+                </div>
+            </aside>
+            
+            <!-- MAIN EDITOR AREA -->
+            <main class="editor-area">
+                <div class="editor-container">
+                    <!-- Hero Image Section -->
+                    <div class="hero-section" id="heroSection">
+                        <div class="hero-upload" id="heroUpload">
+                            <i class="fas fa-image"></i>
+                            <p>Upload hero image</p>
+                            <span class="upload-subtext">Drag & drop or click to browse</span>
+                            <input type="file" id="heroImageInput" accept="image/*" style="display: none;">
+                        </div>
+                        <div class="hero-preview" id="heroPreview" style="display: none;">
+                            <img id="heroPreviewImage" src="" alt="Hero Preview">
+                            <button class="btn-change-image" id="changeImageBtn">
+                                <i class="fas fa-sync-alt"></i> Change Image
+                            </button>
+                        </div>
+                        <div class="hero-url" style="margin-top: 1rem;">
+                            <label>Or enter image URL:</label>
+                            <input type="url" id="heroImageUrl" placeholder="https://example.com/hero-image.jpg">
+                        </div>
+                    </div>
+                    
+                    <!-- Title Input -->
+                    <div class="title-section">
+                        <div class="title-input-container">
+                            <input type="text" 
+                                   id="insightTitle" 
+                                   placeholder="Untitled Insight" 
+                                   class="title-input"
+                                   maxlength="200">
+                            <div class="title-char-count">
+                                <span id="titleCharCount">0</span>/200
+                            </div>
+                        </div>
+                        <div class="title-hint">
+                            <i class="fas fa-lightbulb"></i>
+                            This will appear in bold at the top of your insight
+                        </div>
+                    </div>
+                    
+                    <!-- Rich Text Editor -->
+                    <div class="content-section">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="tab-btn active" data-tab="write">
+                                    <i class="fas fa-pen"></i> Write
+                                </button>
+                                <button class="tab-btn" data-tab="preview">
+                                    <i class="fas fa-eye"></i> Preview
+                                </button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="btn-format" data-format="bold" title="Bold">
+                                    <i class="fas fa-bold"></i>
+                                </button>
+                                <button class="btn-format" data-format="italic" title="Italic">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <button class="btn-format" data-format="underline" title="Underline">
+                                    <i class="fas fa-underline"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Write Tab -->
+                        <div class="tab-content active" id="writeTab">
+                            <div id="editor"></div>
+                        </div>
+                        
+                        <!-- Preview Tab -->
+                        <div class="tab-content" id="previewTab">
+                            <div class="preview-container" id="previewContent">
+                                <p class="preview-placeholder">Start writing to see preview...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Excerpt/Summary -->
+                    <div class="excerpt-section">
+                        <label for="insightExcerpt">
+                            <i class="fas fa-quote-left"></i> Short Summary
+                            <span class="label-hint">(Appears on homepage and insights grid)</span>
+                        </label>
+                        <textarea id="insightExcerpt" 
+                                  placeholder="Write a compelling summary of your insight..."
+                                  rows="3"
+                                  maxlength="300"></textarea>
+                        <div class="excerpt-char-count">
+                            <span id="excerptCharCount">0</span>/300 characters
+                        </div>
+                    </div>
+                    
+                    <!-- Metadata -->
+                    <div class="metadata-section">
+                        <h4><i class="fas fa-info-circle"></i> Publishing Details</h4>
+                        <div class="metadata-grid">
+                            <div class="metadata-field">
+                                <label for="insightSlug">
+                                    <i class="fas fa-link"></i> URL Slug
+                                </label>
+                                <input type="text" 
+                                       id="insightSlug" 
+                                       placeholder="auto-generated-from-title">
+                                <small>This will be part of the URL: /insight/[slug]</small>
+                            </div>
+                            
+                            <div class="metadata-field">
+                                <label for="insightDate">
+                                    <i class="fas fa-calendar"></i> Publish Date
+                                </label>
+                                <input type="date" id="insightDate">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Status & Actions -->
+                    <div class="actions-section">
+                        <div class="status-message" id="statusMessage">
+                            <!-- Status messages appear here -->
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn-discard" id="discardBtn">
+                                <i class="fas fa-trash"></i> Discard
+                            </button>
+                            <button class="btn-save-draft" id="saveDraftBtn">
+                                <i class="fas fa-save"></i> Save Draft
+                            </button>
+                            <button class="btn-publish" id="publishMainBtn">
+                                <i class="fas fa-cloud-upload-alt"></i> Publish Insight
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <!-- RIGHT PANEL -->
+            <aside class="right-panel">
+                <div class="right-panel-content">
+                    <h4><i class="fas fa-cog"></i> Settings</h4>
+                    
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="featuredCheckbox">
+                            <span>Featured on homepage</span>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="notificationCheckbox" checked>
+                            <span>Notify subscribers</span>
+                        </label>
+                    </div>
+                    
+                    <div class="insight-info" id="insightInfo">
+                        <h5>Insight Info</h5>
+                        <div class="info-item">
+                            <span class="info-label">Created:</span>
+                            <span id="createdDate">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Last Edited:</span>
+                            <span id="lastEdited">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Status:</span>
+                            <span class="status-draft" id="insightStatus">Draft</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    
+    <!-- Quill JS -->
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    
+    <!-- Admin JS -->
+    <script src="admin.js"></script>
+    
+    <!-- Quick initialization -->
+    <script>
+        // Simple fallback if admin.js doesn't load
+        setTimeout(() => {
+            const loading = document.getElementById('loading');
+            const admin = document.getElementById('notionAdmin');
+            
+            if (loading && loading.style.display !== 'none') {
+                loading.style.display = 'none';
+                if (admin) admin.style.display = 'block';
+                console.log('Admin panel loaded via fallback');
+            }
+        }, 3000);
+    </script>
 </body>
 </html>
