@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "id": "1767611444022",
+    "title": "Test 2026-01-05T11:10:44.022Z",
+    "excerpt": "Test excerpt",
+    "body": "Test body",
+    "slug": "test-1767611444022",
+    "date": "2026-01-05",
+    "featured": false,
+    "status": "draft",
+    "createdAt": "2026-01-05T11:10:44.022Z",
+    "updatedAt": "2026-01-05T11:10:44.022Z",
+    "url": "/insight/test-1767611444022"
+  }
+]
