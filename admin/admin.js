@@ -1,12 +1,15 @@
-// admin/admin.js - COMPLETE AND CORRECTED VERSION
+// admin/admin.js - UPDATED WITH VERCEL BLOB UPLOADS
 class NotionAdmin {
   constructor() {
     this.currentInsight = null;
     this.currentIndex = -1;
     this.insights = [];
     this.quill = null;
-    
     this.baseURL = window.location.origin;
+    
+    // Image upload tracking
+    this.uploadInProgress = false;
+    this.pendingImageUpload = null;
     
     this.init();
   }
@@ -289,17 +292,129 @@ class NotionAdmin {
     this.updatePreview();
   }
 
+  // ===== VERCEL BLOB UPLOAD METHODS =====
+  async uploadImageToVercel(file) {
+    if (this.uploadInProgress) {
+      console.log('Upload already in progress, queuing...');
+      this.pendingImageUpload = file;
+      return null;
+    }
+
+    try {
+      this.uploadInProgress = true;
+      console.log('Uploading image to Vercel Blob:', file.name);
+      
+      this.showNotification(`Uploading ${file.name}...`, 'info');
+      
+      // Generate a unique filename
+      const timestamp = Date.now();
+      const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+      const filename = `insight-${timestamp}-${sanitizedName}`;
+      
+      // Upload to Vercel Blob
+      const response = await fetch(`/api/upload-image?filename=${encodeURIComponent(filename)}`, {
+        method: 'POST',
+        body: file
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Upload failed with status: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      console.log('Vercel Blob upload result:', result);
+      
+      if (!result.success) {
+        throw new Error(result.error || 'Upload failed');
+      }
+      
+      this.showNotification('Image uploaded successfully!', 'success');
+      return result.url;
+      
+    } catch (error) {
+      console.error('Vercel Blob upload error:', error);
+      this.showNotification(`Upload failed: ${error.message}`, 'error');
+      return null;
+    } finally {
+      this.uploadInProgress = false;
+      
+      // Process any pending upload
+      if (this.pendingImageUpload) {
+        const pendingFile = this.pendingImageUpload;
+        this.pendingImageUpload = null;
+        setTimeout(() => this.handleImageUpload(pendingFile), 500);
+      }
+    }
+  }
+
+  async handleImageUpload(file) {
+    // Validate file
+    if (!file) return;
+    
+    // Check file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      this.showNotification('Image too large! Maximum size is 5MB.', 'error');
+      return;
+    }
+    
+    // Check file type
+    if (!file.type.startsWith('image/')) {
+      this.showNotification('Please select an image file (JPG, PNG, etc.).', 'error');
+      return;
+    }
+    
+    // Create temporary preview
+    const previewUrl = URL.createObjectURL(file);
+    const imageUrlInput = document.getElementById('heroImageUrl');
+    imageUrlInput.value = previewUrl;
+    this.updateHeroPreview();
+    
+    // Upload to Vercel Blob
+    const uploadedUrl = await this.uploadImageToVercel(file);
+    
+    if (uploadedUrl) {
+      // Update with permanent URL
+      imageUrlInput.value = uploadedUrl;
+      this.updateHeroPreview();
+      
+      // Clean up temporary blob URL
+      URL.revokeObjectURL(previewUrl);
+    } else {
+      // Keep the temporary URL for preview
+      this.showNotification('Using temporary preview. Image will not be saved permanently.', 'warning');
+    }
+  }
+
+  async processImageField(imageUrl) {
+    const trimmed = imageUrl.trim();
+    
+    // If it's a blob URL from a previous upload attempt, return empty
+    if (trimmed.startsWith('blob:') && !trimmed.includes('vercel')) {
+      console.warn('Found temporary blob URL, ignoring...');
+      return '';
+    }
+    
+    // If it's a data URL (base64), it's too large for storage
+    if (trimmed.startsWith('data:')) {
+      this.showNotification('Base64 images are not supported. Please upload an image file.', 'warning');
+      return '';
+    }
+    
+    return trimmed;
+  }
+
+  // ===== UPDATED SAVE METHOD =====
   async saveInsight(publish = false) {
     try {
       console.log('=== SAVE INSIGHT ===');
       
-      // Collect form data - EXACTLY what API expects
+      // Collect form data
       const insight = {
         title: (document.getElementById('insightTitle')?.value || '').trim(),
         excerpt: (document.getElementById('insightExcerpt')?.value || '').trim(),
         slug: (document.getElementById('insightSlug')?.value || '').trim(),
         date: document.getElementById('insightDate')?.value || new Date().toISOString().split('T')[0],
-        image: (document.getElementById('heroImageUrl')?.value || '').trim(),
+        image: await this.processImageField(document.getElementById('heroImageUrl')?.value || ''),
         featured: document.getElementById('featuredCheckbox')?.checked || false,
         status: publish ? 'published' : 'draft',
         body: this.quill ? this.quill.root.innerHTML : ''
@@ -329,7 +444,7 @@ class NotionAdmin {
       // Show saving indicator
       this.showNotification('Saving insight...', 'info');
 
-      // Prepare API request based on whether editing or adding
+      // Prepare API request
       let requestBody;
       
       if (this.currentIndex >= 0) {
@@ -384,12 +499,12 @@ class NotionAdmin {
         throw new Error(result.error || 'Unknown error from API');
       }
 
-      // Update local data with the insights array returned by API
+      // Update local data
       this.insights = result.insights || [];
       
       // Update current insight and index
       if (this.currentIndex === -1) {
-        // Find the newly added insight in the array
+        // Find the newly added insight
         const newInsight = result.data || result.insights?.[0];
         if (newInsight) {
           this.currentInsight = { ...newInsight };
@@ -397,7 +512,7 @@ class NotionAdmin {
           if (this.currentIndex === -1) this.currentIndex = 0;
         }
       } else {
-        // Update current insight from result
+        // Update current insight
         this.currentInsight = result.data || { ...insight };
       }
 
@@ -468,10 +583,8 @@ class NotionAdmin {
       
       // Handle current insight deletion
       if (index === this.currentIndex) {
-        // Deleted the currently loaded insight, create a new one
         this.newInsight();
       } else if (index < this.currentIndex) {
-        // Deleted an insight before current, adjust index
         this.currentIndex--;
       }
       
@@ -494,11 +607,11 @@ class NotionAdmin {
       .toString()
       .toLowerCase()
       .trim()
-      .replace(/\s+/g, '-')           // Replace spaces with -
-      .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-      .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-      .replace(/^-+/, '')             // Trim - from start of text
-      .replace(/-+$/, '');            // Trim - from end of text
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .replace(/^-+/, '')
+      .replace(/-+$/, '');
   }
 
   updatePreview() {
@@ -545,7 +658,7 @@ class NotionAdmin {
     if (titleCount) titleCount.textContent = title.length;
     if (excerptCount) excerptCount.textContent = excerpt.length;
     
-    // Auto-generate slug if empty and title exists
+    // Auto-generate slug if empty
     const slugInput = document.getElementById('insightSlug');
     if (slugInput && !slugInput.value && title) {
       slugInput.value = this.generateSlug(title);
@@ -674,15 +787,18 @@ class NotionAdmin {
       });
     }
     
-    // Hero image URL
+    // Hero image URL input
     const heroImageUrl = document.getElementById('heroImageUrl');
     if (heroImageUrl) {
       heroImageUrl.addEventListener('input', () => {
         this.updateHeroPreview();
       });
+      
+      // Add placeholder text
+      heroImageUrl.placeholder = 'Paste image URL or upload an image';
     }
 
-    // Hero image upload
+    // Hero image upload buttons - UPDATED
     const heroUpload = document.getElementById('heroUpload');
     const heroImageInput = document.getElementById('heroImageInput');
     const changeImageBtn = document.getElementById('changeImageBtn');
@@ -703,13 +819,10 @@ class NotionAdmin {
       heroImageInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
-          // Create object URL for preview
-          const url = URL.createObjectURL(file);
-          document.getElementById('heroImageUrl').value = url;
-          this.updateHeroPreview();
-          
-          this.showNotification('Note: For production, implement image upload to Cloudinary or similar service', 'info');
+          this.handleImageUpload(file);
         }
+        // Clear input so same file can be selected again
+        e.target.value = '';
       });
     }
 
@@ -728,19 +841,19 @@ class NotionAdmin {
     
     if (saveDraftBtn) {
       saveDraftBtn.addEventListener('click', () => {
-        this.saveInsight(false); // Save as draft
+        this.saveInsight(false);
       });
     }
     
     if (publishBtn) {
       publishBtn.addEventListener('click', () => {
-        this.saveInsight(true); // Publish
+        this.saveInsight(true);
       });
     }
     
     if (publishMainBtn) {
       publishMainBtn.addEventListener('click', () => {
-        this.saveInsight(true); // Publish
+        this.saveInsight(true);
       });
     }
     
@@ -748,9 +861,9 @@ class NotionAdmin {
       discardBtn.addEventListener('click', () => {
         if (confirm('Discard unsaved changes?')) {
           if (this.currentIndex >= 0) {
-            this.loadInsight(this.currentIndex); // Reload current
+            this.loadInsight(this.currentIndex);
           } else {
-            this.newInsight(); // Create new empty
+            this.newInsight();
           }
         }
       });
@@ -782,7 +895,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Global error handler for debugging
+// Global error handler
 window.addEventListener('error', function(event) {
   console.error('Global error:', event.error);
   console.error('In file:', event.filename);
