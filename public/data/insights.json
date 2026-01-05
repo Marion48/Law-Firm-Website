@@ -17,13 +17,14 @@
     "id": "1767611444022",
     "title": "Test 2026-01-05T11:10:44.022Z",
     "excerpt": "Test excerpt",
-    "body": "Test body",
+    "body": "<p>Test body</p>",
     "slug": "test-1767611444022",
     "date": "2026-01-05",
     "featured": false,
-    "status": "draft",
+    "status": "published",
     "createdAt": "2026-01-05T11:10:44.022Z",
-    "updatedAt": "2026-01-05T11:10:44.022Z",
-    "url": "/insight/test-1767611444022"
+    "updatedAt": "2026-01-05T15:20:08.149Z",
+    "url": "/insight/test-1767611444022",
+    "image": ""
   }
 ]
