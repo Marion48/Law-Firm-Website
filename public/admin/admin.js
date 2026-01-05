@@ -1,4 +1,4 @@
-// admin/admin.js - COMPLETE AND CORRECTED VERSION
+// admin/admin.js - Complete Admin Panel
 class NotionAdmin {
   constructor() {
     this.currentInsight = null;
@@ -14,7 +14,7 @@ class NotionAdmin {
   async init() {
     console.log('Admin panel initializing...');
     
-    // Hide loading screen
+    // Hide loading screen after 1 second
     setTimeout(() => {
       const loading = document.getElementById('loading');
       const admin = document.getElementById('notionAdmin');
@@ -23,7 +23,7 @@ class NotionAdmin {
       if (admin) admin.style.display = 'block';
       
       console.log('Admin panel UI shown');
-    }, 500);
+    }, 1000);
 
     // Initialize Quill editor
     this.initQuill();
@@ -44,6 +44,7 @@ class NotionAdmin {
     try {
       console.log('Initializing Quill editor...');
       
+      // Check if Quill is available
       if (typeof Quill === 'undefined') {
         console.error('Quill editor not loaded!');
         this.showNotification('Rich text editor failed to load. Please refresh.', 'error');
@@ -88,17 +89,16 @@ class NotionAdmin {
         body: JSON.stringify({ action: 'get' })
       });
 
-      if (!response.ok) {
+      if (response.ok) {
+        this.insights = await response.json();
+        console.log(`Loaded ${this.insights.length} insights`);
+        this.renderInsightsList();
+        this.updateInsightCount();
+      } else {
         const errorText = await response.text();
-        console.error('API error response:', response.status, errorText);
+        console.error('API response error:', response.status, errorText);
         throw new Error(`Failed to load insights: ${response.status}`);
       }
-
-      this.insights = await response.json();
-      console.log(`Loaded ${this.insights.length} insights`);
-      this.renderInsightsList();
-      this.updateInsightCount();
-      
     } catch (error) {
       console.error('Error loading insights:', error);
       this.showNotification('Failed to load insights. Check console for details.', 'error');
@@ -129,21 +129,15 @@ class NotionAdmin {
     container.innerHTML = this.insights.map((insight, index) => {
       const date = this.formatDate(insight.date || insight.createdAt);
       const isActive = this.currentIndex === index;
-      const statusClass = insight.status === 'published' ? 'status-published' : 'status-draft';
       
       return `
         <div class="insight-item ${isActive ? 'active' : ''}" 
              data-index="${index}">
-          <div class="insight-header">
-            <span class="insight-status ${statusClass}">${insight.status || 'draft'}</span>
-            <span class="insight-date">${date}</span>
-          </div>
           <div class="insight-title" title="${insight.title}">
             ${insight.title || 'Untitled Insight'}
-            ${insight.featured ? '<span class="featured-badge">Featured</span>' : ''}
           </div>
-          <div class="insight-excerpt" title="${insight.excerpt}">
-            ${insight.excerpt || 'No excerpt'}
+          <div class="insight-date">
+            ${date}
           </div>
           <div class="insight-actions">
             <button class="btn-edit" title="Edit" data-index="${index}">
@@ -188,6 +182,7 @@ class NotionAdmin {
     // Insight item clicks
     container.querySelectorAll('.insight-item').forEach(item => {
       item.addEventListener('click', (e) => {
+        // Only trigger if not clicking on action buttons
         if (!e.target.closest('.insight-actions')) {
           const index = parseInt(item.dataset.index);
           console.log('Loading insight at index:', index);
@@ -201,6 +196,7 @@ class NotionAdmin {
     console.log('Creating new insight...');
     
     this.currentInsight = {
+      id: Date.now().toString(),
       title: '',
       excerpt: '',
       body: '',
@@ -208,7 +204,9 @@ class NotionAdmin {
       slug: '',
       date: new Date().toISOString().split('T')[0],
       featured: false,
-      status: 'draft'
+      status: 'draft',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     };
     
     this.currentIndex = -1;
@@ -220,7 +218,7 @@ class NotionAdmin {
       item.classList.remove('active');
     });
     
-    this.showNotification('New insight created. Fill in details and save.', 'info');
+    this.showNotification('New insight created', 'info');
   }
 
   loadInsight(index) {
@@ -291,9 +289,9 @@ class NotionAdmin {
 
   async saveInsight(publish = false) {
     try {
-      console.log('=== SAVE INSIGHT ===');
+      console.log('Saving insight...', { publish });
       
-      // Collect form data - EXACTLY what API expects
+      // Collect form data
       const insight = {
         title: (document.getElementById('insightTitle')?.value || '').trim(),
         excerpt: (document.getElementById('insightExcerpt')?.value || '').trim(),
@@ -301,22 +299,20 @@ class NotionAdmin {
         date: document.getElementById('insightDate')?.value || new Date().toISOString().split('T')[0],
         image: (document.getElementById('heroImageUrl')?.value || '').trim(),
         featured: document.getElementById('featuredCheckbox')?.checked || false,
-        status: publish ? 'published' : 'draft',
-        body: this.quill ? this.quill.root.innerHTML : ''
+        body: this.quill ? this.quill.root.innerHTML : '',
+        status: publish ? 'published' : 'draft'
       };
 
-      console.log('Insight data to save:', insight);
+      console.log('Insight data:', insight);
 
       // Validation
       if (!insight.title) {
         this.showNotification('Title is required', 'error');
-        document.getElementById('insightTitle')?.focus();
         return;
       }
 
       if (!insight.excerpt) {
         this.showNotification('Excerpt is required', 'error');
-        document.getElementById('insightExcerpt')?.focus();
         return;
       }
 
@@ -326,30 +322,21 @@ class NotionAdmin {
         document.getElementById('insightSlug').value = insight.slug;
       }
 
-      // Show saving indicator
-      this.showNotification('Saving insight...', 'info');
+      // Prepare API request
+      const action = this.currentIndex >= 0 ? 'edit' : 'add';
+      const body = {
+        action: action,
+        insight: insight
+      };
 
-      // Prepare API request based on whether editing or adding
-      let requestBody;
-      
-      if (this.currentIndex >= 0) {
-        // EDIT existing insight
-        console.log(`Editing insight at index ${this.currentIndex}`);
-        requestBody = {
-          action: 'edit',
-          index: this.currentIndex,
-          insight: insight
-        };
-      } else {
-        // ADD new insight
-        console.log('Adding new insight');
-        requestBody = {
-          action: 'add',
-          insight: insight
-        };
+      if (action === 'edit') {
+        body.index = this.currentIndex;
       }
 
-      console.log('Sending to API:', requestBody);
+      console.log('Sending API request:', body);
+
+      // Show saving indicator
+      this.showNotification('Saving...', 'info');
 
       // Send to API
       const response = await fetch('/api/insights', {
@@ -357,50 +344,30 @@ class NotionAdmin {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(requestBody)
+        body: JSON.stringify(body)
       });
 
-      // Get response text first for debugging
-      const responseText = await response.text();
-      console.log('API Response status:', response.status);
-      console.log('API Response text:', responseText);
-
       if (!response.ok) {
-        let errorMessage = `Failed to save: ${response.status}`;
-        try {
-          const errorData = JSON.parse(responseText);
-          errorMessage = errorData.error || errorData.message || errorMessage;
-        } catch (e) {
-          errorMessage = responseText || errorMessage;
-        }
-        throw new Error(errorMessage);
+        const errorText = await response.text();
+        console.error('API error response:', errorText);
+        throw new Error(`Failed to save insight: ${response.status}`);
       }
 
-      // Parse the successful response
-      const result = JSON.parse(responseText);
-      console.log('API Success result:', result);
-
-      if (!result.success) {
-        throw new Error(result.error || 'Unknown error from API');
-      }
-
-      // Update local data with the insights array returned by API
-      this.insights = result.insights || [];
+      const result = await response.json();
+      console.log('API response:', result);
       
-      // Update current insight and index
-      if (this.currentIndex === -1) {
-        // Find the newly added insight in the array
-        const newInsight = result.data || result.insights?.[0];
-        if (newInsight) {
-          this.currentInsight = { ...newInsight };
-          this.currentIndex = this.insights.findIndex(i => i.id === newInsight.id || i.slug === newInsight.slug);
-          if (this.currentIndex === -1) this.currentIndex = 0;
-        }
-      } else {
-        // Update current insight from result
-        this.currentInsight = result.data || { ...insight };
+      if (!result.success) {
+        throw new Error(result.error || 'Unknown error');
       }
 
+      // Update local data
+      this.insights = result.insights || [];
+      this.currentInsight = { ...insight, id: this.currentInsight.id || result.data.id };
+      
+      if (action === 'add') {
+        this.currentIndex = 0; // New insights are at the beginning
+      }
+      
       // Update UI
       this.renderInsightsList();
       this.updateInsightCount();
@@ -408,37 +375,24 @@ class NotionAdmin {
       
       // Show success message
       const message = publish ? 
-        '✅ Insight published successfully!' : 
-        '✅ Insight saved successfully!';
+        'Insight published successfully!' : 
+        'Insight saved as draft';
       this.showNotification(message, 'success');
 
     } catch (error) {
-      console.error('❌ Error saving insight:', error);
+      console.error('Error saving insight:', error);
       this.showNotification(`Failed to save: ${error.message}`, 'error');
     }
   }
 
   async deleteInsight(index) {
-    if (index < 0 || index >= this.insights.length) {
-      this.showNotification('Invalid insight index', 'error');
-      return;
-    }
-
-    const insightToDelete = this.insights[index];
-    if (!insightToDelete) {
-      this.showNotification('Insight not found', 'error');
-      return;
-    }
-
-    if (!confirm(`Are you sure you want to delete "${insightToDelete.title}"?\nThis cannot be undone.`)) {
+    if (!confirm('Are you sure you want to delete this insight? This cannot be undone.')) {
       return;
     }
 
     try {
       console.log('Deleting insight at index:', index);
       
-      this.showNotification('Deleting insight...', 'info');
-
       const response = await fetch('/api/insights', {
         method: 'POST',
         headers: {
@@ -451,39 +405,29 @@ class NotionAdmin {
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Delete API error:', response.status, errorText);
-        throw new Error(`Failed to delete: ${response.status}`);
+        throw new Error('Failed to delete insight');
       }
 
       const result = await response.json();
-      console.log('Delete result:', result);
-
-      if (!result.success) {
-        throw new Error(result.error || 'Delete failed');
-      }
-
+      
       // Update local data
       this.insights = result.insights || [];
       
       // Handle current insight deletion
       if (index === this.currentIndex) {
-        // Deleted the currently loaded insight, create a new one
         this.newInsight();
       } else if (index < this.currentIndex) {
-        // Deleted an insight before current, adjust index
         this.currentIndex--;
       }
       
       // Update UI
       this.renderInsightsList();
       this.updateInsightCount();
-      
-      this.showNotification('✅ Insight deleted successfully', 'success');
+      this.showNotification('Insight deleted successfully', 'success');
       
     } catch (error) {
       console.error('Error deleting insight:', error);
-      this.showNotification(`Failed to delete: ${error.message}`, 'error');
+      this.showNotification('Failed to delete insight', 'error');
     }
   }
 
@@ -491,14 +435,11 @@ class NotionAdmin {
     if (!text) return 'untitled';
     
     return text
-      .toString()
       .toLowerCase()
-      .trim()
-      .replace(/\s+/g, '-')           // Replace spaces with -
-      .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-      .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-      .replace(/^-+/, '')             // Trim - from start of text
-      .replace(/-+$/, '');            // Trim - from end of text
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim();
   }
 
   updatePreview() {
@@ -574,9 +515,9 @@ class NotionAdmin {
     }
     
     if (insightStatus) {
-      const status = this.currentInsight.status || 'draft';
-      insightStatus.textContent = status;
-      insightStatus.className = status === 'published' ? 'status-published' : 'status-draft';
+      insightStatus.textContent = this.currentInsight.status || 'Draft';
+      insightStatus.className = this.currentInsight.status === 'published' ? 
+        'status-published' : 'status-draft';
     }
   }
 
@@ -603,32 +544,18 @@ class NotionAdmin {
     // Create notification
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
-    
-    let icon = 'info-circle';
-    if (type === 'success') icon = 'check-circle';
-    if (type === 'error') icon = 'exclamation-circle';
-    if (type === 'warning') icon = 'exclamation-triangle';
-    
     notification.innerHTML = `
-      <i class="fas fa-${icon}"></i>
+      <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
       <span>${message}</span>
-      <button class="notification-close"><i class="fas fa-times"></i></button>
     `;
 
     document.body.appendChild(notification);
 
-    // Close button
-    notification.querySelector('.notification-close').addEventListener('click', () => {
-      notification.style.opacity = '0';
-      setTimeout(() => notification.remove(), 300);
-    });
-
     // Auto remove after 5 seconds
     setTimeout(() => {
-      if (notification.parentNode) {
-        notification.style.opacity = '0';
-        setTimeout(() => notification.remove(), 300);
-      }
+      notification.style.opacity = '0';
+      notification.style.transform = 'translateX(100%)';
+      setTimeout(() => notification.remove(), 300);
     }, 5000);
   }
 
@@ -708,7 +635,8 @@ class NotionAdmin {
           document.getElementById('heroImageUrl').value = url;
           this.updateHeroPreview();
           
-          this.showNotification('Note: For production, implement image upload to Cloudinary or similar service', 'info');
+          // Show notification about production implementation
+          this.showNotification('For production, implement image upload to Cloudinary or similar service', 'info');
         }
       });
     }
@@ -728,19 +656,19 @@ class NotionAdmin {
     
     if (saveDraftBtn) {
       saveDraftBtn.addEventListener('click', () => {
-        this.saveInsight(false); // Save as draft
+        this.saveInsight(false);
       });
     }
     
     if (publishBtn) {
       publishBtn.addEventListener('click', () => {
-        this.saveInsight(true); // Publish
+        this.saveInsight(true);
       });
     }
     
     if (publishMainBtn) {
       publishMainBtn.addEventListener('click', () => {
-        this.saveInsight(true); // Publish
+        this.saveInsight(true);
       });
     }
     
@@ -748,9 +676,9 @@ class NotionAdmin {
       discardBtn.addEventListener('click', () => {
         if (confirm('Discard unsaved changes?')) {
           if (this.currentIndex >= 0) {
-            this.loadInsight(this.currentIndex); // Reload current
+            this.loadInsight(this.currentIndex);
           } else {
-            this.newInsight(); // Create new empty
+            this.newInsight();
           }
         }
       });
@@ -765,26 +693,7 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM loaded, starting admin panel...');
   
   // Check if we're in the admin section
-  if (window.location.pathname.includes('/admin') || 
-      window.location.pathname === '/admin' ||
-      window.location.hash === '#admin') {
-    
-    // Check for required elements
-    if (!document.getElementById('insightTitle')) {
-      console.error('Admin form elements not found!');
-      document.body.innerHTML = '<div style="padding: 20px; color: red;">Admin panel elements not found. Check HTML structure.</div>';
-      return;
-    }
-    
+  if (window.location.pathname.includes('/admin')) {
     window.notionAdmin = new NotionAdmin();
-  } else {
-    console.log('Not in admin section, skipping admin initialization');
   }
-});
-
-// Global error handler for debugging
-window.addEventListener('error', function(event) {
-  console.error('Global error:', event.error);
-  console.error('In file:', event.filename);
-  console.error('Line:', event.lineno);
 });

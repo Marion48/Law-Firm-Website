@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Add this meta tag for browsers without JS -->
+  <meta http-equiv="refresh" content="3.5;url=index.html">
+  <title>Byron N. & Co. Advocates</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<!-- ... rest of your splash code ... -->
+
+<body>
+
+<!-- ===========================
+      SPLASH SCREEN (index only)
+     =========================== -->
+<div id="splash-screen" aria-hidden="true">
+  <img src="images/logo.png" alt="Byron N. & Co. Advocates" class="splash-logo">
+</div>
+
+<!-- ===========================
+          MAIN CONTENT
+     (Home.html auto-opens after splash)
+     =========================== -->
+<script>
+(function(){
+  const splash = document.getElementById('splash-screen');
+  if (!splash) return;
+
+  // Already seen splash this session?
+  if (sessionStorage.getItem('splashShown')) {
+    splash.remove();
+    window.location.href = "index.html";
+    return;
+  }
+
+  // Determine if user is landing fresh (not navigating internally)
+  const ref = document.referrer || '';
+  const fromSameOrigin = ref.startsWith(location.origin);
+
+  const path = location.pathname;
+  const isRootOrIndex = path === "/" || path.endsWith("/splash.html");
+
+  // If navigating from inside the site → skip splash
+  if (!isRootOrIndex || fromSameOrigin) {
+    splash.remove();
+    window.location.href = "index.html";
+    return;
+  }
+
+  // Mark splash as seen for this tab session
+  sessionStorage.setItem('splashShown','1');
+
+  // Run splash once, then fade + redirect
+  window.addEventListener("load", () => {
+    const visibleFor = 2500;   // how long logo stays visible before fading
+    const fadeTime = 800;      // timing must match CSS transition
+
+    setTimeout(() => {
+      splash.classList.add("fade-out");
+      setTimeout(() => {
+        splash.remove();
+        window.location.href = "index.html";
+      }, fadeTime);
+    }, visibleFor);
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "hero": {
+    "subtitle": "Premium corporate and commercial legal services based in Nairobi — corporate transactions, litigation, real estate and dispute resolution.",
+    "button_text": "Read Insights"
+  },
+  "insights": [
+    {
+      
+      "title": "DEFAMATION & DIGITAL SPEECH: LESSONS FROM THE ORWOBA CASE",
+      "excerpt": "Key legal insights into defamation and digital speech from the Orwoba ruling.",
+      "url": "https://www.linkedin.com/pulse/defamation-digital-speech-lessons-from-orwoba-case-byron-nyasimi-cecre/",
+      "image": "images/insight-cover.jpg"
+    }
+  ],
+  "team": [
+    {
+      "name": "Byron Nyasimi",
+      "role": "Advocate of the High Court of Kenya",
+      "image": "images/Oil painting Byron.png"
+    }
+  ],
+  "Book Review": [
+    {
+      "title": "Corporate Law",
+      "file": "Book Review.html",
+      "summary": "Incorporations, M&A, compliance and governance."
+    }
+  ],
+  "practiceAreas": [
+    {
+      "title": "Corporate Law",
+      "file": "corporate-law.html",
+      "summary": "Incorporations, M&A, compliance and governance."
+    },
+    {
+      "title": "Commercial Law",
+      "file": "commercial-law.html",
+      "summary": "Contracts, commercial transactions, and regulatory advice."
+    },
+    {
+      "title": "Litigation & Dispute Resolution",
+      "file": "litigation-dispute-resolution.html",
+      "summary": "Courtroom representation, arbitration, and ADR."
+      
+    },
+    {
+      "title": "Conveyancing",
+      "file": "conveyancing.html",
+      "summary": "Property transactions, leases, and title work."
+    },
+    {
+      "title": "Intellectual Property",
+      "file": "intellectual-property.html",
+      "summary": "Trademark, copyright and IP enforcement."
+    }
+  ]
+}

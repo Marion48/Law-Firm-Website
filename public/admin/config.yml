@@ -1,0 +1,23 @@
+backend:
+  name: github
+  repo: Marion48/Law-Firm-Website
+  branch: main
+  auth_type: oauth
+  app_id: "Ov23lisEkOXNO7VIr6XR"
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "insights"
+    label: "Insights"
+    folder: "content/insights"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm"}
+      - {label: "Hero Image", name: "hero_image", widget: "image"}
+      - {label: "Summary", name: "summary", widget: "text"}
+      - {label: "Slug", name: "slug", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}

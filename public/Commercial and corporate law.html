@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preload" as="image" href="images/Corporatefinal.png">
+  <title>Commercial & Corporate Lawyer in Nairobi Kenya — Byron N. & Co. Advocates</title>
+  <meta name="description" content="Expert commercial and corporate legal services. Business setup, contracts, compliance, mergers & acquisitions, and ongoing corporate support in Kenya.">
+  <link rel="canonical" href="https://marion48.github.io/Law-Firm-Website/commercial and corporate law.html">
+
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --card-bg: #ffffff;
+      --card-shadow: 0 2px 20px rgba(10, 25, 47, 0.05);
+      --card-shadow-hover: 0 10px 40px rgba(128, 0, 32, 0.1);
+      --section-spacing: 6rem;
+    }
+    
+    /* Modern Hero */
+    .modern-hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: left;
+      position: relative;
+      padding-top: 100px;
+    }
+    .modern-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+  filter: brightness(0.9999) contrast(1.08);
+  transform: scale(1.02);
+  will-change: transform;
+}
+    
+    .modern-hero .container {
+      position: relative;
+      z-index: 3;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-lg);
+    }
+    
+    
+    .modern-hero h1 {
+      font-size: 2.5rem;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .modern-hero h2 {
+      font-size: 1.5rem;
+      line-height: 1.4;
+      margin-bottom: 2rem;
+      color: white;
+      font-weight: 300;
+    }
+    
+    .modern-hero .lead {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.95);
+      background: rgba(10, 25, 47, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 0;
+      border-left: 3px solid var(--maroon);
+      margin: 0;
+    }
+    
+    /* Modern Grid Layout */
+    .modern-grid {
+      display: grid;
+      gap: 2.5rem;
+      margin: var(--section-spacing) auto;
+      max-width: 1400px;
+      padding: 0 var(--space-lg);
+    }
+    
+    @media (min-width: 768px) {
+      .modern-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      .modern-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    /* Modern Card */
+    .modern-card {
+      background: var(--card-bg);
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(10, 25, 47, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    
+    .modern-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--maroon), var(--gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    
+    .modern-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .modern-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: rgba(128, 0, 32, 0.15);
+    }
+    
+    .card-header {
+      padding: 2rem 2rem 1rem;
+      position: relative;
+    }
+    
+    .card-number {
+  position: absolute;
+  top: -1rem;
+  left: 2rem;
+  background: var(--maroon);
+  color: white;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  z-index: 10; /* Added to ensure it stays on top */
+}
+
+.modern-card {
+  /* ... existing styles ... */
+  overflow: visible; /* Changed from 'hidden' to 'visible' */
+}
+    
+    .modern-card h2 {
+      font-size: 1.75rem;
+      line-height: 1.2;
+      margin: 0 0 0.5rem 0;
+      color: var(--navy);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    
+    .card-intro {
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    
+    .card-content {
+      padding: 0 2rem 1.5rem;
+      flex: 1;
+    }
+    
+    .card-content h3 {
+      font-size: 1rem;
+      color: var(--maroon);
+      margin: 1.5rem 0 0.75rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      font-family: var(--font-body);
+    }
+    
+    .modern-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .modern-list li {
+      position: relative;
+      padding: 0.5rem 0 0.5rem 1.5rem;
+      color: var(--charcoal);
+      line-height: 1.5;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .modern-list li:last-child {
+      border-bottom: none;
+    }
+    
+    .modern-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.85rem;
+      width: 6px;
+      height: 6px;
+      background: var(--maroon);
+      border-radius: 50%;
+    }
+    
+    .card-footer {
+      padding: 1.5rem 2rem;
+      background: linear-gradient(to right, rgba(128, 0, 32, 0.03), rgba(201, 168, 106, 0.03));
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      margin-top: auto;
+    }
+    
+    .card-outcome {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      font-style: italic;
+      line-height: 1.6;
+    }
+    
+    .card-outcome b {
+      color: var(--maroon);
+      font-weight: 600;
+      font-style: normal;
+    }
+    
+    /* Section Title */
+    .section-title {
+      text-align: center;
+      margin: var(--section-spacing) 0 3rem;
+      padding: 0 var(--space-lg);
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: var(--maroon);
+    }
+    
+    .section-title p {
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    /* Back Button */
+    .modern-back {
+      text-align: center;
+      margin: var(--section-spacing) 0;
+      padding: 2rem 0;
+    }
+    
+    .modern-back .btn.primary {
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+      border-radius: 0;
+      position: relative;
+      overflow: hidden;
+      border: none;
+      background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
+    }
+    
+    .modern-back .btn.primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+    
+    .modern-back .btn.primary:hover::before {
+      left: 100%;
+    }
+    
+    /* Animation */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .modern-card {
+      animation: fadeUp 0.6s ease forwards;
+      opacity: 0;
+    }
+    
+    /* Staggered animation delay */
+    .modern-card:nth-child(1) { animation-delay: 0.1s; }
+    .modern-card:nth-child(2) { animation-delay: 0.2s; }
+    .modern-card:nth-child(3) { animation-delay: 0.3s; }
+    .modern-card:nth-child(4) { animation-delay: 0.4s; }
+    .modern-card:nth-child(5) { animation-delay: 0.5s; }
+    .modern-card:nth-child(6) { animation-delay: 0.6s; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .modern-hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .modern-hero h2 {
+        font-size: 1.25rem;
+      }
+      
+      .modern-hero .lead {
+        font-size: 1.1rem;
+        padding: 1.5rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .section-title p {
+        font-size: 1rem;
+      }
+      
+      .card-header,
+      .card-content,
+      .card-footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      
+      .card-number {
+        left: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .modern-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .modern-hero h1 {
+        font-size: 2rem;
+        text-align: left!important;
+      }
+      
+      .modern-hero h2 {
+        font-size: 1.1rem;
+      }
+    }
+
+  /* ===== FOOTER STYLES ===== */
+.main-footer {
+  background: var(--navy);
+  color: white;
+  padding: 40px 0 0 0;
+  margin-top: 60px;
+  border-top: 1px solid rgba(201, 168, 106, 0.3);
+  width: 100%;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg) 40px var(--space-lg);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links h4 {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  color: var(--gold);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+  font-family: var(--font-body);
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+.footer-links p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+  opacity: 0.9;
+  color: white;
+  font-family: var(--font-heading);
+  width: 100%;
+  background: var(--navy);
+}
+
+.footer-bottom p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Responsive footer */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    text-align: center;
+  }
+  
+  .footer-links h4 {
+    margin-top: 10px;
+  }
+  
+  .footer-links a:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="container nav-inner"> 
+      <a class="brand brand-combo" href="index.html">
+        <img src="images/logo.png" alt="Byron N. & Co. Advocates" class="logo">
+        <span>Byron N. & Co. Advocates</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Modern Hero -->
+    <section class="modern-hero">
+      <div class="modern-hero-bg" style="background-image:url('images/Corporatefinal.png');"></div>
+      <div class="container">
+        <h1>Commercial & Corporate Law</h1>
+        <h2>Guiding businesses through complex legal matters</h2>
+      </div>
+    </section>
+
+    <!-- Practice Areas Section -->
+    <div class="section-title">
+      <h2>Commercial & Corporate Services</h2>
+      <p>Running a business comes with both opportunities and challenges. At Byron N & Co Advocates, we help your business navigate the law and market with clear advice, strong legal protection, and practical solutions that support your growth. Whether you're starting a new venture, signing important agreements, or handling a sensitive business issue, we make sure you understand your options and make decisions confidently.</p>
+    </div>
+
+    <!-- Modern Grid -->
+    <div class="modern-grid">
+      
+      <!-- 1. Business Setup & Structuring -->
+      <article class="modern-card">
+        <div class="card-number">01</div>
+        <div class="card-header">
+          <h2>Business Setup & Structuring</h2>
+          <p class="card-intro">Starting a company or partnership shouldn't feel confusing.</p>
+        </div>
+        <div class="card-content">
+          <h3>We help you</h3>
+          <ul class="modern-list">
+            <li>Choose the right business structure</li>
+            <li>Register your business and draft essential documents</li>
+            <li>Set up shareholder or partnership arrangements</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <p class="card-outcome"><b>Outcome:</b> A solid legal foundation that protects your interests from day one.</p>
+        </div>
+      </article>
+
+      <!-- 2. Contracts & Agreements -->
+      <article class="modern-card">
+        <div class="card-number">02</div>
+        <div class="card-header">
+          <h2>Contracts & Agreements</h2>
+          <p class="card-intro">Every successful business relies on clear agreements.</p>
+        </div>
+        <div class="card-content">
+          <h3>We prepare, review, and negotiate</h3>
+          <ul class="modern-list">
+            <li>Supplier and service contracts</li>
+            <li>Employment and consultancy agreements</li>
+            <li>Shareholder and partnership agreements</li>
+            <li>Confidentiality and non-disclosure agreements</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <p class="card-outcome"><b>Outcome:</b> Strong, easy-to-understand contracts that reduce risk and protect your business.</p>
+        </div>
+      </article>
+
+      <!-- 3. Compliance & Regulatory Support -->
+      <article class="modern-card">
+        <div class="card-number">03</div>
+        <div class="card-header">
+          <h2>Compliance & Regulatory Support</h2>
+          <p class="card-intro">We guide you through the rules and obligations that affect your industry.</p>
+        </div>
+        <div class="card-content">
+          <h3>We assist with</h3>
+          <ul class="modern-list">
+            <li>Licensing and regulatory filings</li>
+            <li>Corporate governance</li>
+            <li>Legal audits and compliance checks</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <p class="card-outcome"><b>Outcome:</b> Peace of mind knowing your business meets all legal requirements.</p>
+        </div>
+      </article>
+
+      <!-- 4. Mergers, Acquisitions & Business Transfers -->
+      <article class="modern-card">
+        <div class="card-number">04</div>
+        <div class="card-header">
+          <h2>Mergers, Acquisitions & Business Transfers</h2>
+          <p class="card-intro">Whether you're buying, selling, or restructuring a business, you need clear advice and careful planning.</p>
+        </div>
+        <div class="card-content">
+          <h3>We guide you through</h3>
+          <ul class="modern-list">
+            <li>Due diligence</li>
+            <li>Negotiation and documentation</li>
+            <li>Post-transaction support</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <p class="card-outcome"><b>Outcome:</b> Smooth transitions that protect value and reduce unexpected risks.</p>
+        </div>
+      </article>
+
+      <!-- 5. Managing Business Risks & Disputes -->
+      <article class="modern-card">
+        <div class="card-number">05</div>
+        <div class="card-header">
+          <h2>Managing Business Risks & Disputes</h2>
+          <p class="card-intro">When issues arise, we help you address them quickly and strategically.</p>
+        </div>
+        <div class="card-content">
+          <h3>We support you with</h3>
+          <ul class="modern-list">
+            <li>Contract disputes</li>
+            <li>Shareholder or director disagreements</li>
+            <li>Debt recovery</li>
+            <li>Mediation, arbitration, or litigation if needed</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <p class="card-outcome"><b>Outcome:</b> Practical solutions that keep your business stable and moving forward.</p>
+        </div>
+      </article>
+
+      <!-- 6. Ongoing Legal Support for Businesses -->
+      <article class="modern-card">
+        <div class="card-number">06</div>
+        <div class="card-header">
+          <h2>Ongoing Legal Support for Businesses</h2>
+          <p class="card-intro">For growing companies, legal needs don't stop after registration.</p>
+        </div>
+        <div class="card-content">
+          <h3>We offer</h3>
+          <ul class="modern-list">
+            <li>On-call legal advice</li>
+            <li>Review of ongoing contracts</li>
+            <li>Support with day-to-day business decisions</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <p class="card-outcome"><b>Outcome:</b> A long-term partner who helps your business stay protected as it grows.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Back Button -->
+    <div class="modern-back">
+      <a href="index.html" class="btn primary">← Back to Home</a>
+    </div>
+  </main>
+<!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <!-- Connect section -->
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <a href="mailto:marioncherono55@gmail.com">marioncherono55@gmail.com</a>
+        <a href="tel:+254707146880">+254 707 146 880</a>
+        <p>Westlands Square, Nairobi, Kenya</p>
+      </div>
+      
+      <!-- Services section with updated links -->
+      <div class="footer-links">
+        <h4>Services</h4>
+        <a href="litigation-dispute-resolution.html">Litigation & Dispute Resolution</a>
+        <a href="intellectual-property.html">Intellectual Property</a>
+        <a href="Commercial and corporate law.html">Commercial & Corporate Law</a>
+        <a href="Constitutional and Human Rights Law.html">Constitutional and Human Rights Law</a>
+        <a href="conveyancing.html">Conveyancing</a>
+        <a href="Criminal Litigation.html">Criminal Litigation</a>
+        <a href="Entertainment.html">Entertainment</a>
+        <a href="Compensation & Liability Matters.html">Compensation & Liability Matters</a>
+      </div>
+      
+      <!-- Quick Links section -->
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About Us</a>
+        <a href="index.html#Team">Our Team</a>
+        <a href="insights.html">Legal Insights</a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom" style="text-align: center !important; width: 100%; margin: 40px auto 0 auto; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
+  <p style="text-align: center !important; margin: 0 auto !important; display: block !important;">© <span id="yr">2025</span> Byron N. & Co. Advocates. All rights reserved.</p>
+</div>
+  </footer>
+
+  <script>
+    // Set current year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    
+    // Add scroll animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize cards with staggered animation
+      const cards = document.querySelectorAll('.modern-card');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.visibility = 'visible';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      cards.forEach(card => {
+        card.style.visibility = 'hidden';
+        observer.observe(card);
+      });
+      
+      // Add click effect to cards
+      cards.forEach(card => {
+        card.addEventListener('click', function() {
+          this.style.transform = 'translateY(-12px) scale(1.01)';
+          setTimeout(() => {
+            this.style.transform = 'translateY(-8px)';
+          }, 150);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

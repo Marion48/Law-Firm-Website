@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Legal Assistant - Byron N. & Co. Advocates</title>
+    <style>
+        /* (CSS remains largely the same as your provided code, with key fixes below) */
+        /* ... other styles ... */
+        
+        /* FIX 1 for Readability: Make the chat container larger */
+        .ai-assistant-container {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 520px; /* INCREASED from 450px */
+            max-width: 90vw;
+            height: 720px; /* INCREASED from 650px */
+            max-height: 80vh;
+            /* ... other properties remain the same ... */
+        }
+        
+        /* FIX 2 for Readability: Expand the chat bubble width and improve text */
+        .chat-content {
+            max-width: 380px; /* INCREASED from 320px */
+            padding: 18px;
+            border-radius: 15px;
+            font-size: 16px; /* INCREASED from 15px */
+            line-height: 1.7;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-dark);
+            word-wrap: break-word; /* Ensures long words/links don't break layout */
+            overflow-wrap: break-word;
+        }
+        
+        /* FIX 3: Make case law results more distinct and readable */
+        .case-law-result {
+            background: rgba(10, 25, 47, 0.04);
+            border-left: 5px solid var(--maroon); /* Thicker border */
+            padding: 18px; /* More padding */
+            margin: 18px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 15px;
+        }
+        /* ... rest of the CSS remains the same ... */
+    </style>
+</head>
+<body>
+    <!-- HTML structure remains exactly the same as you provided -->
+    <div class="ai-legal-assistant">
+        <button class="ai-assistant-btn" id="aiAssistantBtn">
+            <div class="ai-icon">AI</div>
+            Legal Assistant
+            <div class="pulse"></div>
+        </button>
+        <div class="ai-assistant-container" id="aiAssistantContainer">
+            <div class="ai-header">
+                <div class="ai-header-content">
+                    <h3>Byron N. & Co. Legal Assistant</h3>
+                    <div class="ai-subtitle">Case Law Research • Client Q&A • Legal Insights</div>
+                </div>
+                <button class="ai-close-btn" id="aiCloseBtn">&times;</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Initial greeting message remains here -->
+            </div>
+            <div class="quick-questions">
+                <!-- Quick question buttons remain here -->
+            </div>
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <textarea class="chat-input" id="chatInput" placeholder="Ask about recent Kenyan case law, legal procedures, or firm information..." rows="1"></textarea>
+                    <button class="chat-send-btn" id="chatSendBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // FIX 4: Configure DeepSeek API Properly
+        const DEEPSEEK_CONFIG = {
+            // REPLACE THIS WITH YOUR VALID DEEPSEEK API KEY
+            // Get it from: https://platform.deepseek.com/api_keys
+            API_KEY: 'sk-your-actual-deepseek-api-key-here', 
+            API_URL: 'https://api.deepseek.com/v1/chat/completions',
+            MODEL: 'deepseek-chat',
+            MAX_TOKENS: 2000
+        };
+        
+        // The SYSTEM_PROMPT remains the same as you provided...
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... DOM element initializations remain the same ...
+            
+            // FIX 5: Enhanced getDeepSeekResponse function with better error handling
+            async function getDeepSeekResponse(question) {
+                // 1. Validate API Key
+                if (!DEEPSEEK_CONFIG.API_KEY || DEEPSEEK_CONFIG.API_KEY.includes('your-actual')) {
+                    console.error("Invalid API Key Configured.");
+                    // Provide a clear message to the user about the configuration error
+                    throw new Error('API_KEY_NOT_CONFIGURED');
+                }
+                
+                console.log('Making DeepSeek API call for:', question.substring(0, 50));
+                
+                // 2. Prepare messages for the API
+                const messages = [
+                    { role: 'system', content: SYSTEM_PROMPT },
+                    ...chatHistory.slice(-6).filter(msg => msg.role !== 'system')
+                ];
+                messages.push({ role: 'user', content: question });
+                
+                // 3. Make the API Request with timeout
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 30000); // 30-second timeout
+                
+                try {
+                    const response = await fetch(DEEPSEEK_CONFIG.API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${DEEPSEEK_CONFIG.API_KEY}`
+                        },
+                        body: JSON.stringify({
+                            model: DEEPSEEK_CONFIG.MODEL,
+                            messages: messages,
+                            temperature: 0.7,
+                            max_tokens: DEEPSEEK_CONFIG.MAX_TOKENS
+                        }),
+                        signal: controller.signal
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    
+                    // 4. Handle HTTP Errors
+                    if (!response.ok) {
+                        const errorBody = await response.text();
+                        console.error(`API Error ${response.status}:`, errorBody);
+                        
+                        // Specific handling for common API errors
+                        if (response.status === 401) {
+                            throw new Error('API_KEY_INVALID_OR_EXPIRED');
+                        } else if (response.status === 429) {
+                            throw new Error('RATE_LIMIT_EXCEEDED');
+                        } else {
+                            throw new Error(`API_ERROR_${response.status}`);
+                        }
+                    }
+                    
+                    // 5. Process Successful Response
+                    const data = await response.json();
+                    
+                    if (data.choices && data.choices[0] && data.choices[0].message) {
+                        console.log('DeepSeek API call successful.');
+                        return data.choices[0].message.content;
+                    } else {
+                        throw new Error('INVALID_API_RESPONSE_FORMAT');
+                    }
+                    
+                } catch (error) {
+                    clearTimeout(timeoutId);
+                    console.error('Fetch Error:', error.name, error.message);
+                    
+                    // Re-throw with a user-friendly category
+                    if (error.name === 'AbortError') {
+                        throw new Error('NETWORK_TIMEOUT');
+                    } else if (error.message.includes('API_KEY')) {
+                        throw error; // Re-throw specific key errors
+                    } else {
+                        throw new Error('NETWORK_ERROR');
+                    }
+                }
+            }
+            
+            // FIX 6: Enhanced processQuestion function with specific error messages
+            async function processQuestion(question) {
+                if (isProcessing) return;
+                isProcessing = true;
+                
+                // Show typing indicator...
+                
+                try {
+                    const response = await getDeepSeekResponse(question);
+                    // Remove typing indicator and show response...
+                    
+                } catch (error) {
+                    console.error('Process Question Error:', error.message);
+                    
+                    // Remove typing indicator
+                    typingDiv.remove();
+                    
+                    // USER-FRIENDLY ERROR MESSAGES BASED ON ERROR TYPE
+                    let errorMessage = '';
+                    switch(error.message) {
+                        case 'API_KEY_NOT_CONFIGURED':
+                            errorMessage = `**🔧 Configuration Required**\n\nPlease update the DeepSeek API key in the script for full functionality.\n\n1. Get a free API key from [DeepSeek Platform](https://platform.deepseek.com/api_keys)\n2. Replace the placeholder key in line 361 of the script\n\n**Temporary Firm Information:**\nFor immediate legal assistance, contact Byron N. & Co. Advocates at **+254 707146880**.`;
+                            break;
+                        case 'API_KEY_INVALID_OR_EXPIRED':
+                            errorMessage = `**⚠️ API Key Issue**\n\nThe configured DeepSeek API key is invalid or has expired.\n\nPlease update it with a valid key from your DeepSeek account.\n\n**Contact Our Firm:**\nFor case law research, call us at **+254 707146880**.`;
+                            break;
+                        case 'NETWORK_TIMEOUT':
+                        case 'NETWORK_ERROR':
+                            errorMessage = `**🌐 Connection Issue**\n\nUnable to connect to the AI service. This might be due to network problems or service downtime.\n\n**How to proceed:**\n1. Check your internet connection\n2. Try again in a few moments\n3. For urgent legal queries, contact us directly at **+254 707146880**`;
+                            break;
+                        case 'RATE_LIMIT_EXCEEDED':
+                            errorMessage = `**⚡ Service Limit**\n\nThe AI service is currently experiencing high demand.\n\nPlease try again in a few minutes, or contact our legal team directly for immediate assistance.\n\n**Direct Contact:** +254 707146880`;
+                            break;
+                        default:
+                            // Use your existing enhanced fallback for other errors
+                            errorMessage = generateEnhancedFallbackResponse(question);
+                    }
+                    
+                    sendMessage(errorMessage, 'ai');
+                    chatHistory.push({ role: 'assistant', content: errorMessage });
+                }
+                
+                isProcessing = false;
+            }
+            
+            // The rest of your JavaScript (toggleAIAssistant, sendMessage, etc.) remains the same...
+        });
+    </script>
+</body>
+</html>
