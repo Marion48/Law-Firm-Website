@@ -6,28 +6,53 @@ on:
       - main
     paths:
       - 'content/insights/**.md'
+      - 'public/data/insights.json'  # Triggers when JSON updates
+      - 'admin/**'                   # Triggers when admin changes
+      - 'scripts/generateIndex.js'   # Triggers when script changes
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to push changes back
+    
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # Fetch all history for proper git operations
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install gray-matter
 
-      - name: Generate index.json
+      - name: Generate index.json from multiple sources
         run: node scripts/generateIndex.js
 
-      - name: Commit and push index.json
+      - name: Commit and push if changes
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add content/insights/index.json
-          git commit -m "Auto-generate index.json" || echo "No changes to commit"
-          git push
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Check if there are changes to commit
+          if git diff --quiet content/insights/index.json; then
+            echo "No changes to index.json"
+          else
+            git add content/insights/index.json
+            git commit -m "🔁 Auto-generate insights index [skip ci]"
+            git push origin main
+            echo "✅ Changes committed and pushed"
+          fi
+
+      - name: Verify changes
+        run: |
+          echo "=== Generated index.json content ==="
+          cat content/insights/index.json | head -50
+          echo ""
+          echo "=== Number of insights ==="
+          grep -c '"title"' content/insights/index.json || echo "0"
