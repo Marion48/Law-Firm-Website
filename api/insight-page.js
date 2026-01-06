@@ -1,4 +1,4 @@
-// api/insight-page.js - COMPLETE WITH PREMIUM STYLING
+// api/insight-page.js - COMPLETE WITH CENTERED BODY & CORRECTED FOOTER
 const { getInsightsData } = require('../lib/github.js');
 
 module.exports = async (req, res) => {
@@ -254,21 +254,25 @@ function generateInsightPage(insight) {
             object-fit: cover;
         }
         
-        /* BODY CONTENT STYLING - CRITICAL */
+        /* BODY CONTENT - CENTERED ALIGNMENT */
         .insight-body {
             font-size: 1.2rem;
             line-height: 1.9;
             color: #374151;
+            max-width: 680px;
+            margin: 0 auto;
         }
         
-        /* Style paragraphs from Quill */
+        /* Style paragraphs from Quill - CENTERED */
         .insight-body p {
             margin-bottom: 1.8rem;
             font-size: 1.2rem;
             line-height: 1.9;
+            text-align: justify;
+            text-align-last: center;
         }
         
-        /* Style headings from Quill */
+        /* Style headings from Quill - CENTERED */
         .insight-body h1,
         .insight-body h2,
         .insight-body h3,
@@ -278,14 +282,19 @@ function generateInsightPage(insight) {
             margin: 3rem 0 1.5rem;
             font-weight: 600;
             line-height: 1.2;
+            text-align: center;
         }
         
-        .insight-body h1 { font-size: 2.5rem; }
+        .insight-body h1 { 
+            font-size: 2.5rem; 
+            margin-top: 4rem;
+        }
         .insight-body h2 { 
             font-size: 2.25rem; 
             border-bottom: 2px solid var(--gold); 
             padding-bottom: 0.5rem;
             margin-top: 4rem;
+            display: inline-block;
         }
         .insight-body h3 { font-size: 1.75rem; }
         .insight-body h4 { font-size: 1.5rem; }
@@ -304,28 +313,34 @@ function generateInsightPage(insight) {
             border-bottom-color: var(--navy);
         }
         
-        /* Style lists from Quill */
+        /* Style lists from Quill - CENTERED */
         .insight-body ul,
         .insight-body ol {
-            margin: 2rem 0 2rem 2rem;
+            margin: 2rem auto;
+            padding-left: 0;
+            list-style-position: inside;
+            text-align: left;
+            display: inline-block;
         }
         
         .insight-body li {
             margin-bottom: 0.75rem;
-            padding-left: 0.5rem;
+            text-align: left;
         }
         
-        /* Style blockquotes from Quill */
+        /* Style blockquotes from Quill - CENTERED */
         .insight-body blockquote {
             border-left: 4px solid var(--gold);
             padding: 2rem 3rem;
-            margin: 3rem 0;
+            margin: 3rem auto;
             font-style: italic;
             color: #555;
             background: var(--gray-light);
-            border-radius: 0 12px 12px 0;
+            border-radius: 12px;
             font-size: 1.3rem;
             font-family: 'Cormorant Garamond', serif;
+            max-width: 600px;
+            text-align: center;
         }
         
         .insight-body blockquote p {
@@ -366,16 +381,17 @@ function generateInsightPage(insight) {
             box-shadow: 0 6px 20px rgba(10, 25, 47, 0.3);
         }
         
-        /* Author Section */
+        /* Author Section - CENTERED */
         .author-section {
             background: linear-gradient(135deg, var(--navy) 0%, #1a2d4a 100%);
             padding: 3rem;
             border-radius: 12px;
-            margin: 4rem 0;
+            margin: 4rem auto;
             color: white;
             display: flex;
             align-items: center;
             gap: 2rem;
+            max-width: 680px;
         }
         
         .author-avatar {
@@ -450,8 +466,8 @@ function generateInsightPage(insight) {
             padding-top: 2rem;
             border-top: 1px solid rgba(255,255,255,0.1);
             text-align: center;
-            color: rgba(255,255,255,0.6);
-            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
         }
         
         /* Responsive */
@@ -474,15 +490,29 @@ function generateInsightPage(insight) {
             
             .insight-body p {
                 font-size: 1.1rem;
+                text-align: left;
+                text-align-last: left;
             }
             
-            .insight-body h1 { font-size: 2rem; }
-            .insight-body h2 { font-size: 1.75rem; }
-            .insight-body h3 { font-size: 1.5rem; }
+            .insight-body h1 { 
+                font-size: 2rem; 
+                text-align: left;
+            }
+            .insight-body h2 { 
+                font-size: 1.75rem; 
+                text-align: left;
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .insight-body h3 { 
+                font-size: 1.5rem; 
+                text-align: left;
+            }
             
             .insight-body blockquote {
                 padding: 1.5rem 2rem;
                 font-size: 1.1rem;
+                text-align: left;
             }
             
             .author-section {
@@ -510,6 +540,13 @@ function generateInsightPage(insight) {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.5rem;
+            }
+            
+            .insight-body ul,
+            .insight-body ol {
+                text-align: left;
+                display: block;
+                margin-left: 1rem;
             }
         }
     </style>
@@ -550,7 +587,7 @@ function generateInsightPage(insight) {
             </figure>
             ` : ''}
             
-            <!-- RAW HTML FROM QUILL - PROPERLY STYLED -->
+            <!-- RAW HTML FROM QUILL - PROPERLY STYLED & CENTERED -->
             <section class="insight-body">
                 ${bodyContent}
             </section>
@@ -560,7 +597,7 @@ function generateInsightPage(insight) {
                 <img src="/images/ByronNyasimi.png" alt="Byron Nyasimi" class="author-avatar">
                 <div class="author-info">
                     <h3>Byron Nyasimi</h3>
-                    <p>Principal Advocate at Byron N. & Co. Advocates with over 15 years of experience in corporate law, intellectual property, and constitutional matters.</p>
+                    <p>Principal Advocate</p>
                 </div>
             </div>
             
@@ -608,7 +645,6 @@ function generateInsightPage(insight) {
         
         <div class="footer-bottom">
             <p>© ${new Date().getFullYear()} Byron N. & Co. Advocates. All rights reserved.</p>
-            <p style="margin-top: 0.5rem;">Providing exceptional legal counsel since 2010</p>
         </div>
     </footer>
     
