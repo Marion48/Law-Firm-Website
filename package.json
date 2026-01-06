@@ -5,6 +5,7 @@
     "node": ">=18.x"
   },
   "dependencies": {
+    "@vercel/blob": "^2.0.0",
     "node-fetch": "^2.6.7"
   }
 }
