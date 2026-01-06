@@ -103,7 +103,7 @@ class InsightsLoader {
   card(insight) {
     const img = insight.image || '/images/default-insight.jpg';
     const date = this.formatDate(insight.date || insight.createdAt);
-    const url = `/insight/${insight.slug}`;
+    const url = `/api/insight-page?slug=${insight.slug}`;
     const excerpt = insight.excerpt
       ? insight.excerpt.slice(0, 120) + '…'
       : 'Read more about this legal insight.';

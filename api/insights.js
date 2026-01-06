@@ -1,7 +1,7 @@
-// api/insights.js
-import { getInsightsData, updateInsightsData } from '../lib/github.js';
+// api/insights.js - CONVERTED TO COMMONJS
+const { getInsightsData, updateInsightsData } = require('../lib/github.js');
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,26 +14,32 @@ export default async function handler(req, res) {
 
   try {
     const { action, insight, index } = req.body;
+    console.log(`[INSIGHTS API] Action: ${action}, Index: ${index}`);
 
     // Get current insights
     let insights = await getInsightsData();
     
     // Ensure insights is an array
     if (!Array.isArray(insights)) {
+      console.log('[INSIGHTS API] Insights is not an array, initializing empty array');
       insights = [];
     }
+
+    console.log(`[INSIGHTS API] Found ${insights.length} insights in storage`);
 
     let result;
     let commitMessage = '';
 
     switch (action) {
       case 'add':
+        console.log('[INSIGHTS API] Adding new insight:', insight?.title);
+        
         if (!insight || !insight.title) {
           return res.status(400).json({ error: 'Title is required' });
         }
 
         const newInsight = {
-          id: Date.now().toString(),
+          id: `insight_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
           title: insight.title.trim(),
           excerpt: insight.excerpt ? insight.excerpt.trim() : '',
           body: insight.body || '',
@@ -44,8 +50,10 @@ export default async function handler(req, res) {
           status: insight.status || 'draft',
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
-          url: `/insight/${generateSlug(insight.slug || insight.title)}`
+          url: `/api/insight-page?slug=${generateSlug(insight.slug || insight.title)}`
         };
+        
+        console.log('[INSIGHTS API] New insight created:', newInsight);
         
         // Add to beginning (newest first)
         insights.unshift(newInsight);
@@ -54,6 +62,8 @@ export default async function handler(req, res) {
         break;
 
       case 'edit':
+        console.log(`[INSIGHTS API] Editing insight at index: ${index}`);
+        
         if (index === undefined || index < 0 || index >= insights.length) {
           return res.status(400).json({ error: 'Invalid index for edit' });
         }
@@ -73,15 +83,18 @@ export default async function handler(req, res) {
         
         // Update URL if slug changed
         if (insight.slug && insight.slug !== insights[index].slug) {
-          updatedInsight.url = `/insight/${generateSlug(insight.slug)}`;
+          updatedInsight.url = `/api/insight-page?slug=${generateSlug(insight.slug)}`;
         }
         
         insights[index] = updatedInsight;
         commitMessage = `Update insight: ${updatedInsight.title}`;
         result = updatedInsight;
+        console.log('[INSIGHTS API] Insight updated:', updatedInsight);
         break;
 
       case 'delete':
+        console.log(`[INSIGHTS API] Deleting insight at index: ${index}`);
+        
         if (index === undefined || index < 0 || index >= insights.length) {
           return res.status(400).json({ error: 'Invalid index for delete' });
         }
@@ -89,9 +102,12 @@ export default async function handler(req, res) {
         const deleted = insights.splice(index, 1)[0];
         commitMessage = `Delete insight: ${deleted.title}`;
         result = deleted;
+        console.log('[INSIGHTS API] Insight deleted:', deleted.title);
         break;
 
       case 'get':
+        console.log('[INSIGHTS API] Getting all insights');
+        
         // Return all insights sorted by date (newest first)
         const sortedInsights = [...insights].sort((a, b) => {
           const dateA = new Date(a.date || a.createdAt);
@@ -101,7 +117,7 @@ export default async function handler(req, res) {
         
         // Ensure each insight has required fields
         const validatedInsights = sortedInsights.map(insight => ({
-          id: insight.id || Date.now().toString(),
+          id: insight.id || `insight_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
           title: insight.title || 'Untitled',
           excerpt: insight.excerpt || '',
           body: insight.body || '',
@@ -112,16 +128,19 @@ export default async function handler(req, res) {
           status: insight.status || 'draft',
           createdAt: insight.createdAt || new Date().toISOString(),
           updatedAt: insight.updatedAt || new Date().toISOString(),
-          url: insight.url || `/insight/${insight.slug || generateSlug(insight.title || 'untitled')}`
+          url: insight.url || `/api/insight-page?slug=${insight.slug || generateSlug(insight.title || 'untitled')}`
         }));
         
+        console.log(`[INSIGHTS API] Returning ${validatedInsights.length} insights`);
         return res.status(200).json(validatedInsights);
 
       default:
+        console.log(`[INSIGHTS API] Unknown action: ${action}`);
         return res.status(400).json({ error: 'Invalid action' });
     }
 
     // Save updated insights back to GitHub
+    console.log(`[INSIGHTS API] Saving to GitHub: ${commitMessage}`);
     await updateInsightsData(insights, commitMessage);
 
     // Return updated list sorted by date
@@ -131,21 +150,25 @@ export default async function handler(req, res) {
       return dateB - dateA;
     });
 
+    console.log(`[INSIGHTS API] Success! Returning ${sortedInsights.length} insights`);
+    
     res.status(200).json({
       success: true,
       data: result,
       insights: sortedInsights,
-      count: sortedInsights.length
+      count: sortedInsights.length,
+      message: `${action} completed successfully`
     });
 
   } catch (error) {
-    console.error('API Error:', error);
+    console.error('[INSIGHTS API] Error:', error);
     res.status(500).json({ 
       error: 'Internal server error',
-      message: error.message 
+      message: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
-}
+};
 
 function generateSlug(text) {
   if (!text) return 'untitled';

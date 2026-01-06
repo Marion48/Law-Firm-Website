@@ -1,18 +1,26 @@
-// api/insight-page.js
-import { getInsightsData } from '../lib/github.js';
+// api/insight-page.js - CONVERTED TO COMMONJS
+const { getInsightsData } = require('../lib/github.js');
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   const { slug } = req.query;
+  console.log(`[INSIGHT-PAGE] Request for slug: ${slug}`);
   
   if (!slug) {
+    console.log('[INSIGHT-PAGE] No slug provided');
     return res.status(404).send('Insight not found');
   }
 
   try {
     const insights = await getInsightsData();
-    const insight = insights.find(i => i.slug === slug);
+    console.log(`[INSIGHT-PAGE] Total insights loaded: ${insights.length}`);
+    
+    // CRITICAL: Filter for published insights only!
+    const insight = insights.find(i => i.slug === slug && i.status === 'published');
     
     if (!insight) {
+      console.log(`[INSIGHT-PAGE] Insight not found or not published: ${slug}`);
+      console.log(`[INSIGHT-PAGE] Available published slugs: ${insights.filter(i => i.status === 'published').map(i => i.slug).join(', ')}`);
+      
       return res.status(404).send(`
         <!DOCTYPE html>
         <html>
@@ -29,7 +37,8 @@ export default async function handler(req, res) {
         <body>
           <div class="container">
             <h1>Insight Not Found</h1>
-            <p>The insight you're looking for doesn't exist or has been moved.</p>
+            <p>The insight "${slug}" doesn't exist or isn't published yet.</p>
+            <p><small>Check the admin panel to ensure it's published.</small></p>
             <a href="/insights.html">← Back to Insights</a>
           </div>
         </body>
@@ -37,6 +46,8 @@ export default async function handler(req, res) {
       `);
     }
 
+    console.log(`[INSIGHT-PAGE] Found insight: ${insight.title}`);
+    
     // Generate HTML page for the insight
     const html = generateInsightPage(insight);
     
@@ -45,10 +56,32 @@ export default async function handler(req, res) {
     res.send(html);
     
   } catch (error) {
-    console.error('Error generating insight page:', error);
-    res.status(500).send('Server error');
+    console.error('[INSIGHT-PAGE] Error:', error);
+    res.status(500).send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Server Error - Byron N. & Co. Advocates</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f8f5f0; }
+          .container { text-align: center; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+          h1 { color: #333; margin-bottom: 1rem; }
+          p { color: #666; margin-bottom: 2rem; }
+          a { color: #3b82f6; text-decoration: none; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Server Error</h1>
+          <p>We're experiencing technical difficulties. Please try again later.</p>
+          <p><small>Error: ${error.message}</small></p>
+          <a href="/">← Go to Homepage</a>
+        </div>
+      </body>
+      </html>
+    `);
   }
-}
+};
 
 function generateInsightPage(insight) {
   const formattedDate = new Date(insight.date || insight.createdAt).toLocaleDateString('en-US', {
@@ -77,7 +110,7 @@ function generateInsightPage(insight) {
     <!-- Open Graph -->
     <meta property="og:title" content="${insight.title ? insight.title.replace(/"/g, '&quot;') : 'Insight'}">
     <meta property="og:description" content="${insight.excerpt ? insight.excerpt.replace(/"/g, '&quot;').substring(0, 160) : ''}">
-    <meta property="og:image" content="${insight.image || 'https://yourdomain.com/images/default-insight.jpg'}">
+    <meta property="og:image" content="${insight.image || '/images/default-insight.jpg'}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://yourdomain.com/insight/${insight.slug}">
     
@@ -91,7 +124,7 @@ function generateInsightPage(insight) {
       "@type": "Article",
       "headline": "${insight.title ? insight.title.replace(/"/g, '\\\\"') : ''}",
       "description": "${insight.excerpt ? insight.excerpt.replace(/"/g, '\\\\"') : ''}",
-      "image": "${insight.image || 'https://yourdomain.com/images/default-insight.jpg'}",
+      "image": "${insight.image || '/images/default-insight.jpg'}",
       "datePublished": "${insight.date || insight.createdAt}",
       "dateModified": "${insight.updatedAt || insight.createdAt}",
       "author": {
@@ -103,7 +136,7 @@ function generateInsightPage(insight) {
         "name": "Byron N. & Co. Advocates",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://yourdomain.com/images/logo.png"
+          "url": "/images/logo.png"
         }
       }
     }
@@ -131,23 +164,27 @@ function generateInsightPage(insight) {
             color: var(--text);
             background: #fff;
         }
+        
         .insight-article {
-  max-width: 860px;
-  margin: 6rem auto;
-  padding: 0 1.5rem;
-}
-
-.insight-header h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 3rem;
-  color: var(--navy);
-}
-
-.insight-body {
-  font-family: 'Inter', sans-serif;
-  line-height: 1.8;
-}
-
+            max-width: 860px;
+            margin: 6rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .insight-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        .insight-body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            font-size: 1.125rem;
+        }
+        
         .insight-container {
             max-width: 800px;
             margin: 0 auto;
@@ -340,28 +377,31 @@ function generateInsightPage(insight) {
     </header>
     
     <main class="insight-container">
-    <article class="insight-article">
-  <header class="insight-header">
-    <h1>${insight.title}</h1>
-    <p class="insight-meta">
-      ${formattedDate}
-    </p>
-  </header>
+        <article class="insight-article">
+            <header class="insight-header">
+                <h1>${insight.title}</h1>
+                <p class="insight-meta">
+                    ${formattedDate}
+                    ${insight.featured ? '<span style="background: var(--gold); color: white; padding: 2px 8px; border-radius: 4px; margin-left: 10px;">Featured</span>' : ''}
+                </p>
+            </header>
 
-  ${
-    insight.image
-      ? `<figure class="insight-hero">
-           <img src="${insight.image}" alt="${insight.title}">
-         </figure>`
-      : ''
-  }
+            ${
+                insight.image
+                ? `<figure class="insight-hero">
+                    <img src="${insight.image}" alt="${insight.title}">
+                    </figure>`
+                : ''
+            }
 
-  <section class="insight-body">
-    ${sanitizedBody.replace(/\n/g, '<br>')}
-  </section>
-</article>
-
-
+            <section class="insight-body">
+                ${sanitizedBody.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}
+            </section>
+            
+            <a href="/insights.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to All Insights
+            </a>
+        </article>
     </main>
     
     <!-- Footer -->
@@ -371,6 +411,9 @@ function generateInsightPage(insight) {
             <p style="margin-top: 1rem; opacity: 0.8;">Westlands Square, Nairobi, Kenya</p>
         </div>
     </footer>
+    
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>
 </html>
   `;
