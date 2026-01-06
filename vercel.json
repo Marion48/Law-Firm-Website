@@ -1,0 +1,8 @@
+﻿{
+  "rewrites": [
+    {
+      "source": "/insight/:slug",
+      "destination": "/api/insight-page?slug=:slug"
+    }
+  ]
+}

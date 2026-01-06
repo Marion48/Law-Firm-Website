@@ -131,7 +131,23 @@ function generateInsightPage(insight) {
             color: var(--text);
             background: #fff;
         }
-        
+        .insight-article {
+  max-width: 860px;
+  margin: 6rem auto;
+  padding: 0 1.5rem;
+}
+
+.insight-header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  color: var(--navy);
+}
+
+.insight-body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.8;
+}
+
         .insight-container {
             max-width: 800px;
             margin: 0 auto;
@@ -324,31 +340,28 @@ function generateInsightPage(insight) {
     </header>
     
     <main class="insight-container">
-        <article>
-            <header class="insight-header">
-                <h1 class="insight-title">${insight.title || 'Insight'}</h1>
-                <div class="insight-meta">
-                    <time datetime="${insight.date || insight.createdAt}">${formattedDate}</time>
-                    ${insight.featured ? '<span style="margin-left: 1rem; background: #f0ad4e; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.85rem;">Featured</span>' : ''}
-                </div>
-            </header>
-            
-            ${insight.image ? `
-            <div class="insight-hero">
-                <img src="${insight.image}" alt="${insight.title || 'Insight hero image'}" loading="lazy">
-            </div>
-            ` : ''}
-            
-            <div class="insight-body">
-                ${sanitizedBody || `<p>${insight.excerpt || 'Content coming soon...'}</p>`}
-            </div>
-            
-            <footer>
-                <a href="/insights.html" class="back-button">
-                    ← Back to All Insights
-                </a>
-            </footer>
-        </article>
+    <article class="insight-article">
+  <header class="insight-header">
+    <h1>${insight.title}</h1>
+    <p class="insight-meta">
+      ${formattedDate}
+    </p>
+  </header>
+
+  ${
+    insight.image
+      ? `<figure class="insight-hero">
+           <img src="${insight.image}" alt="${insight.title}">
+         </figure>`
+      : ''
+  }
+
+  <section class="insight-body">
+    ${sanitizedBody.replace(/\n/g, '<br>')}
+  </section>
+</article>
+
+
     </main>
     
     <!-- Footer -->

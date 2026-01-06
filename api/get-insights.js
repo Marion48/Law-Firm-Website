@@ -5,10 +5,19 @@ module.exports = async (req, res) => {
   try {
     console.log("GET /api/get-insights");
     
-    const insights = await getInsightsData();
     
+const insight = insights.find(
+  i => i.slug === slug && i.status === 'published'
+);
+
+if (!insight) {
+  return res.status(404).send('Insight not found');
+}
+
+
     // Filter for published insights only
-    const publishedInsights = insights.filter(insight => insight.status === 'published');
+    res.status(200).json(publishedInsights);
+
     
     // Sort by date (newest first)
     const sortedInsights = [...publishedInsights].sort((a, b) => {
