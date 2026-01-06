@@ -239,13 +239,13 @@ function generateInsightPage(insight) {
         }
         
         .insight-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 3.1rem;
             font-weight: 600;
             color: var(--navy);
-            margin-bottom: 1.2rem;
-            line-height: 1.15;
-            letter-spacing: -0.3px;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
         }
         
         .insight-meta {
@@ -478,7 +478,7 @@ function generateInsightPage(insight) {
             color: white;
             padding: 3.5rem 2rem 2rem;
             margin-top: 5rem;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: Cormorant Garamond', serif;
         }
         
         .footer-content {
