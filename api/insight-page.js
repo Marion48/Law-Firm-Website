@@ -1,4 +1,4 @@
-// api/insight-page.js - COMPLETE WITH CENTERED BODY & CORRECTED FOOTER
+// api/insight-page.js - PREMIUM VERSION
 const { getInsightsData } = require('../lib/github.js');
 
 module.exports = async (req, res) => {
@@ -138,20 +138,20 @@ function generateInsightPage(insight) {
     }
     </script>
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- PREMIUM FONTS - Used by top websites -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Serif+Pro:wght@300;400;600&family=Lora:wght@400;500;600&family=Merriweather:wght@300;400;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* PREMIUM INSIGHT STYLES */
+        /* PREMIUM INSIGHT STYLES - PROFESSIONAL TYPOGRAPHY */
         :root {
             --navy: #0a192f;
             --gold: #c9a86a;
             --ivory: #f8f5f0;
-            --text: #333333;
-            --gray-light: #f5f7fa;
-            --gray-medium: #6b7280;
+            --text: #2c3e50;
+            --gray-light: #f8f9fa;
+            --gray-medium: #6c757d;
+            --accent: #8b7355;
         }
         
         * {
@@ -161,19 +161,23 @@ function generateInsightPage(insight) {
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
+            font-family: 'Source Serif Pro', Georgia, serif;
+            line-height: 1.7;
             color: var(--text);
             background: #ffffff;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
-        /* Navigation */
+        /* Premium Navigation */
         .nav {
             background: var(--navy);
-            padding: 1rem 0;
+            padding: 1.2rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 20px rgba(10, 25, 47, 0.1);
         }
         
         .nav-inner {
@@ -191,166 +195,213 @@ function generateInsightPage(insight) {
             gap: 1rem;
             text-decoration: none;
             color: white;
-            font-weight: 600;
-            font-size: 1.25rem;
+            font-weight: 500;
+            font-size: 1.3rem;
+            font-family: 'Cormorant Garamond', serif;
         }
         
         .logo {
-            height: 40px;
+            height: 42px;
             width: auto;
         }
         
-        /* Main Content */
-        .insight-container {
-            max-width: 760px;
-            margin: 0 auto;
-            padding: 6rem 1.5rem 4rem;
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
         
-        /* Header */
+        .nav-back:hover {
+            background: var(--gold);
+            color: var(--navy);
+        }
+        
+        /* Main Content - Elegant spacing */
+        .insight-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 5rem 2rem 3rem;
+        }
+        
+        /* Elegant Header */
         .insight-header {
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 2.5rem;
         }
         
         .insight-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3.25rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.1rem;
             font-weight: 600;
             color: var(--navy);
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            letter-spacing: -0.5px;
+            margin-bottom: 1.2rem;
+            line-height: 1.15;
+            letter-spacing: -0.3px;
         }
         
         .insight-meta {
             color: var(--gray-medium);
-            font-size: 1rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 0.5rem;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
-        .insight-divider {
-            width: 60px;
-            height: 3px;
-            background: var(--gold);
-            margin: 2rem 0;
-        }
-        
-        /* Hero Image */
-        .insight-hero {
-            width: 100%;
-            height: 500px;
-            overflow: hidden;
-            border-radius: 12px;
-            margin: 2rem 0 3rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .insight-hero img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* BODY CONTENT - CENTERED ALIGNMENT */
+        /* PREMIUM BODY CONTENT - PROFESSIONAL TYPOGRAPHY */
         .insight-body {
-            font-size: 1.2rem;
-            line-height: 1.9;
-            color: #374151;
-            max-width: 680px;
-            margin: 0 auto;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #2d3748;
+            font-weight: 400;
         }
         
-        /* Style paragraphs from Quill - CENTERED */
+        /* Premium paragraph styling */
         .insight-body p {
-            margin-bottom: 1.8rem;
-            font-size: 1.2rem;
-            line-height: 1.9;
-            text-align: justify;
-            text-align-last: center;
+            margin-bottom: 1.6rem;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            text-align: left;
+            font-family: 'Source Serif Pro', Georgia, serif;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
         }
         
-        /* Style headings from Quill - CENTERED */
+        /* Elegant drop cap for first paragraph */
+        .insight-body p:first-of-type::first-letter {
+            font-family: 'Playfair Display', serif;
+            float: left;
+            font-size: 4.5rem;
+            line-height: 1;
+            padding-top: 0.75rem;
+            padding-right: 0.5rem;
+            padding-left: 0.1rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        /* Premium heading styling */
         .insight-body h1,
         .insight-body h2,
         .insight-body h3,
         .insight-body h4 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             color: var(--navy);
-            margin: 3rem 0 1.5rem;
+            margin: 3rem 0 1.2rem;
             font-weight: 600;
             line-height: 1.2;
-            text-align: center;
+            text-align: left;
+            letter-spacing: -0.2px;
         }
         
         .insight-body h1 { 
-            font-size: 2.5rem; 
-            margin-top: 4rem;
+            font-size: 2.4rem; 
+            margin-top: 3.5rem;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.5rem;
         }
         .insight-body h2 { 
-            font-size: 2.25rem; 
-            border-bottom: 2px solid var(--gold); 
-            padding-bottom: 0.5rem;
-            margin-top: 4rem;
-            display: inline-block;
+            font-size: 2rem; 
+            margin-top: 3rem;
+            color: #1a365d;
         }
-        .insight-body h3 { font-size: 1.75rem; }
-        .insight-body h4 { font-size: 1.5rem; }
+        .insight-body h3 { 
+            font-size: 1.6rem; 
+            margin-top: 2.5rem;
+            color: #2d3748;
+        }
+        .insight-body h4 { 
+            font-size: 1.3rem; 
+            font-weight: 500;
+        }
         
-        /* Style links from Quill */
+        /* Premium link styling */
         .insight-body a {
             color: var(--navy);
             text-decoration: none;
-            border-bottom: 2px solid var(--gold);
-            padding-bottom: 2px;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 1px;
             transition: all 0.3s ease;
+            font-weight: 500;
         }
         
         .insight-body a:hover {
             color: var(--gold);
-            border-bottom-color: var(--navy);
+            border-bottom-width: 2px;
         }
         
-        /* Style lists from Quill - CENTERED */
+        /* Premium list styling */
         .insight-body ul,
         .insight-body ol {
-            margin: 2rem auto;
-            padding-left: 0;
-            list-style-position: inside;
-            text-align: left;
-            display: inline-block;
+            margin: 1.8rem 0 1.8rem 2rem;
+            font-size: 1.1rem;
         }
         
         .insight-body li {
-            margin-bottom: 0.75rem;
-            text-align: left;
+            margin-bottom: 0.6rem;
+            line-height: 1.7;
         }
         
-        /* Style blockquotes from Quill - CENTERED */
+        .insight-body ul li {
+            list-style-type: none;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .insight-body ul li::before {
+            content: "•";
+            color: var(--gold);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Premium blockquote styling */
         .insight-body blockquote {
-            border-left: 4px solid var(--gold);
-            padding: 2rem 3rem;
-            margin: 3rem auto;
+            border-left: 3px solid var(--gold);
+            padding: 1.8rem 2.5rem;
+            margin: 2.5rem 0;
             font-style: italic;
-            color: #555;
+            color: #4a5568;
             background: var(--gray-light);
-            border-radius: 12px;
-            font-size: 1.3rem;
-            font-family: 'Cormorant Garamond', serif;
-            max-width: 600px;
-            text-align: center;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.25rem;
+            font-family: 'Merriweather', serif;
+            line-height: 1.6;
         }
         
         .insight-body blockquote p {
             margin-bottom: 0;
+            font-style: italic;
         }
         
-        /* Style italic/emphasis from Quill */
+        .insight-body blockquote::before {
+            content: "\\201C";
+            font-size: 4rem;
+            color: var(--gold);
+            opacity: 0.3;
+            position: absolute;
+            left: 1rem;
+            top: -1rem;
+            font-family: Georgia, serif;
+        }
+        
+        /* Premium emphasis styling */
         .insight-body em {
             font-style: italic;
-            color: #555;
+            color: #4a5568;
         }
         
         .insight-body strong {
@@ -358,68 +409,76 @@ function generateInsightPage(insight) {
             color: var(--navy);
         }
         
-        /* Back Button */
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-top: 4rem;
-            padding: 1rem 2rem;
-            background: var(--navy);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(10, 25, 47, 0.2);
-        }
-        
-        .back-button:hover {
-            background: #1a2d4a;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(10, 25, 47, 0.3);
-        }
-        
-        /* Author Section - CENTERED */
+        /* Author Section - Professional */
         .author-section {
-            background: linear-gradient(135deg, var(--navy) 0%, #1a2d4a 100%);
-            padding: 3rem;
-            border-radius: 12px;
-            margin: 4rem auto;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            max-width: 680px;
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            padding: 2.5rem;
+            border-radius: 8px;
+            margin: 4rem 0;
+            border-left: 4px solid var(--gold);
         }
         
         .author-avatar {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid var(--gold);
-            flex-shrink: 0;
+            border: 2px solid var(--gold);
+            margin-right: 1.5rem;
+            float: left;
         }
         
         .author-info h3 {
-            color: var(--gold);
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 0.3rem;
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
         }
         
         .author-info p {
-            color: rgba(255,255,255,0.9);
+            color: var(--gray-medium);
             margin-bottom: 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
         
-        /* FOOTER - Matching index.html */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        
+        /* Professional Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 3.5rem;
+            padding: 0.9rem 2rem;
+            background: transparent;
+            color: var(--navy);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--navy);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .back-button:hover {
+            background: var(--navy);
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        /* FOOTER - Professional */
         .main-footer {
             background: var(--navy);
             color: white;
-            padding: 4rem 2rem 2rem;
-            margin-top: 4rem;
+            padding: 3.5rem 2rem 2rem;
+            margin-top: 5rem;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         .footer-content {
@@ -427,27 +486,29 @@ function generateInsightPage(insight) {
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
         }
         
         .footer-links {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.7rem;
         }
         
         .footer-links h4 {
             color: var(--gold);
             margin-bottom: 1rem;
-            font-size: 1.2rem;
-            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
         
         .footer-links a {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.85);
             text-decoration: none;
             transition: color 0.3s ease;
+            font-size: 0.95rem;
         }
         
         .footer-links a:hover {
@@ -455,9 +516,10 @@ function generateInsightPage(insight) {
         }
         
         .footer-links p {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.85);
             margin: 0;
             line-height: 1.6;
+            font-size: 0.95rem;
         }
         
         .footer-bottom {
@@ -466,63 +528,53 @@ function generateInsightPage(insight) {
             padding-top: 2rem;
             border-top: 1px solid rgba(255,255,255,0.1);
             text-align: center;
-            color: rgba(255,255,255,0.8);
-            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
         }
         
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 768px) {
             .insight-container {
-                padding: 4rem 1rem 3rem;
+                padding: 4rem 1.5rem 2.5rem;
             }
             
             .insight-title {
-                font-size: 2.5rem;
-            }
-            
-            .insight-hero {
-                height: 300px;
+                font-size: 2.4rem;
+                line-height: 1.2;
             }
             
             .insight-body {
                 font-size: 1.1rem;
+                line-height: 1.75;
             }
             
             .insight-body p {
                 font-size: 1.1rem;
-                text-align: left;
-                text-align-last: left;
+                line-height: 1.75;
             }
             
             .insight-body h1 { 
                 font-size: 2rem; 
-                text-align: left;
             }
             .insight-body h2 { 
-                font-size: 1.75rem; 
-                text-align: left;
-                border-bottom: none;
-                padding-bottom: 0;
+                font-size: 1.7rem; 
             }
             .insight-body h3 { 
-                font-size: 1.5rem; 
-                text-align: left;
+                font-size: 1.4rem; 
             }
             
             .insight-body blockquote {
                 padding: 1.5rem 2rem;
                 font-size: 1.1rem;
-                text-align: left;
+                margin: 2rem 0;
             }
             
             .author-section {
-                flex-direction: column;
-                text-align: center;
                 padding: 2rem;
             }
             
             .nav-inner {
-                padding: 0 1rem;
+                padding: 0 1.5rem;
             }
             
             .footer-content {
@@ -542,11 +594,14 @@ function generateInsightPage(insight) {
                 gap: 0.5rem;
             }
             
-            .insight-body ul,
-            .insight-body ol {
-                text-align: left;
+            .author-avatar {
+                float: none;
+                margin: 0 auto 1rem;
                 display: block;
-                margin-left: 1rem;
+            }
+            
+            .author-info {
+                text-align: center;
             }
         }
     </style>
@@ -555,14 +610,14 @@ function generateInsightPage(insight) {
     <link rel="icon" href="/images/logo.png">
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Premium Navigation -->
     <header class="nav" role="banner">
         <div class="nav-inner">
             <a class="brand brand-combo" href="/">
                 <img src="/images/logo.png" alt="Firm Logo" class="logo">
                 <span>Byron N. & Co. Advocates</span>
             </a>
-            <a href="/insights.html" style="display: flex; align-items: center; gap: 0.5rem; color: white; text-decoration: none; font-weight: 500;">
+            <a href="/insights.html" class="nav-back">
                 <i class="fas fa-arrow-left"></i> Back to Insights
             </a>
         </div>
@@ -576,28 +631,21 @@ function generateInsightPage(insight) {
                     <span><i class="far fa-calendar"></i> ${formattedDate}</span>
                     <span>•</span>
                     <span><i class="far fa-clock"></i> ${Math.ceil((insight.body || '').split(' ').length / 200)} min read</span>
-                    ${insight.featured ? '<span style="background: var(--gold); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.9rem;">Featured</span>' : ''}
+                    ${insight.featured ? '<span style="background: var(--gold); color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.85rem; margin-left: 1rem;">Featured</span>' : ''}
                 </div>
-                <div class="insight-divider"></div>
             </header>
             
-            ${insight.image ? `
-            <figure class="insight-hero">
-                <img src="${insight.image}" alt="${insight.title || 'Insight'}" loading="eager">
-            </figure>
-            ` : ''}
-            
-            <!-- RAW HTML FROM QUILL - PROPERLY STYLED & CENTERED -->
+            <!-- PREMIUM BODY CONTENT -->
             <section class="insight-body">
                 ${bodyContent}
             </section>
             
-            <!-- Author Section -->
-            <div class="author-section">
+            <!-- Professional Author Section -->
+            <div class="author-section clearfix">
                 <img src="/images/ByronNyasimi.png" alt="Byron Nyasimi" class="author-avatar">
                 <div class="author-info">
                     <h3>Byron Nyasimi</h3>
-                    <p>Principal Advocate</p>
+                    <p>Author</p>
                 </div>
             </div>
             
@@ -611,7 +659,7 @@ function generateInsightPage(insight) {
         </article>
     </main>
     
-    <!-- Footer - Matching index.html -->
+    <!-- Professional Footer -->
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-links">
@@ -650,32 +698,6 @@ function generateInsightPage(insight) {
     
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    
-    <script>
-        // Update footer year
-        document.addEventListener('DOMContentLoaded', function() {
-            const yearElement = document.querySelector('#current-year');
-            if (yearElement) {
-                yearElement.textContent = new Date().getFullYear();
-            }
-            
-            // Smooth scroll for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
   `;
