@@ -1,4 +1,4 @@
-// js/insights-loader.js — PREMIUM VERSION (CLEAN)
+// js/insights-loader.js — PREMIUM VERSION (FIXED MOBILE IMAGES)
 class InsightsLoader {
   constructor() {
     this.insights = [];
@@ -104,20 +104,20 @@ class InsightsLoader {
   }
 
   premiumCard(insight, isInsightsPage = false) {
-    const img = insight.image || '/images/default-insight.jpg';
+    // SIMPLE IMAGE LOGIC - Works on all devices
+    const img = insight.image || '';
     const date = this.formatDate(insight.date || insight.createdAt);
     const url = `/api/insight-page?slug=${insight.slug}`;
     const excerpt = insight.excerpt
       ? insight.excerpt.slice(0, 150) + '…'
       : '';
     
-    // REMOVED: Category badge - no longer showing "Legal Insight"
-
     return `
       <article class="premium-insight-card ${isInsightsPage ? 'full-width' : ''}">
-        <!-- Image Container with Overlay -->
-        <div class="card-image-container">
-          <img src="${img}" alt="${insight.title}" loading="lazy" class="card-image">
+        <!-- Image Container - SIMPLE AND RELIABLE -->
+        <div class="card-image-container" data-image="${img}">
+          <img src="${img}" alt="${insight.title}" class="card-image" 
+               onerror="this.onerror=null; this.src=''; this.parentElement.classList.add('image-error');">
           <div class="image-overlay"></div>
           
           <!-- Date Badge Only -->
@@ -137,8 +137,6 @@ class InsightsLoader {
               Read Insight
               <i class="fas fa-arrow-right"></i>
             </a>
-            
-            <!-- REMOVED: Card meta section (removed 5 min read and Byron N. & Co.) -->
           </div>
         </div>
       </article>
@@ -182,7 +180,7 @@ class InsightsLoader {
   }
 }
 
-// Add CSS styles dynamically
+// Add CSS styles dynamically - GUARANTEED MOBILE FIX
 const premiumStyles = `
 /* Premium Insights Grid */
 .premium-insights-grid {
@@ -218,18 +216,23 @@ const premiumStyles = `
   border-color: rgba(128, 0, 0, 0.3);
 }
 
-/* Image Container */
+/* ===== CRITICAL IMAGE FIXES ===== */
 .card-image-container {
   position: relative;
   height: 220px;
+  width: 100%;
   overflow: hidden;
+  background: #f8f9fa; /* Fallback background */
 }
 
+/* Force image to display properly */
 .card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 0.8s ease;
+  background: #f8f9fa; /* Loading background */
 }
 
 .premium-insight-card:hover .card-image {
@@ -243,6 +246,7 @@ const premiumStyles = `
   right: 0;
   bottom: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+  pointer-events: none;
 }
 
 /* Date Badge Only */
@@ -262,8 +266,6 @@ const premiumStyles = `
   z-index: 2;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-
-/* REMOVED: .category-badge styles */
 
 /* Card Content */
 .card-content {
@@ -296,7 +298,7 @@ const premiumStyles = `
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 4.8em; /* Ensures consistent height even if excerpt is short */
+  min-height: 4.8em;
 }
 
 /* Card Footer */
@@ -305,7 +307,7 @@ const premiumStyles = `
   border-top: 1px solid rgba(0, 0, 0, 0.08);
   padding-top: 1.5rem;
   display: flex;
-  justify-content: flex-start; /* Changed from space-between to flex-start */
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -331,8 +333,6 @@ const premiumStyles = `
   color: white;
 }
 
-/* REMOVED: .card-meta and .meta-item styles */
-
 /* Empty and Error States */
 .empty-state, .error-state {
   text-align: center;
@@ -357,7 +357,7 @@ const premiumStyles = `
   color: #e53e3e;
 }
 
-/* Responsive Design */
+/* ===== GUARANTEED MOBILE FIXES ===== */
 @media (max-width: 768px) {
   .homepage-grid,
   .insights-page-grid {
@@ -365,8 +365,48 @@ const premiumStyles = `
     gap: 1.5rem;
   }
   
+  /* MOBILE IMAGE FIX - REMOVED LAZY LOADING */
   .card-image-container {
-    height: 200px;
+    height: 220px;
+    min-height: 220px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  }
+  
+  .card-image {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 220px;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  }
+  
+  /* Force iOS to display images */
+  @supports (-webkit-touch-callout: none) {
+    .card-image {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+  }
+  
+  /* Hide broken images gracefully */
+  .card-image-container.image-error::before {
+    content: "📄";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    color: #C6A961;
+    z-index: 0;
+  }
+  
+  .card-image-container.image-error .card-image {
+    display: none;
   }
   
   .card-title {
@@ -385,6 +425,43 @@ const premiumStyles = `
   }
 }
 
+/* Small mobile screens */
+@media (max-width: 480px) {
+  .card-image-container {
+    height: 200px;
+    min-height: 200px;
+  }
+  
+  .card-image {
+    min-height: 200px;
+  }
+  
+  .card-content {
+    padding: 1.25rem;
+  }
+  
+  .date-badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Tablets */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .homepage-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .insights-page-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .card-image-container {
+    height: 200px;
+  }
+}
+
+/* Desktop */
 @media (min-width: 1024px) {
   .homepage-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -396,7 +473,7 @@ const premiumStyles = `
 }
 `;
 
-// Add styles to the page
+// Add styles and FIX mobile images
 document.addEventListener('DOMContentLoaded', () => {
   // Inject the premium styles
   const styleSheet = document.createElement("style");
@@ -405,4 +482,37 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize the loader
   new InsightsLoader().init();
+  
+  // CRITICAL: Fix mobile images after page loads
+  setTimeout(() => {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+      console.log('Mobile detected - fixing images...');
+      
+      document.querySelectorAll('.card-image').forEach(img => {
+        if (img.src) {
+          // Force reload on mobile
+          const originalSrc = img.src;
+          img.src = '';
+          setTimeout(() => {
+            img.src = originalSrc;
+          }, 100);
+          
+          // Add error handling
+          img.onerror = function() {
+            console.log('Image failed to load:', this.src);
+            this.style.display = 'none';
+            this.parentElement.classList.add('image-error');
+          };
+          
+          // Check if loaded successfully
+          img.onload = function() {
+            console.log('Image loaded successfully:', this.src);
+            this.parentElement.classList.remove('image-error');
+          };
+        }
+      });
+    }
+  }, 500);
 });

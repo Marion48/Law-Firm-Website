@@ -1,4 +1,4 @@
-// api/insight-page.js - PREMIUM VERSION
+// api/insight-page.js - PREMIUM UPDATED VERSION
 const { getInsightsData } = require('../lib/github.js');
 
 module.exports = async (req, res) => {
@@ -91,7 +91,7 @@ function generateInsightPage(insight) {
     day: 'numeric'
   });
 
-  // DON'T SANITIZE - Keep HTML structure from Quill
+  const readingTime = Math.ceil((insight.body || '').split(' ').length / 200);
   const bodyContent = insight.body || '';
 
   return `
@@ -108,10 +108,10 @@ function generateInsightPage(insight) {
     <meta property="og:description" content="${insight.excerpt ? insight.excerpt.substring(0, 160) : ''}">
     <meta property="og:image" content="${insight.image || '/images/default-insight.jpg'}">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://yourdomain.com/insight/${insight.slug}">
+    <meta property="og:url" content="https://law-firm-website-kappa.vercel.app/api/insight-page?slug=${insight.slug}">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://yourdomain.com/insight/${insight.slug}">
+    <link rel="canonical" href="https://law-firm-website-kappa.vercel.app/api/insight-page?slug=${insight.slug}">
     
     <!-- Schema.org markup -->
     <script type="application/ld+json">
@@ -138,20 +138,25 @@ function generateInsightPage(insight) {
     }
     </script>
     
-    <!-- PREMIUM FONTS - Used by top websites -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Serif+Pro:wght@300;400;600&family=Lora:wght@400;500;600&family=Merriweather:wght@300;400;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- PREMIUM FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Serif+Pro:wght@300;400;600&family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* PREMIUM INSIGHT STYLES - PROFESSIONAL TYPOGRAPHY */
+        /* PREMIUM INSIGHT STYLES */
         :root {
             --navy: #0a192f;
             --gold: #c9a86a;
+            --maroon: #800000;
             --ivory: #f8f5f0;
             --text: #2c3e50;
             --gray-light: #f8f9fa;
             --gray-medium: #6c757d;
             --accent: #8b7355;
+            --twitter-blue: #1DA1F2;
+            --linkedin-blue: #0077B5;
+            --facebook-blue: #4267B2;
+            --instagram-pink: #E1306C;
         }
         
         * {
@@ -170,14 +175,15 @@ function generateInsightPage(insight) {
             -moz-osx-font-smoothing: grayscale;
         }
         
-        /* Premium Navigation */
+        /* ===== PREMIUM NAVIGATION ===== */
         .nav {
             background: var(--navy);
-            padding: 1.2rem 0;
+            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(10, 25, 47, 0.1);
+            box-shadow: 0 4px 20px rgba(10, 25, 47, 0.15);
+            border-bottom: 2px solid var(--gold);
         }
         
         .nav-inner {
@@ -192,58 +198,85 @@ function generateInsightPage(insight) {
         .brand-combo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.2rem;
             text-decoration: none;
             color: white;
-            font-weight: 500;
-            font-size: 1.3rem;
+            font-weight: 600;
+            font-size: 1.25rem;
             font-family: 'Cormorant Garamond', serif;
+            transition: opacity 0.3s ease;
         }
         
+        .brand-combo:hover {
+            opacity: 0.9;
+        }
+        
+        /* LARGER LOGO */
         .logo {
-            height: 42px;
+            height: 56px; /* Increased from 48px */
             width: auto;
+            transition: transform 0.3s ease;
         }
         
+        .brand-combo:hover .logo {
+            transform: scale(1.05);
+        }
+        
+        /* SMALLER BACK BUTTON */
         .nav-back {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--gold);
+            color: white;
             text-decoration: none;
             font-weight: 500;
-            padding: 0.6rem 1.2rem;
-            border: 1px solid var(--gold);
+            padding: 0.5rem 1rem;
             border-radius: 4px;
             transition: all 0.3s ease;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .nav-back:hover {
             background: var(--gold);
             color: var(--navy);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(201, 168, 106, 0.3);
         }
         
-        /* Main Content - Elegant spacing */
+        /* ===== MAIN CONTENT ===== */
         .insight-container {
             max-width: 720px;
             margin: 0 auto;
-            padding: 5rem 2rem 3rem;
+            padding: 4rem 2rem 3rem;
         }
         
-        /* Elegant Header */
+        /* ===== ELEGANT HEADER ===== */
         .insight-header {
             margin-bottom: 3.5rem;
-            border-bottom: 1px solid #eaeaea;
             padding-bottom: 2.5rem;
+            border-bottom: 2px solid var(--ivory);
+            position: relative;
+        }
+        
+        .insight-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 120px;
+            height: 2px;
+            background: var(--gold);
         }
         
         .insight-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.1rem;
-            font-weight: 600;
+            font-size: 3.2rem;
+            font-weight: 700;
             color: var(--navy);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             line-height: 1.1;
             letter-spacing: -0.5px;
         }
@@ -253,42 +286,50 @@ function generateInsightPage(insight) {
             font-size: 0.95rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.2rem;
             margin-bottom: 0.5rem;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
+            flex-wrap: wrap;
         }
         
-        /* PREMIUM BODY CONTENT - PROFESSIONAL TYPOGRAPHY */
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .meta-item i {
+            color: var(--gold);
+            width: 16px;
+        }
+        
+        /* ===== PREMIUM BODY CONTENT ===== */
         .insight-body {
             font-size: 1.15rem;
-            line-height: 1.8;
+            line-height: 1.85;
             color: #2d3748;
             font-weight: 400;
         }
         
-        /* Premium paragraph styling */
         .insight-body p {
-            margin-bottom: 1.6rem;
+            margin-bottom: 1.8rem;
             font-size: 1.15rem;
-            line-height: 1.8;
+            line-height: 1.85;
             text-align: left;
             font-family: 'Source Serif Pro', Georgia, serif;
-            hyphens: auto;
-            -webkit-hyphens: auto;
-            -ms-hyphens: auto;
         }
         
         /* Elegant drop cap for first paragraph */
         .insight-body p:first-of-type::first-letter {
             font-family: 'Playfair Display', serif;
             float: left;
-            font-size: 4.5rem;
-            line-height: 1;
-            padding-top: 0.75rem;
-            padding-right: 0.5rem;
+            font-size: 5rem;
+            line-height: 0.8;
+            padding-top: 0.9rem;
+            padding-right: 0.6rem;
             padding-left: 0.1rem;
             color: var(--gold);
-            font-weight: 600;
+            font-weight: 700;
         }
         
         /* Premium heading styling */
@@ -298,187 +339,192 @@ function generateInsightPage(insight) {
         .insight-body h4 {
             font-family: 'Playfair Display', serif;
             color: var(--navy);
-            margin: 3rem 0 1.2rem;
+            margin: 3.5rem 0 1.5rem;
             font-weight: 600;
             line-height: 1.2;
             text-align: left;
-            letter-spacing: -0.2px;
         }
         
         .insight-body h1 { 
-            font-size: 2.4rem; 
-            margin-top: 3.5rem;
+            font-size: 2.5rem; 
+            margin-top: 4rem;
+            padding-bottom: 0.8rem;
             border-bottom: 2px solid var(--gold);
-            padding-bottom: 0.5rem;
         }
         .insight-body h2 { 
-            font-size: 2rem; 
-            margin-top: 3rem;
+            font-size: 2.1rem; 
+            margin-top: 3.5rem;
             color: #1a365d;
         }
         .insight-body h3 { 
-            font-size: 1.6rem; 
-            margin-top: 2.5rem;
+            font-size: 1.7rem; 
+            margin-top: 3rem;
             color: #2d3748;
         }
-        .insight-body h4 { 
-            font-size: 1.3rem; 
-            font-weight: 500;
-        }
         
-        /* Premium link styling */
-        .insight-body a {
-            color: var(--navy);
-            text-decoration: none;
-            border-bottom: 1px solid var(--gold);
-            padding-bottom: 1px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        .insight-body a:hover {
-            color: var(--gold);
-            border-bottom-width: 2px;
-        }
-        
-        /* Premium list styling */
-        .insight-body ul,
-        .insight-body ol {
-            margin: 1.8rem 0 1.8rem 2rem;
-            font-size: 1.1rem;
-        }
-        
-        .insight-body li {
-            margin-bottom: 0.6rem;
-            line-height: 1.7;
-        }
-        
-        .insight-body ul li {
-            list-style-type: none;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-        
-        .insight-body ul li::before {
-            content: "•";
-            color: var(--gold);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-            font-size: 1.2rem;
-        }
-        
-        /* Premium blockquote styling */
-        .insight-body blockquote {
-            border-left: 3px solid var(--gold);
-            padding: 1.8rem 2.5rem;
-            margin: 2.5rem 0;
-            font-style: italic;
-            color: #4a5568;
-            background: var(--gray-light);
-            border-radius: 0 8px 8px 0;
-            font-size: 1.25rem;
-            font-family: 'Merriweather', serif;
-            line-height: 1.6;
-        }
-        
-        .insight-body blockquote p {
-            margin-bottom: 0;
-            font-style: italic;
-        }
-        
-        .insight-body blockquote::before {
-            content: "\\201C";
-            font-size: 4rem;
-            color: var(--gold);
-            opacity: 0.3;
-            position: absolute;
-            left: 1rem;
-            top: -1rem;
-            font-family: Georgia, serif;
-        }
-        
-        /* Premium emphasis styling */
-        .insight-body em {
-            font-style: italic;
-            color: #4a5568;
-        }
-        
-        .insight-body strong {
-            font-weight: 600;
-            color: var(--navy);
-        }
-        
-        /* Author Section - Professional */
+        /* ===== PREMIUM AUTHOR SECTION ===== */
         .author-section {
-            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            background: linear-gradient(135deg, var(--ivory) 0%, #ffffff 100%);
             padding: 2.5rem;
-            border-radius: 8px;
-            margin: 4rem 0;
+            border-radius: 12px;
+            margin: 4.5rem 0 3rem;
             border-left: 4px solid var(--gold);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+        }
+        
+        .author-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         
         .author-avatar {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid var(--gold);
-            margin-right: 1.5rem;
-            float: left;
+            border: 3px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(201, 168, 106, 0.2);
         }
         
         .author-info h3 {
             color: var(--navy);
-            margin-bottom: 0.3rem;
-            font-size: 1.3rem;
+            margin-bottom: 0.4rem;
+            font-size: 1.4rem;
             font-family: 'Playfair Display', serif;
         }
         
         .author-info p {
             color: var(--gray-medium);
             margin-bottom: 0;
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.5;
+            font-family: 'Inter', sans-serif;
         }
         
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
+        .author-bio {
+            color: var(--text);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-top: 1.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(201, 168, 106, 0.3);
+            font-style: italic;
         }
         
-        /* Professional Back Button */
+        /* ===== PREMIUM SOCIAL SHARE SECTION ===== */
+        .share-section {
+            background: linear-gradient(135deg, var(--navy) 0%, #1a365d 100%);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(10, 25, 47, 0.15);
+        }
+        
+        .share-title {
+            color: white;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .share-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+        }
+        
+        .share-subtitle {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .share-btn.twitter { background: var(--twitter-blue); }
+        .share-btn.linkedin { background: var(--linkedin-blue); }
+        .share-btn.facebook { background: var(--facebook-blue); }
+        .share-btn.instagram { 
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+        }
+        .share-btn.email { background: var(--maroon); }
+        
+        .share-btn-label {
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* ===== PREMIUM BACK BUTTON ===== */
         .back-button {
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            margin-top: 3.5rem;
-            padding: 0.9rem 2rem;
+            margin-top: 3rem;
+            padding: 0.8rem 1.8rem;
             background: transparent;
             color: var(--navy);
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 6px;
             font-weight: 500;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
-            border: 1px solid var(--navy);
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            border: 2px solid var(--navy);
+            font-family: 'Inter', sans-serif;
         }
         
         .back-button:hover {
             background: var(--navy);
             color: white;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(10, 25, 47, 0.15);
         }
         
-        /* FOOTER - Professional */
+        /* ===== FOOTER ===== */
         .main-footer {
             background: var(--navy);
             color: white;
             padding: 3.5rem 2rem 2rem;
             margin-top: 5rem;
-            font-family: Cormorant Garamond', serif;
+            font-family: 'Cormorant Garamond', serif;
+            border-top: 2px solid var(--gold);
         }
         
         .footer-content {
@@ -493,88 +539,124 @@ function generateInsightPage(insight) {
         .footer-links {
             display: flex;
             flex-direction: column;
-            gap: 0.7rem;
+            gap: 0.8rem;
         }
         
         .footer-links h4 {
             color: var(--gold);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
             font-weight: 600;
             letter-spacing: 0.5px;
         }
         
         .footer-links a {
-            color: rgba(255,255,255,0.85);
+            color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
         }
         
         .footer-links a:hover {
             color: var(--gold);
+            padding-left: 5px;
         }
         
         .footer-links p {
-            color: rgba(255,255,255,0.85);
+            color: rgba(255, 255, 255, 0.85);
             margin: 0;
             line-height: 1.6;
             font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
         }
         
         .footer-bottom {
             max-width: 1200px;
             margin: 0 auto;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
         }
         
-        /* Responsive Design */
+        /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 768px) {
+            .nav-inner {
+                padding: 0 1.5rem;
+            }
+            
+            .logo {
+                height: 48px;
+            }
+            
+            .brand-combo span {
+                font-size: 1.1rem;
+            }
+            
             .insight-container {
-                padding: 4rem 1.5rem 2.5rem;
+                padding: 3.5rem 1.5rem 2.5rem;
             }
             
             .insight-title {
-                font-size: 2.4rem;
+                font-size: 2.6rem;
                 line-height: 1.2;
+            }
+            
+            .insight-meta {
+                gap: 1rem;
+                font-size: 0.9rem;
             }
             
             .insight-body {
                 font-size: 1.1rem;
-                line-height: 1.75;
+                line-height: 1.8;
             }
             
             .insight-body p {
                 font-size: 1.1rem;
-                line-height: 1.75;
+                line-height: 1.8;
+            }
+            
+            .insight-body p:first-of-type::first-letter {
+                font-size: 4rem;
+                padding-top: 0.8rem;
             }
             
             .insight-body h1 { 
-                font-size: 2rem; 
+                font-size: 2.1rem; 
             }
             .insight-body h2 { 
-                font-size: 1.7rem; 
+                font-size: 1.8rem; 
             }
             .insight-body h3 { 
-                font-size: 1.4rem; 
-            }
-            
-            .insight-body blockquote {
-                padding: 1.5rem 2rem;
-                font-size: 1.1rem;
-                margin: 2rem 0;
+                font-size: 1.5rem; 
             }
             
             .author-section {
                 padding: 2rem;
             }
             
-            .nav-inner {
-                padding: 0 1.5rem;
+            .author-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .share-section {
+                padding: 2rem;
+            }
+            
+            .share-buttons {
+                gap: 0.8rem;
+            }
+            
+            .share-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
             }
             
             .footer-content {
@@ -584,8 +666,19 @@ function generateInsightPage(insight) {
         }
         
         @media (max-width: 480px) {
+            .nav-inner {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .brand-combo {
+                justify-content: center;
+                width: 100%;
+            }
+            
             .insight-title {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .insight-meta {
@@ -594,14 +687,14 @@ function generateInsightPage(insight) {
                 gap: 0.5rem;
             }
             
-            .author-avatar {
-                float: none;
-                margin: 0 auto 1rem;
-                display: block;
+            .share-buttons {
+                gap: 0.5rem;
             }
             
-            .author-info {
-                text-align: center;
+            .share-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -610,7 +703,7 @@ function generateInsightPage(insight) {
     <link rel="icon" href="/images/logo.png">
 </head>
 <body>
-    <!-- Premium Navigation -->
+    <!-- ===== PREMIUM NAVIGATION ===== -->
     <header class="nav" role="banner">
         <div class="nav-inner">
             <a class="brand brand-combo" href="/">
@@ -623,33 +716,84 @@ function generateInsightPage(insight) {
         </div>
     </header>
     
+    <!-- ===== MAIN CONTENT ===== -->
     <main class="insight-container">
         <article>
+            <!-- HEADER -->
             <header class="insight-header">
                 <h1 class="insight-title">${insight.title || 'Legal Insight'}</h1>
                 <div class="insight-meta">
-                    <span><i class="far fa-calendar"></i> ${formattedDate}</span>
-                    <span>•</span>
-                    <span><i class="far fa-clock"></i> ${Math.ceil((insight.body || '').split(' ').length / 200)} min read</span>
-                    ${insight.featured ? '<span style="background: var(--gold); color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.85rem; margin-left: 1rem;">Featured</span>' : ''}
+                    <div class="meta-item">
+                        <i class="far fa-calendar"></i>
+                        <span>${formattedDate}</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>${readingTime} min read</span>
+                    </div>
+                    ${insight.featured ? 
+                    '<div class="meta-item"><i class="fas fa-star"></i><span>Featured Insight</span></div>' 
+                    : ''}
                 </div>
             </header>
             
-            <!-- PREMIUM BODY CONTENT -->
+            <!-- BODY CONTENT -->
             <section class="insight-body">
                 ${bodyContent}
             </section>
             
-            <!-- Professional Author Section -->
-            <div class="author-section clearfix">
-                <img src="/images/ByronNyasimi.png" alt="Byron Nyasimi" class="author-avatar">
-                <div class="author-info">
-                    <h3>Byron Nyasimi</h3>
-                    <p>Author</p>
+            <!-- ===== AUTHOR SECTION ===== -->
+            <div class="author-section">
+                <div class="author-header">
+                    <img src="/images/ByronNyasimi.png" alt="Byron Nyasimi" class="author-avatar">
+                    <div class="author-info">
+                        <h3>Byron Nyasimi</h3>
+                        <p>Author</p>
+                    </div>
+                </div>
+                <div class="author-bio">
+                    
+            </div>
+        
+
+
+            <!-- ===== SOCIAL SHARE SECTION ===== -->
+            <div class="share-section">
+                <h3 class="share-title">Share This Insight</h3>
+                <p class="share-subtitle">Help others discover this valuable legal perspective</p>
+                <div class="share-buttons">
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(insight.title)}&url=${encodeURIComponent('https://law-firm-website-kappa.vercel.app/api/insight-page?slug=' + insight.slug)}" 
+                       target="_blank" 
+                       class="share-btn twitter"
+                       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://law-firm-website-kappa.vercel.app/api/insight-page?slug=' + insight.slug)}" 
+                       target="_blank" 
+                       class="share-btn linkedin"
+                       onclick="window.open(this.href, 'linkedin-share', 'width=550,height=600');return false;">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://law-firm-website-kappa.vercel.app/api/insight-page?slug=' + insight.slug)}" 
+                       target="_blank" 
+                       class="share-btn facebook"
+                       onclick="window.open(this.href, 'facebook-share', 'width=580,height=296');return false;">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" 
+                       target="_blank" 
+                       class="share-btn instagram"
+                       onclick="alert('Share this link on Instagram: ' + window.location.href);">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="mailto:?subject=${encodeURIComponent('Check out this legal insight: ' + insight.title)}&body=${encodeURIComponent('I thought you might find this interesting:\n\n' + insight.title + '\n\n' + 'Read it here: ' + 'https://law-firm-website-kappa.vercel.app/api/insight-page?slug=' + insight.slug)}" 
+                       class="share-btn email">
+                        <i class="far fa-envelope"></i>
+                    </a>
                 </div>
             </div>
             
-            <!-- Back Button -->
+            <!-- BACK BUTTON -->
             <div style="text-align: center; margin-top: 3rem;">
                 <a href="/insights.html" class="back-button">
                     <i class="fas fa-arrow-left"></i>
@@ -659,7 +803,7 @@ function generateInsightPage(insight) {
         </article>
     </main>
     
-    <!-- Professional Footer -->
+    <!-- ===== FOOTER ===== -->
     <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-links">
@@ -698,6 +842,46 @@ function generateInsightPage(insight) {
     
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <script>
+        // Social share functions
+        function shareTwitter() {
+            const url = window.location.href;
+            const text = "${insight.title.replace(/"/g, '&quot;')}";
+            window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url), 'twitter-share', 'width=550,height=235');
+            return false;
+        }
+        
+        function shareLinkedIn() {
+            const url = window.location.href;
+            window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url), 'linkedin-share', 'width=550,height=600');
+            return false;
+        }
+        
+        function shareFacebook() {
+            const url = window.location.href;
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url), 'facebook-share', 'width=580,height=296');
+            return false;
+        }
+        
+        function shareEmail() {
+            const subject = "Check out this legal insight: ${insight.title.replace(/"/g, '&quot;')}";
+            const body = "I thought you might find this interesting:\\n\\n${insight.title.replace(/"/g, '&quot;')}\\n\\nRead it here: " + window.location.href;
+            window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+            return false;
+        }
+        
+        // Copy link function
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Link copied to clipboard!');
+            });
+            return false;
+        }
+    </script>
+    
+
 </body>
 </html>
   `;
