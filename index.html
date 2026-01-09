@@ -1470,5 +1470,37 @@
  
 <script src="js/insights-loader.js"></script>
 
+<!-- EMERGENCY MOBILE IMAGE FIX -->
+<script>
+// Add this to index.html right before </body>
+(function() {
+  if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    console.log('Applying emergency mobile image fix...');
+    
+    // Wait for page to load
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        // Find all insight images
+        var images = document.querySelectorAll('.card-image');
+        console.log('Mobile: Found ' + images.length + ' images');
+        
+        // Try to force load each image
+        images.forEach(function(img, i) {
+          if (img.src) {
+            // Create a new image element to force load
+            var newImg = new Image();
+            newImg.src = img.src + (img.src.includes('?') ? '&' : '?') + 'mobile_force=' + Date.now();
+            newImg.onload = function() {
+              console.log('Mobile image loaded successfully: ' + i);
+              img.src = this.src;
+            };
+          }
+        });
+      }, 2000);
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

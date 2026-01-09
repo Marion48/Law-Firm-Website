@@ -1,4 +1,4 @@
-// admin/admin.js - UPDATED WITH VERCEL BLOB UPLOADS
+// admin/admin.js - SIMPLE FIX - NO BLOB URLS
 class NotionAdmin {
   constructor() {
     this.currentInsight = null;
@@ -17,36 +17,22 @@ class NotionAdmin {
   async init() {
     console.log('Admin panel initializing...');
     
-    // Hide loading screen
     setTimeout(() => {
       const loading = document.getElementById('loading');
       const admin = document.getElementById('notionAdmin');
       
       if (loading) loading.style.display = 'none';
       if (admin) admin.style.display = 'block';
-      
-      console.log('Admin panel UI shown');
     }, 500);
 
-    // Initialize Quill editor
     this.initQuill();
-    
-    // Load insights
     await this.loadInsights();
-    
-    // Setup event listeners
     this.setupEventListeners();
-    
-    // Create new empty insight
     this.newInsight();
-    
-    console.log('Admin panel initialized successfully');
   }
 
   initQuill() {
     try {
-      console.log('Initializing Quill editor...');
-      
       if (typeof Quill === 'undefined') {
         console.error('Quill editor not loaded!');
         this.showNotification('Rich text editor failed to load. Please refresh.', 'error');
@@ -67,12 +53,10 @@ class NotionAdmin {
         placeholder: 'Write your insight content here...'
       });
 
-      // Update preview when content changes
       this.quill.on('text-change', () => {
         this.updatePreview();
       });
       
-      console.log('Quill editor initialized');
     } catch (error) {
       console.error('Failed to initialize Quill:', error);
       this.showNotification('Editor failed to initialize', 'error');
@@ -105,8 +89,6 @@ class NotionAdmin {
     } catch (error) {
       console.error('Error loading insights:', error);
       this.showNotification('Failed to load insights. Check console for details.', 'error');
-      
-      // Show empty state
       this.renderInsightsList();
     }
   }
@@ -160,7 +142,6 @@ class NotionAdmin {
       `;
     }).join('');
 
-    // Add event listeners
     this.setupInsightListEvents();
   }
 
@@ -168,32 +149,26 @@ class NotionAdmin {
     const container = document.getElementById('insightsList');
     if (!container) return;
 
-    // Edit buttons
     container.querySelectorAll('.btn-edit').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const index = parseInt(btn.dataset.index);
-        console.log('Editing insight at index:', index);
         this.loadInsight(index);
       });
     });
 
-    // Delete buttons
     container.querySelectorAll('.btn-delete').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const index = parseInt(btn.dataset.index);
-        console.log('Deleting insight at index:', index);
         this.deleteInsight(index);
       });
     });
 
-    // Insight item clicks
     container.querySelectorAll('.insight-item').forEach(item => {
       item.addEventListener('click', (e) => {
         if (!e.target.closest('.insight-actions')) {
           const index = parseInt(item.dataset.index);
-          console.log('Loading insight at index:', index);
           this.loadInsight(index);
         }
       });
@@ -218,7 +193,6 @@ class NotionAdmin {
     this.loadFormData();
     this.updateInsightInfo();
     
-    // Clear any active states
     document.querySelectorAll('.insight-item').forEach(item => {
       item.classList.remove('active');
     });
@@ -232,14 +206,11 @@ class NotionAdmin {
       return;
     }
     
-    console.log('Loading insight at index:', index);
-    
     this.currentInsight = { ...this.insights[index] };
     this.currentIndex = index;
     this.loadFormData();
     this.updateInsightInfo();
     
-    // Update active class
     document.querySelectorAll('.insight-item').forEach(item => {
       item.classList.remove('active');
     });
@@ -253,9 +224,6 @@ class NotionAdmin {
   }
 
   loadFormData() {
-    console.log('Loading form data for current insight');
-    
-    // Set form values
     const titleInput = document.getElementById('insightTitle');
     const excerptInput = document.getElementById('insightExcerpt');
     const slugInput = document.getElementById('insightSlug');
@@ -267,10 +235,15 @@ class NotionAdmin {
     if (excerptInput) excerptInput.value = this.currentInsight.excerpt || '';
     if (slugInput) slugInput.value = this.currentInsight.slug || '';
     if (dateInput) dateInput.value = this.currentInsight.date || new Date().toISOString().split('T')[0];
-    if (imageUrlInput) imageUrlInput.value = this.currentInsight.image || '';
+    
+    // Load image URL
+    if (imageUrlInput) {
+      imageUrlInput.value = this.currentInsight.image || '';
+      console.log('Loaded image URL:', this.currentInsight.image ? this.currentInsight.image.substring(0, 80) + '...' : '(none)');
+    }
+    
     if (featuredCheckbox) featuredCheckbox.checked = this.currentInsight.featured || false;
     
-    // Set Quill content
     if (this.quill && this.currentInsight.body) {
       try {
         this.quill.root.innerHTML = this.currentInsight.body;
@@ -282,78 +255,23 @@ class NotionAdmin {
       this.quill.setText('');
     }
     
-    // Update character counts
     this.updateCharCounts();
-    
-    // Update hero image preview
     this.updateHeroPreview();
-    
-    // Update preview
     this.updatePreview();
   }
 
-  // ===== VERCEL BLOB UPLOAD METHODS =====
-  async uploadImageToVercel(file) {
-    if (this.uploadInProgress) {
-      console.log('Upload already in progress, queuing...');
-      this.pendingImageUpload = file;
-      return null;
-    }
-
-    try {
-      this.uploadInProgress = true;
-      console.log('Uploading image to Vercel Blob:', file.name);
-      
-      this.showNotification(`Uploading ${file.name}...`, 'info');
-      
-      // Generate a unique filename
-      const timestamp = Date.now();
-      const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-      const filename = `insight-${timestamp}-${sanitizedName}`;
-      
-      // Upload to Vercel Blob
-      const response = await fetch(`/api/upload-image?filename=${encodeURIComponent(filename)}`, {
-        method: 'POST',
-        body: file
-      });
-      
-      if (!response.ok) {
-        throw new Error(`Upload failed with status: ${response.status}`);
-      }
-      
-      const result = await response.json();
-      console.log('Vercel Blob upload result:', result);
-      
-      if (!result.success) {
-        throw new Error(result.error || 'Upload failed');
-      }
-      
-      this.showNotification('Image uploaded successfully!', 'success');
-      return result.url;
-      
-    } catch (error) {
-      console.error('Vercel Blob upload error:', error);
-      this.showNotification(`Upload failed: ${error.message}`, 'error');
-      return null;
-    } finally {
-      this.uploadInProgress = false;
-      
-      // Process any pending upload
-      if (this.pendingImageUpload) {
-        const pendingFile = this.pendingImageUpload;
-        this.pendingImageUpload = null;
-        setTimeout(() => this.handleImageUpload(pendingFile), 500);
-      }
-    }
-  }
-
+  // ===== SIMPLE SOLUTION: CONVERT TO DATA URL =====
   async handleImageUpload(file) {
-    // Validate file
-    if (!file) return;
+    console.log('🔄 HANDLE IMAGE UPLOAD CALLED with file:', file.name);
     
-    // Check file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      this.showNotification('Image too large! Maximum size is 5MB.', 'error');
+    if (!file) {
+      console.log('No file provided');
+      return;
+    }
+    
+    // Check file size (max 2MB for data URLs)
+    if (file.size > 2 * 1024 * 1024) {
+      this.showNotification('Image too large! Maximum size is 2MB.', 'error');
       return;
     }
     
@@ -363,47 +281,75 @@ class NotionAdmin {
       return;
     }
     
-    // Create temporary preview
-    const previewUrl = URL.createObjectURL(file);
-    const imageUrlInput = document.getElementById('heroImageUrl');
-    imageUrlInput.value = previewUrl;
-    this.updateHeroPreview();
+    console.log('✅ File validation passed');
     
-    // Upload to Vercel Blob
-    const uploadedUrl = await this.uploadImageToVercel(file);
+    // Convert to data URL (works on ALL devices including mobile)
+    const reader = new FileReader();
     
-    if (uploadedUrl) {
-      // Update with permanent URL
-      imageUrlInput.value = uploadedUrl;
+    reader.onload = (e) => {
+      const dataUrl = e.target.result;
+      const imageUrlInput = document.getElementById('heroImageUrl');
+      
+      if (!imageUrlInput) {
+        console.error('heroImageUrl input not found!');
+        return;
+      }
+      
+      // Save as data URL (will work on mobile)
+      imageUrlInput.value = dataUrl;
       this.updateHeroPreview();
       
-      // Clean up temporary blob URL
-      URL.revokeObjectURL(previewUrl);
-    } else {
-      // Keep the temporary URL for preview
-      this.showNotification('Using temporary preview. Image will not be saved permanently.', 'warning');
+      console.log('✅ Image saved as data URL (length):', dataUrl.length);
+      this.showNotification('✅ Image saved (will work on mobile)', 'success');
+    };
+    
+    reader.onerror = (error) => {
+      console.error('❌ Error reading file:', error);
+      this.showNotification('Failed to process image', 'error');
+    };
+    
+    reader.readAsDataURL(file);
+    
+    // Clear input
+    const heroImageInput = document.getElementById('heroImageInput');
+    if (heroImageInput) {
+      heroImageInput.value = '';
     }
   }
 
   async processImageField(imageUrl) {
     const trimmed = imageUrl.trim();
     
-    // If it's a blob URL from a previous upload attempt, return empty
-    if (trimmed.startsWith('blob:') && !trimmed.includes('vercel')) {
+    console.log('Processing image URL:', trimmed ? trimmed.substring(0, 100) + '...' : '(empty)');
+    
+    // If it's a blob URL (temporary), return empty
+    if (trimmed.startsWith('blob:')) {
       console.warn('Found temporary blob URL, ignoring...');
       return '';
     }
     
-    // If it's a data URL (base64), it's too large for storage
+    // If it's a data URL, use it (will work on mobile!)
     if (trimmed.startsWith('data:')) {
-      this.showNotification('Base64 images are not supported. Please upload an image file.', 'warning');
-      return '';
+      console.log('✅ Using data URL (mobile compatible)');
+      return trimmed;
     }
     
-    return trimmed;
+    // If it's a Cloudinary URL, keep it
+    if (trimmed.includes('cloudinary.com') || trimmed.includes('res.cloudinary.com')) {
+      console.log('Cloudinary URL detected, keeping');
+      return trimmed;
+    }
+    
+    // If it's any other valid URL, keep it
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+      console.log('Valid HTTP URL, keeping');
+      return trimmed;
+    }
+    
+    // Return empty for anything else
+    return '';
   }
 
-  // ===== UPDATED SAVE METHOD =====
   async saveInsight(publish = false) {
     try {
       console.log('=== SAVE INSIGHT ===');
@@ -420,7 +366,11 @@ class NotionAdmin {
         body: this.quill ? this.quill.root.innerHTML : ''
       };
 
-      console.log('Insight data to save:', insight);
+      console.log('Image to save:', insight.image ? '✓ Has image' : '✗ No image');
+      if (insight.image) {
+        console.log('Image type:', insight.image.substring(0, 30));
+        console.log('Image length:', insight.image.length);
+      }
 
       // Validation
       if (!insight.title) {
@@ -464,8 +414,6 @@ class NotionAdmin {
         };
       }
 
-      console.log('Sending to API:', requestBody);
-
       // Send to API
       const response = await fetch('/api/insights', {
         method: 'POST',
@@ -475,10 +423,8 @@ class NotionAdmin {
         body: JSON.stringify(requestBody)
       });
 
-      // Get response text first for debugging
       const responseText = await response.text();
       console.log('API Response status:', response.status);
-      console.log('API Response text:', responseText);
 
       if (!response.ok) {
         let errorMessage = `Failed to save: ${response.status}`;
@@ -491,9 +437,7 @@ class NotionAdmin {
         throw new Error(errorMessage);
       }
 
-      // Parse the successful response
       const result = JSON.parse(responseText);
-      console.log('API Success result:', result);
 
       if (!result.success) {
         throw new Error(result.error || 'Unknown error from API');
@@ -502,9 +446,7 @@ class NotionAdmin {
       // Update local data
       this.insights = result.insights || [];
       
-      // Update current insight and index
       if (this.currentIndex === -1) {
-        // Find the newly added insight
         const newInsight = result.data || result.insights?.[0];
         if (newInsight) {
           this.currentInsight = { ...newInsight };
@@ -512,7 +454,6 @@ class NotionAdmin {
           if (this.currentIndex === -1) this.currentIndex = 0;
         }
       } else {
-        // Update current insight
         this.currentInsight = result.data || { ...insight };
       }
 
@@ -521,7 +462,6 @@ class NotionAdmin {
       this.updateInsightCount();
       this.updateInsightInfo();
       
-      // Show success message
       const message = publish ? 
         '✅ Insight published successfully!' : 
         '✅ Insight saved successfully!';
@@ -533,72 +473,7 @@ class NotionAdmin {
     }
   }
 
-  async deleteInsight(index) {
-    if (index < 0 || index >= this.insights.length) {
-      this.showNotification('Invalid insight index', 'error');
-      return;
-    }
-
-    const insightToDelete = this.insights[index];
-    if (!insightToDelete) {
-      this.showNotification('Insight not found', 'error');
-      return;
-    }
-
-    if (!confirm(`Are you sure you want to delete "${insightToDelete.title}"?\nThis cannot be undone.`)) {
-      return;
-    }
-
-    try {
-      console.log('Deleting insight at index:', index);
-      
-      this.showNotification('Deleting insight...', 'info');
-
-      const response = await fetch('/api/insights', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          action: 'delete',
-          index: index
-        })
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Delete API error:', response.status, errorText);
-        throw new Error(`Failed to delete: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log('Delete result:', result);
-
-      if (!result.success) {
-        throw new Error(result.error || 'Delete failed');
-      }
-
-      // Update local data
-      this.insights = result.insights || [];
-      
-      // Handle current insight deletion
-      if (index === this.currentIndex) {
-        this.newInsight();
-      } else if (index < this.currentIndex) {
-        this.currentIndex--;
-      }
-      
-      // Update UI
-      this.renderInsightsList();
-      this.updateInsightCount();
-      
-      this.showNotification('✅ Insight deleted successfully', 'success');
-      
-    } catch (error) {
-      console.error('Error deleting insight:', error);
-      this.showNotification(`Failed to delete: ${error.message}`, 'error');
-    }
-  }
+  // ... [Keep all other methods EXACTLY AS THEY ARE] ...
 
   generateSlug(text) {
     if (!text) return 'untitled';
@@ -658,7 +533,6 @@ class NotionAdmin {
     if (titleCount) titleCount.textContent = title.length;
     if (excerptCount) excerptCount.textContent = excerpt.length;
     
-    // Auto-generate slug if empty
     const slugInput = document.getElementById('insightSlug');
     if (slugInput && !slugInput.value && title) {
       slugInput.value = this.generateSlug(title);
@@ -709,11 +583,9 @@ class NotionAdmin {
   }
 
   showNotification(message, type = 'info') {
-    // Remove existing notifications
     const existing = document.querySelector('.notification');
     if (existing) existing.remove();
 
-    // Create notification
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     
@@ -730,13 +602,11 @@ class NotionAdmin {
 
     document.body.appendChild(notification);
 
-    // Close button
     notification.querySelector('.notification-close').addEventListener('click', () => {
       notification.style.opacity = '0';
       setTimeout(() => notification.remove(), 300);
     });
 
-    // Auto remove after 5 seconds
     setTimeout(() => {
       if (notification.parentNode) {
         notification.style.opacity = '0';
@@ -753,13 +623,11 @@ class NotionAdmin {
       tab.addEventListener('click', () => {
         const tabId = tab.dataset.tab;
         
-        // Update active tab button
         document.querySelectorAll('.tab-btn').forEach(btn => {
           btn.classList.remove('active');
         });
         tab.classList.add('active');
         
-        // Show selected tab content
         document.querySelectorAll('.tab-content').forEach(content => {
           content.classList.remove('active');
         });
@@ -794,34 +662,40 @@ class NotionAdmin {
         this.updateHeroPreview();
       });
       
-      // Add placeholder text
       heroImageUrl.placeholder = 'Paste image URL or upload an image';
     }
 
-    // Hero image upload buttons - UPDATED
+    // Hero image upload buttons - FIXED EVENT LISTENER
     const heroUpload = document.getElementById('heroUpload');
     const heroImageInput = document.getElementById('heroImageInput');
     const changeImageBtn = document.getElementById('changeImageBtn');
     
     if (heroUpload && heroImageInput) {
       heroUpload.addEventListener('click', () => {
+        console.log('📷 Hero upload area clicked');
         heroImageInput.click();
       });
     }
     
     if (changeImageBtn && heroImageInput) {
       changeImageBtn.addEventListener('click', () => {
+        console.log('📷 Change image button clicked');
         heroImageInput.click();
       });
     }
     
     if (heroImageInput) {
+      // FIXED: Use arrow function to preserve 'this' context
       heroImageInput.addEventListener('change', (e) => {
+        console.log('📷 File input changed! Files:', e.target.files.length);
         const file = e.target.files[0];
         if (file) {
+          console.log('📷 File selected:', file.name, file.size, 'bytes');
+          // DIRECT CALL - NO ASYNC ISSUES
           this.handleImageUpload(file);
+        } else {
+          console.log('📷 No file selected');
         }
-        // Clear input so same file can be selected again
         e.target.value = '';
       });
     }
@@ -873,16 +747,13 @@ class NotionAdmin {
   }
 }
 
-// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM loaded, starting admin panel...');
   
-  // Check if we're in the admin section
   if (window.location.pathname.includes('/admin') || 
       window.location.pathname === '/admin' ||
       window.location.hash === '#admin') {
     
-    // Check for required elements
     if (!document.getElementById('insightTitle')) {
       console.error('Admin form elements not found!');
       document.body.innerHTML = '<div style="padding: 20px; color: red;">Admin panel elements not found. Check HTML structure.</div>';
@@ -895,7 +766,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Global error handler
 window.addEventListener('error', function(event) {
   console.error('Global error:', event.error);
   console.error('In file:', event.filename);

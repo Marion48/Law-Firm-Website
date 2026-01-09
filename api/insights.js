@@ -1,4 +1,4 @@
-// api/insights.js - CONVERTED TO COMMONJS
+// api/insights.js - COMPLETE FIXED VERSION
 const { getInsightsData, updateInsightsData } = require('../lib/github.js');
 
 module.exports = async (req, res) => {
@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
           title: insight.title.trim(),
           excerpt: insight.excerpt ? insight.excerpt.trim() : '',
           body: insight.body || '',
-          image: insight.image || '',
+          image: insight.image || '', // CRITICAL: Save the image URL
           slug: generateSlug(insight.slug || insight.title),
           date: insight.date || new Date().toISOString().split('T')[0],
           featured: insight.featured || false,
@@ -54,6 +54,7 @@ module.exports = async (req, res) => {
         };
         
         console.log('[INSIGHTS API] New insight created:', newInsight);
+        console.log('[INSIGHTS API] Image URL saved:', newInsight.image);
         
         // Add to beginning (newest first)
         insights.unshift(newInsight);
@@ -77,9 +78,12 @@ module.exports = async (req, res) => {
           ...insight,
           title: insight.title ? insight.title.trim() : insights[index].title,
           excerpt: insight.excerpt ? insight.excerpt.trim() : insights[index].excerpt,
+          image: insight.image || insights[index].image, // CRITICAL: Preserve or update image
           slug: insight.slug ? generateSlug(insight.slug) : insights[index].slug,
           updatedAt: new Date().toISOString()
         };
+        
+        console.log('[INSIGHTS API] Updated image URL:', updatedInsight.image);
         
         // Update URL if slug changed
         if (insight.slug && insight.slug !== insights[index].slug) {
@@ -121,7 +125,7 @@ module.exports = async (req, res) => {
           title: insight.title || 'Untitled',
           excerpt: insight.excerpt || '',
           body: insight.body || '',
-          image: insight.image || '',
+          image: insight.image || '', // CRITICAL: Include image field
           slug: insight.slug || generateSlug(insight.title || 'untitled'),
           date: insight.date || insight.createdAt,
           featured: insight.featured || false,
@@ -132,6 +136,16 @@ module.exports = async (req, res) => {
         }));
         
         console.log(`[INSIGHTS API] Returning ${validatedInsights.length} insights`);
+        
+        // Log image status for debugging
+        validatedInsights.forEach((insight, i) => {
+          console.log(`[INSIGHTS API] Insight ${i} image:`, {
+            title: insight.title,
+            hasImage: !!insight.image,
+            imageUrl: insight.image
+          });
+        });
+        
         return res.status(200).json(validatedInsights);
 
       default:
@@ -151,6 +165,11 @@ module.exports = async (req, res) => {
     });
 
     console.log(`[INSIGHTS API] Success! Returning ${sortedInsights.length} insights`);
+    
+    // Log image status in response
+    sortedInsights.forEach((insight, i) => {
+      console.log(`[INSIGHTS API Response] Insight ${i}: "${insight.title}" - Image: ${insight.image || '(none)'}`);
+    });
     
     res.status(200).json({
       success: true,

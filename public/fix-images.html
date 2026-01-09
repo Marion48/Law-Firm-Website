@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Fix Tool</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .result { margin-top: 20px; padding: 10px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Image to Data URL Converter</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <div class="result">
+        <h3>Data URL (Copy this):</h3>
+        <textarea id="dataUrlOutput" rows="10" cols="80" readonly></textarea>
+        <p><button onclick="copyToClipboard()">Copy</button></p>
+    </div>
+    
+    <script>
+    document.getElementById('imageInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('dataUrlOutput').value = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+    
+    function copyToClipboard() {
+        const textarea = document.getElementById('dataUrlOutput');
+        textarea.select();
+        document.execCommand('copy');
+        alert('Copied!');
+    }
+    </script>
+</body>
+</html>
