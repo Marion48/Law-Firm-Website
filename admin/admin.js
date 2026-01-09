@@ -6,6 +6,8 @@ class NotionAdmin {
     this.insights = [];
     this.quill = null;
     this.baseURL = window.location.origin;
+
+    
     
     // Image upload tracking
     this.uploadInProgress = false;
@@ -771,3 +773,4 @@ window.addEventListener('error', function(event) {
   console.error('In file:', event.filename);
   console.error('Line:', event.lineno);
 });
+

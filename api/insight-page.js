@@ -579,7 +579,7 @@ function generateInsightPage(insight) {
             text-align: center;
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
-            font-family: 'Cormorant Garamond;
+            font-family: Cormorant Garamond;
         }
         
         /* ===== RESPONSIVE DESIGN ===== */
