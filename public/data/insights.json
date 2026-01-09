@@ -22,9 +22,9 @@
     "slug": "test",
     "date": "2026-01-09",
     "featured": false,
-    "status": "published",
+    "status": "draft",
     "createdAt": "2026-01-09T08:24:01.760Z",
-    "updatedAt": "2026-01-09T08:24:01.760Z",
+    "updatedAt": "2026-01-09T08:26:49.961Z",
     "url": "/api/insight-page?slug=test"
   }
 ]
