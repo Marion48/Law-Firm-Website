@@ -1,39 +1,419 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image Fix Tool</title>
+    <title>Image Fix Tool - Admin-Compatible Version</title>
     <style>
-        body { font-family: Arial; padding: 20px; }
-        .result { margin-top: 20px; padding: 10px; background: #f0f0f0; }
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            background: #f5f5f5;
+        }
+        h1 { color: #333; }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .result { 
+            margin-top: 20px; 
+            padding: 15px; 
+            background: #f8f9fa; 
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .info-box {
+            background: #e7f3ff;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 15px 0;
+            border-left: 4px solid #007bff;
+        }
+        .file-info {
+            margin: 10px 0;
+            color: #666;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .compression-options {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .compression-options label {
+            display: block;
+            margin: 8px 0;
+        }
+        .preview-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .image-preview {
+            max-width: 300px;
+            max-height: 200px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body>
-    <h1>Image to Data URL Converter</h1>
-    <input type="file" id="imageInput" accept="image/*">
-    <div class="result">
-        <h3>Data URL (Copy this):</h3>
-        <textarea id="dataUrlOutput" rows="10" cols="80" readonly></textarea>
-        <p><button onclick="copyToClipboard()">Copy</button></p>
+    <div class="container">
+        <h1>Image to Data URL Converter - Admin Compatible</h1>
+        
+        <div class="info-box">
+            <strong>Important:</strong> This tool generates Data URLs that are compatible with your admin panel.
+            JPG format is recommended for best compatibility.
+        </div>
+        
+        <!-- File Input -->
+        <div>
+            <label for="imageInput"><strong>Select Image:</strong></label><br>
+            <input type="file" id="imageInput" accept="image/png,image/jpeg,image/jpg">
+        </div>
+        
+        <!-- File Info -->
+        <div class="file-info">
+            <div><strong>Selected File:</strong> <span id="fileName">None</span></div>
+            <div><strong>File Size:</strong> <span id="fileSize">0 KB</span></div>
+            <div><strong>Type:</strong> <span id="fileType">-</span></div>
+        </div>
+        
+        <!-- Image Preview -->
+        <div class="preview-container">
+            <img id="imagePreview" class="image-preview" style="display: none;">
+        </div>
+        
+        <!-- Compression Options -->
+        <div class="compression-options">
+            <h4>Optimization Options:</h4>
+            <label>
+                <input type="checkbox" id="optimizeForAdmin" checked>
+                Optimize for Admin Panel (Recommended)
+            </label>
+            <label>
+                <input type="checkbox" id="convertToJPG" checked>
+                Convert PNG to JPG (Better compatibility)
+            </label>
+            <label>
+                <strong>Quality:</strong>
+                <input type="range" id="qualitySlider" min="0.1" max="1" step="0.1" value="0.7">
+                <span id="qualityValue">70%</span>
+            </label>
+            <label>
+                <strong>Max Width:</strong>
+                <input type="number" id="maxWidth" value="800" min="100" max="2000" step="100"> pixels
+            </label>
+        </div>
+        
+        <!-- Status Messages -->
+        <div id="statusMessage" class="status"></div>
+        
+        <!-- Result -->
+        <div class="result">
+            <h3>Data URL (Copy and paste into Admin Panel):</h3>
+            <textarea id="dataUrlOutput" rows="6" readonly placeholder="Data URL will appear here..."></textarea>
+            <p>
+                <button onclick="copyToClipboard()">📋 Copy Data URL</button>
+                <button onclick="downloadImage()" style="background: #28a745;">💾 Download Optimized Image</button>
+                <button onclick="clearAll()" style="background: #6c757d;">🗑️ Clear All</button>
+            </p>
+            <div id="urlStats">
+                <strong>Data URL Size:</strong> <span id="urlSize">0 characters</span>
+                <br>
+                <strong>Compatibility Check:</strong> <span id="compatibility">Pending...</span>
+            </div>
+        </div>
+        
+        <!-- Instructions -->
+        <div class="info-box">
+            <h4>How to use with Admin Panel:</h4>
+            <ol>
+                <li>Select an image (PNG or JPG)</li>
+                <li>Let the tool optimize it automatically</li>
+                <li>Click "Copy Data URL"</li>
+                <li>Paste the copied URL into the image field in your admin panel</li>
+                <li>Save the insight - the image should now work properly</li>
+            </ol>
+            <p><strong>Tip:</strong> If images still disappear, try using the "Download Optimized Image" button and upload it as a regular file instead of using Data URL.</p>
+        </div>
     </div>
     
     <script>
-    document.getElementById('imageInput').addEventListener('change', function(e) {
+    // DOM Elements
+    const imageInput = document.getElementById('imageInput');
+    const dataUrlOutput = document.getElementById('dataUrlOutput');
+    const imagePreview = document.getElementById('imagePreview');
+    const statusMessage = document.getElementById('statusMessage');
+    
+    // Optimization settings
+    let currentOptimizedBlob = null;
+    let currentFileName = '';
+    
+    // Update quality display
+    document.getElementById('qualitySlider').addEventListener('input', function(e) {
+        document.getElementById('qualityValue').textContent = `${Math.round(e.target.value * 100)}%`;
+    });
+    
+    // File input handler
+    imageInput.addEventListener('change', async function(e) {
         const file = e.target.files[0];
         if (!file) return;
         
+        showStatus('Processing image...', 'info');
+        
+        // Update file info
+        document.getElementById('fileName').textContent = file.name;
+        document.getElementById('fileSize').textContent = `${(file.size / 1024).toFixed(2)} KB`;
+        document.getElementById('fileType').textContent = file.type;
+        currentFileName = file.name.replace(/\.[^/.]+$/, ""); // Remove extension
+        
         const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('dataUrlOutput').value = e.target.result;
+        
+        reader.onload = async function(e) {
+            const originalDataUrl = e.target.result;
+            
+            // Show preview
+            imagePreview.src = originalDataUrl;
+            imagePreview.style.display = 'block';
+            
+            // Optimize image for admin panel
+            await optimizeImage(originalDataUrl, file.type);
         };
+        
         reader.readAsDataURL(file);
     });
     
-    function copyToClipboard() {
-        const textarea = document.getElementById('dataUrlOutput');
-        textarea.select();
-        document.execCommand('copy');
-        alert('Copied!');
+    // Optimize image
+    async function optimizeImage(dataUrl, mimeType) {
+        try {
+            showStatus('Optimizing image for admin panel...', 'info');
+            
+            const img = new Image();
+            
+            img.onload = async function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Get optimization settings
+                const convertToJPG = document.getElementById('convertToJPG').checked;
+                const quality = parseFloat(document.getElementById('qualitySlider').value);
+                const maxWidth = parseInt(document.getElementById('maxWidth').value);
+                
+                // Calculate dimensions
+                let width = img.width;
+                let height = img.height;
+                
+                if (width > maxWidth) {
+                    height = (maxWidth / width) * height;
+                    width = maxWidth;
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                
+                // Draw image
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                // Determine output format
+                let outputMimeType = 'image/jpeg';
+                let outputExtension = 'jpg';
+                
+                if (!convertToJPG && mimeType === 'image/png') {
+                    outputMimeType = 'image/png';
+                    outputExtension = 'png';
+                }
+                
+                // Create optimized Data URL
+                const optimizedDataUrl = canvas.toDataURL(outputMimeType, quality);
+                
+                // Create blob for download option
+                const blob = dataURLtoBlob(optimizedDataUrl);
+                currentOptimizedBlob = blob;
+                
+                // Update output
+                dataUrlOutput.value = optimizedDataUrl;
+                
+                // Update stats
+                const urlLength = optimizedDataUrl.length;
+                const urlSizeKB = (urlLength / 1024).toFixed(2);
+                document.getElementById('urlSize').textContent = 
+                    `${urlLength.toLocaleString()} characters (${urlSizeKB} KB)`;
+                
+                // Check compatibility
+                let compatibility = '✅ Good - Ready for admin panel';
+                let compatibilityClass = 'success';
+                
+                if (urlLength > 200000) {
+                    compatibility = '⚠️ Large - May cause issues in admin panel';
+                    compatibilityClass = 'error';
+                } else if (urlLength > 100000) {
+                    compatibility = '⚠️ Medium - Should work but monitor performance';
+                    compatibilityClass = 'info';
+                }
+                
+                document.getElementById('compatibility').textContent = compatibility;
+                document.getElementById('compatibility').className = compatibilityClass;
+                
+                // Update preview with optimized version
+                imagePreview.src = optimizedDataUrl;
+                
+                showStatus(`✓ Image optimized! ${Math.round((urlLength/1024))}KB ${outputExtension.toUpperCase()}`, 'success');
+                
+                // Log for debugging
+                console.log('Optimized Image Info:', {
+                    originalType: mimeType,
+                    optimizedType: outputMimeType,
+                    dimensions: `${width}x${height}`,
+                    quality: quality,
+                    size: `${urlSizeKB}KB`,
+                    length: urlLength
+                });
+            };
+            
+            img.onerror = function() {
+                showStatus('❌ Failed to load image', 'error');
+            };
+            
+            img.src = dataUrl;
+            
+        } catch (error) {
+            console.error('Optimization error:', error);
+            showStatus(`❌ Error: ${error.message}`, 'error');
+        }
     }
+    
+    // Convert Data URL to Blob
+    function dataURLtoBlob(dataUrl) {
+        const arr = dataUrl.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        
+        return new Blob([u8arr], { type: mime });
+    }
+    
+    // Copy to clipboard
+    function copyToClipboard() {
+        const content = dataUrlOutput.value;
+        
+        if (!content || content.trim() === '') {
+            showStatus('❌ Please select an image first!', 'error');
+            return;
+        }
+        
+        navigator.clipboard.writeText(content).then(() => {
+            showStatus('✓ Data URL copied to clipboard! Ready to paste in admin panel.', 'success');
+            
+            // Auto-clear after 5 seconds
+            setTimeout(() => {
+                if (statusMessage.textContent.includes('copied')) {
+                    statusMessage.style.display = 'none';
+                }
+            }, 5000);
+            
+        }).catch(err => {
+            showStatus(`❌ Failed to copy: ${err}`, 'error');
+        });
+    }
+    
+    // Download optimized image
+    function downloadImage() {
+        if (!currentOptimizedBlob) {
+            showStatus('❌ No optimized image available', 'error');
+            return;
+        }
+        
+        const url = URL.createObjectURL(currentOptimizedBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${currentFileName}_optimized.jpg`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        showStatus('✓ Image downloaded! You can upload this file directly to admin panel.', 'success');
+    }
+    
+    // Clear all
+    function clearAll() {
+        imageInput.value = '';
+        dataUrlOutput.value = '';
+        imagePreview.style.display = 'none';
+        currentOptimizedBlob = null;
+        
+        document.getElementById('fileName').textContent = 'None';
+        document.getElementById('fileSize').textContent = '0 KB';
+        document.getElementById('fileType').textContent = '-';
+        document.getElementById('urlSize').textContent = '0 characters';
+        document.getElementById('compatibility').textContent = 'Pending...';
+        
+        showStatus('Cleared all fields', 'info');
+        setTimeout(() => {
+            statusMessage.style.display = 'none';
+        }, 2000);
+    }
+    
+    // Show status message
+    function showStatus(message, type = 'info') {
+        statusMessage.textContent = message;
+        statusMessage.className = `status ${type}`;
+        statusMessage.style.display = 'block';
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Admin-Compatible Image Tool loaded');
+        console.log('Default optimization: PNG → JPG, 800px max width, 70% quality');
+    });
     </script>
 </body>
 </html>

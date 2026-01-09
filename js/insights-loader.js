@@ -126,6 +126,26 @@ class InsightsLoader {
     
     if (img) {
       img = img.toString().trim().replace(/['"]/g, '');
+
+            // === ADD THIS CODE BLOCK HERE ===
+      // Check for very large Data URLs (common with PNG)
+      if (img.startsWith('data:image') && img.length > 200000) {
+        console.warn('Large PNG Data URL detected - may cause performance issues:', {
+          length: img.length,
+          type: img.substring(5, img.indexOf(';')),
+          insightTitle: insight.title,
+          suggestion: 'Consider using JPG format or external URL'
+        });
+        
+        // Optional: You can add a size limit here
+        // For example, truncate or reject very large URLs:
+        if (img.length > 500000) { // 500KB limit
+          console.error('Data URL exceeds 500KB limit - using placeholder instead');
+          img = ''; // Fall back to no-image placeholder
+        }
+      }
+      // === END OF NEW CODE ===
+
       
       // Ensure it's a valid URL
       const isValidUrl = img.startsWith('http://') || 
