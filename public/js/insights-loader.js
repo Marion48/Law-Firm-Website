@@ -7,7 +7,7 @@ class InsightsLoader {
     this.cacheDuration = 5 * 60 * 1000;
 
     const path = window.location.pathname;
-    this.isHomepage = path === '/' || path === '/index.html' || path === '';
+    this.isHomepage = path === '/' || path === '/index2.html' || path === '';
     this.isInsightsPage = path.includes('insights.html');
     
     // Detect mobile

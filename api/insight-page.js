@@ -1,4 +1,3 @@
-// api/insight-page.js - PREMIUM UPDATED VERSION
 const { getInsightsData } = require('../lib/github.js');
 
 module.exports = async (req, res) => {
@@ -175,10 +174,10 @@ function generateInsightPage(insight) {
             -moz-osx-font-smoothing: grayscale;
         }
         
-        /* ===== PREMIUM NAVIGATION ===== */
+        /* ===== NAVIGATION - EXACT SAME AS INDEX2.HTML ===== */
         .nav {
             background: var(--navy);
-            padding: 1rem 0;
+            padding: 0.8rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -186,13 +185,17 @@ function generateInsightPage(insight) {
             border-bottom: 2px solid var(--gold);
         }
         
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
         .nav-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            position: relative;
         }
         
         .brand-combo {
@@ -211,9 +214,8 @@ function generateInsightPage(insight) {
             opacity: 0.9;
         }
         
-        /* LARGER LOGO */
         .logo {
-            height: 56px; /* Increased from 48px */
+            height: 56px;
             width: auto;
             transition: transform 0.3s ease;
         }
@@ -222,28 +224,118 @@ function generateInsightPage(insight) {
             transform: scale(1.05);
         }
         
-        /* SMALLER BACK BUTTON */
-        .nav-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
             color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-family: 'Inter', sans-serif;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
         }
         
-        .nav-back:hover {
+        .hamburger:hover {
+            color: var(--gold);
+        }
+        
+        /* Navigation Menu */
+        #main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #main-nav a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        #main-nav a:hover,
+        #main-nav a.active {
+            color: var(--gold);
+        }
+        
+        #main-nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
             background: var(--gold);
-            color: var(--navy);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(201, 168, 106, 0.3);
+        }
+        
+        #main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        
+        #main-nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Responsive Navigation */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            #main-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--navy);
+                padding: 1rem;
+                box-shadow: 0 4px 20px rgba(10, 25, 47, 0.3);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                z-index: 1000;
+            }
+            
+            #main-nav ul {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            #main-nav li {
+                width: 100%;
+            }
+            
+            #main-nav a {
+                display: block;
+                padding: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            #main-nav a:last-child {
+                border-bottom: none;
+            }
+            
+            #main-nav a.active::after {
+                display: none;
+            }
+            
+            #main-nav a.active {
+                background: rgba(201, 168, 106, 0.1);
+                border-left: 3px solid var(--gold);
+            }
         }
         
         /* ===== MAIN CONTENT ===== */
@@ -584,7 +676,7 @@ function generateInsightPage(insight) {
         
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 768px) {
-            .nav-inner {
+            .container {
                 padding: 0 1.5rem;
             }
             
@@ -703,16 +795,24 @@ function generateInsightPage(insight) {
     <link rel="icon" href="/images/logo.png">
 </head>
 <body>
-    <!-- ===== PREMIUM NAVIGATION ===== -->
+    <!-- ===== NAVIGATION - EXACT SAME AS INDEX2.HTML ===== -->
     <header class="nav" role="banner">
-        <div class="nav-inner">
-            <a class="brand brand-combo" href="/">
+        <div class="container nav-inner">
+            <a class="brand brand-combo" href="/index.html">
                 <img src="/images/logo.png" alt="Firm Logo" class="logo">
                 <span>Byron N. & Co. Advocates</span>
             </a>
-            <a href="/insights.html" class="nav-back">
-                <i class="fas fa-arrow-left"></i> Back to Insights
-            </a>
+            <button id="mobile-toggle" class="hamburger" aria-label="Open navigation" aria-expanded="false">☰</button>
+            <nav id="main-nav" role="navigation" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="/index.html#home" class="active">Home</a></li>
+                    <li><a href="/index.html#about">About</a></li>
+                    <li><a href="/index.html#services">Practice Areas</a></li>
+                    <li><a href="/index.html#team">Team</a></li>
+                    <li><a href="/insights.html">Insights</a></li>
+                    <li><a href="/index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
     
@@ -839,6 +939,34 @@ function generateInsightPage(insight) {
             <p>© ${new Date().getFullYear()} Byron N. & Co. Advocates. All rights reserved.</p>
         </div>
     </footer>
+    
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const mainNav = document.getElementById('main-nav');
+            
+            if (mobileToggle && mainNav) {
+                mobileToggle.addEventListener('click', function() {
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    mainNav.style.display = isExpanded ? 'none' : 'block';
+                    this.textContent = isExpanded ? '☰' : '✕';
+                });
+                
+                // Close menu when clicking outside on mobile
+                document.addEventListener('click', function(event) {
+                    if (window.innerWidth <= 768) {
+                        if (!mobileToggle.contains(event.target) && !mainNav.contains(event.target)) {
+                            mobileToggle.setAttribute('aria-expanded', 'false');
+                            mainNav.style.display = 'none';
+                            mobileToggle.textContent = '☰';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
     
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
