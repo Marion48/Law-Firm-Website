@@ -1988,3 +1988,31 @@ body.fade-out {
     display: none;
   }
 }
+
+
+/* Fix for hero image to start right below navbar on larger screens */
+@media (min-width: 769px) {
+  /* Calculate based on your navbar height */
+  .hero {
+    padding-top: 0;
+    margin-top: 100px; /* Your navbar height from .nav { height: 100px; } */
+  }
+  
+  /* Remove any top offset from the hero background */
+  .hero-bg {
+    top: 0;
+  }
+  
+  /* Adjust hero content positioning */
+  .hero-content {
+    padding-top: var(--space-xl); /* Keep some padding for content */
+  }
+}
+
+/* Mobile stays perfect as is */
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 80px; /* Keep your mobile value */
+    margin-top: 0;
+  }
+}

@@ -76,6 +76,21 @@
       padding: 0 var(--space-lg);
     }
     
+    /* FIX FOR LARGER SCREENS ONLY: Make hero image start below navbar */
+@media (min-width: 769px) {
+  /* Adjust hero section for larger screens */
+  .modern-hero {
+    padding-top: 0; /* Remove the padding-top on larger screens */
+    margin-top: 100px; /* Add margin to push hero below navbar */
+  }
+  
+  /* Make sure the background image starts from the top of hero section */
+  .modern-hero::before {
+    top: 0;
+  }
+}
+
+
     @media (min-width: 768px) {
       .modern-grid {
         grid-template-columns: repeat(2, 1fr);
