@@ -845,7 +845,7 @@ function generateInsightPage(insight) {
             <!-- ===== AUTHOR SECTION ===== -->
             <div class="author-section">
                 <div class="author-header">
-                    <img src="/images/Bayo2.jpeg" alt="Byron Nyasimi" class="author-avatar">
+                    <img src="/images/Bayo.jpeg" alt="Byron Nyasimi" class="author-avatar">
                     <div class="author-info">
                         <h3>Byron Nyasimi</h3>
                         <p>Author</p>
