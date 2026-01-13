@@ -177,7 +177,7 @@ function generateInsightPage(insight) {
         /* ===== NAVIGATION - EXACT SAME AS INDEX2.HTML ===== */
         .nav {
             background: var(--navy);
-            padding: 0.8rem 0;
+            padding: 0.1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -845,7 +845,7 @@ function generateInsightPage(insight) {
             <!-- ===== AUTHOR SECTION ===== -->
             <div class="author-section">
                 <div class="author-header">
-                    <img src="/images/ByronNyasimi.png" alt="Byron Nyasimi" class="author-avatar">
+                    <img src="/images/Bayo2.jpeg" alt="Byron Nyasimi" class="author-avatar">
                     <div class="author-info">
                         <h3>Byron Nyasimi</h3>
                         <p>Author</p>
@@ -920,9 +920,9 @@ function generateInsightPage(insight) {
             
             <div class="footer-links">
                 <h4>Connect</h4>
-                <a href="mailto:marioncherono55@gmail.com">marioncherono55@gmail.com</a>
+                <a href="mailto:nyasimibyron@gmail.com">nyasimibyron@gmail.com</a>
                 <a href="tel:+254707146880">+254 707 146 880</a>
-                <p>Westlands Square, Nairobi, Kenya</p>
+                <p>Nairobi, Kenya</p>
             </div>
             
             <div class="footer-links">
