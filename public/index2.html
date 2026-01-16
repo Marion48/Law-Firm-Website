@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-   <link rel="preload" as="image" href="images/Heroimage.png">
+   <!-- <link rel="preload" as="image" href="images/Heroimage.png">-->
+    <link rel="preload" as="video" href="images/hero-vid.mp4" type="video/mp4">
+    
+
   <title>Byron N. & Co. Advocates| Nairobi, Kenya</title>
   <meta name="description" content="Corporate, litigation and commercial law firm in Nairobi, Kenya. Expert counsel for businesses and individuals. Schedule a consultation." />
   <meta name="google-site-verification" content="RppHfZdTXNZy8GyrjeLd0MYetoq2aSxZ4_kX3A6o38Q" />
@@ -27,6 +30,16 @@
   
   <!-- SPLASH SCREEN STYLES - EXACT SAME AS INDEX.HTML -->
   <style>
+    .hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
     #splash-screen {
       position: fixed;
       top: 0;
@@ -75,7 +88,7 @@
   "@context": "https://schema.org",
   "@type": "LegalService",
   "name": "Byron N. & Co. Advocates",
-  "url": "https://marion48.github.io/Law-Firm-Website/",
+  "url": "https://www.byronnco.com/"
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Nairobi",
@@ -506,6 +519,18 @@
     .about-text p {
       margin-bottom: 1.5rem;
     }
+
+    .about-footer {
+      font-family: 'inter', sans-serif;
+      font-size: 0.5rem;
+      line-height: 1.5;
+      color: var(--text);
+      font-weight: 250;
+      letter-spacing: 0.011111em;
+      margin-bottom: 2rem;
+    }
+    
+
     
     .about-image-container {
       position: relative;
@@ -1011,7 +1036,11 @@
   <main>
     <!-- HERO -->
     <section id="home" class="hero" aria-label="Hero">
-      <div class="hero-bg" style="background-image:url('images/Heroimage.png');" aria-hidden="true"></div>
+      <!--<div class="hero-bg" style="background-image:url('images/Heroimage.png');" aria-hidden="true"></div>-->
+      <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="images/hero-vid.mp4" type="video/mp4">
+  </video>
+
       <div class="container hero-content">
         <div class="hero-left animate-up">
           <h1 id="hero-title">Here To Make Your Path Forward Simpler. Sharp and Reliable Legal insights.</h1>
@@ -1030,7 +1059,7 @@
         </div>
         
         <div class="about-image-container">
-          <img src="images/Aboutimage.png" alt="Byron N. & Co. Advocates" class="about-image" loading="lazy">
+          <img src="images/Savanna.png" alt="Byron N. & Co. Advocates" class="about-image" loading="lazy">
           <div class="about-image-overlay"></div>
         </div>
       </div>
@@ -1278,8 +1307,8 @@
     <!-- CENTERED CONTACT SECTION -->
     <section id="contact" class="section animate-up scroll-reveal" aria-labelledby="contact-h">
       <div class="container">
-        <h2 id="contact-h" style="text-align: center; margin-bottom: 3rem; font-size: 2rem;">In need of legal advice?</h2>
-        <h2 id="contact-h" style="text-align: center; margin-bottom: 3rem; font-size: 1.5rem;">Get in Touch</h2>
+        <h2 id="contact-h" style="text-align: center; margin-bottom: 3rem; font-family: 'serif', serif;">In need of legal advice?</h2>
+        <div class="about-footer" style="text-align: center; margin-bottom: 3rem; font-size: 1.2rem; font-family: 'serif', serif;">Connect with us in whichever way works best for you—through an in-person meeting, virtual consultation, phone call, or email. Your schedule guides our availability. Let us know how we can assist you by filling the form below.</div>
         
         <div class="contact-centered">
           <form id="contact-form" action="https://formspree.io/f/xpwbwqkq" method="POST" novalidate>
@@ -1314,11 +1343,13 @@
               <textarea id="message" name="message" rows="5" required></textarea>
             </div>
             <input type="hidden" name="_subject" value="New contact from website">
-            <button class="btn primary" type="submit">Send Message</button>
+            <button class="btn primary" type="submit">Book Consultation.</button>
             <p id="form-msg" aria-live="polite" style="margin-top:8px;"></p>
           </form>
         </div>
       </div>
+      <!-- Privacy Footer 
+      <div class="about-footer" style="text-align: center; margin-bottom: 1rem; font-size: 1.2rem; font-family: 'Inter', serif;">Your privacy is protected at every step. We strictly adhere to data privacy regulations, ensuring all your information remains secure and confidential.</div>-->
     </section>
   </main>
 

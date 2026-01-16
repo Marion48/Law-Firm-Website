@@ -278,11 +278,11 @@ nav#main-nav a:hover::after {
 /* Premium Hero Typography */
 .hero-left h1 {
   font-family: var(--font-hero); /* More premium Playfair Display */
-  font-size: 2rem; /* Reduced for better animation visibility */
+  font-size: 35%; /* Reduced for better animation visibility */
   color: var(--ivory);
   margin: 0 0 var(--space-sm) 0;
-  line-height: 1.15;
-  font-weight: 400; /* Bolder for authority */
+  line-height: 1.5;
+  font-weight: 1500; /* Bolder for authority */
   letter-spacing: -0.03em;
 }
 

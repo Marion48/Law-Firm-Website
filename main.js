@@ -381,3 +381,75 @@ async function loadAllInsights() {
 
 document.addEventListener("DOMContentLoaded", loadAllInsights);
 
+// Add this at the END of your main.js file:
+
+// ============================================
+// HERO VIDEO AUTO-RESTART FIX
+// ============================================
+function initHeroVideo() {
+  const heroVideo = document.querySelector('.hero-video');
+  
+  if (!heroVideo) return;
+  
+  console.log('Initializing hero video...');
+  
+  // Function to restart video
+  function restartVideo() {
+    // Reset to beginning
+    heroVideo.currentTime = 0;
+    
+    // Load and play
+    heroVideo.load();
+    
+    // Try to play with a small delay
+    setTimeout(() => {
+      const playPromise = heroVideo.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log("Video autoplay was prevented:", error.name);
+          // Add a fallback for user interaction
+          const playOnInteraction = () => {
+            heroVideo.play();
+            document.removeEventListener('click', playOnInteraction);
+            document.removeEventListener('touchstart', playOnInteraction);
+          };
+          document.addEventListener('click', playOnInteraction, { once: true });
+          document.addEventListener('touchstart', playOnInteraction, { once: true });
+        });
+      }
+    }, 300); // Increased delay for better reliability
+  }
+  
+  // Initial play
+  restartVideo();
+  
+  // Restart when page becomes visible again
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible' && heroVideo.paused) {
+      console.log('Page visible again - restarting video');
+      restartVideo();
+    }
+  });
+  
+  // Restart on pageshow event (browser back/forward navigation)
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+      console.log('Page restored from cache - restarting video');
+      restartVideo();
+    }
+  });
+  
+  // Also restart on page load (extra safety)
+  window.addEventListener('load', function() {
+    setTimeout(restartVideo, 500);
+  });
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHeroVideo);
+} else {
+  // DOM already loaded
+  initHeroVideo();
+}
